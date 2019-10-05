@@ -30,7 +30,7 @@
     <!-- Scripts -->
     <script src="{{ asset('frontend/js/app.js') }}"></script>
     <script src="{{ asset('/js/animsition.min.js') }}" ></script>
-    <script src="{{ asset('/js/main.js') }}" ></script>
+    <script src="{{ asset('frontend/js/main.js') }}" ></script>
     @yield('scripts')
 </body>
 </html>

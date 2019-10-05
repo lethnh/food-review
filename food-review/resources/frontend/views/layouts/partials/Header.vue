@@ -6,13 +6,13 @@
         <div class="wrap_header trans-0-3">
           <!-- Logo -->
           <div class="logo">
-            <a href="index.html">
+            <router-link to="/">
               <img
                 src="/images/icon/logo.png"
                 alt="IMG-LOGO"
                 data-logofixed="/images/icon/logo2.png"
               />
-            </a>
+            </router-link>
           </div>
 
           <!-- Menu -->
@@ -61,8 +61,8 @@
             <a href="#">
               <!-- <i class="fab fa-twitter m-l-21" aria-hidden="true"></i> -->
             </a>
-            <router-link to="/login" class="btn btn-outline-light">Đăng ký</router-link>
-            <router-link to="/login" class="m-l-21 btn btn-outline-light">Đăng nhập</router-link>
+            <router-link to="register" class="btn btn-outline-light">Đăng ký</router-link>
+            <router-link to="login" class="m-l-21 btn btn-outline-light">Đăng nhập</router-link>
             <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
           </div>
         </div>
@@ -73,3 +73,8 @@
 <script>
 export default {};
 </script>
+<style lang="css">
+  .wrap-menu-header{
+    background-color: rgb(16, 11, 17);
+  }
+</style>
