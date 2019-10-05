@@ -5,12 +5,24 @@
  */
 
 import router from '../router'
-import { ValidationProvider, extend } from 'vee-validate';
+import {
+    ValidationProvider,
+    extend
+} from 'vee-validate';
+import {
+    TabsPlugin,
+    CardPlugin
+} from 'bootstrap-vue'
+import vSelect from 'vue-select'
+
 
 require('./bootstrap');
 window.$ = require('jquery')
 window.JQuery = require('jquery')
 window.Vue = require('vue');
+Vue.use(TabsPlugin)
+Vue.use(CardPlugin)
+Vue.component('v-select', vSelect)
 
 /**
  * The following block of code may be used to automatically register your

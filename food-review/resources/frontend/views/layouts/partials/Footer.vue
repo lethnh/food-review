@@ -10,27 +10,27 @@
             <ul class="m-b-70">
               <li class="txt14 m-b-14">
                 <i class="fa fa-map-marker fs-16 dis-inline-block size19" aria-hidden="true"></i>
-                8th floor, 379 Hudson St, New York, NY 10018
+                Tầng 5 tòa nhà A5/D21, Duy Tân, Cầu Giấy, Hà Nội
               </li>
 
               <li class="txt14 m-b-14">
                 <i class="fa fa-phone fs-16 dis-inline-block size19" aria-hidden="true"></i>
-                (+1) 96 716 6879
+                0964337489
               </li>
 
               <li class="txt14 m-b-14">
                 <i class="fa fa-envelope fs-13 dis-inline-block size19" aria-hidden="true"></i>
-                contact@site.com
+                  levanthanh29111999@gmail.com
               </li>
             </ul>
 
             <!-- - -->
-            <h4 class="txt13 m-b-32">Opening Times</h4>
+            <h4 class="txt13 m-b-32">Thời gian làm việc</h4>
 
             <ul>
-              <li class="txt14">09:30 AM – 11:00 PM</li>
+              <li class="txt14">09:00 AM – 11:00 PM</li>
 
-              <li class="txt14">Every Day</li>
+              <li class="txt14">Hàng ngày</li>
             </ul>
           </div>
 
@@ -184,20 +184,25 @@
           <div class="flex-sb-m flex-w p-t-22 p-b-22">
             <div class="p-t-5 p-b-5">
               <a href="#" class="fs-15 c-white">
-                <i class="fa fa-tripadvisor" aria-hidden="true"></i>
+                <i class="fab fa-tripadvisor" aria-hidden="true"></i>
               </a>
               <a href="#" class="fs-15 c-white">
-                <i class="fa fa-facebook m-l-18" aria-hidden="true"></i>
+                <i class="fab fa-facebook m-l-18" aria-hidden="true"></i>
               </a>
               <a href="#" class="fs-15 c-white">
-                <i class="fa fa-twitter m-l-18" aria-hidden="true"></i>
+                <i class="fab fa-twitter m-l-18" aria-hidden="true"></i>
               </a>
             </div>
 
             <div class="txt17 p-r-20 p-t-5 p-b-5">
-              Copyright &copy; 2018 All rights reserved | This template is made with
-              <i class="fa fa-heart"></i> by
-              <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              Copyright &copy; 2019 All rights reserved | This template is made with
+              <i
+                class="fa fa-heart"
+              ></i> by
+              <a
+                href="https://www.facebook.com/thanh.bep.vu.tay?ref=bookmarks"
+                target="_blank"
+              >ThanhLV</a>
             </div>
           </div>
         </div>
@@ -208,28 +213,6 @@
       <span class="symbol-btn-back-to-top">
         <i class="fa fa-angle-double-up" aria-hidden="true"></i>
       </span>
-    </div>
-
-    <!-- Container Selection1 -->
-    <div id="dropDownSelect1"></div>
-
-    <!-- Modal Video 01-->
-    <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document" data-dismiss="modal">
-        <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
-
-        <div class="wrap-video-mo-01">
-          <div class="w-full wrap-pic-w op-0-0">
-            <img src="images/icons/video-16-9.jpg" alt="IMG" />
-          </div>
-          <div class="video-mo-01">
-            <iframe
-              src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

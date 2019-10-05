@@ -26,23 +26,6 @@
                 <li>
                   <a href="menu.html">Menu</a>
                 </li>
-
-                <li>
-                  <a href="reservation.html">Reservation</a>
-                </li>
-
-                <li>
-                  <a href="gallery.html">Gallery</a>
-                </li>
-
-                <li>
-                  <a href="about.html">About</a>
-                </li>
-
-                <li>
-                  <a href="blog.html">Blog</a>
-                </li>
-
                 <li>
                   <a href="contact.html">Liên hệ</a>
                 </li>

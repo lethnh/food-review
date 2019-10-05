@@ -33,7 +33,7 @@
         </div>
       </section>
       <!-- Slide1 -->
-      <div class="container">
+      <div class="container m-b-50 m-t-50">
         <router-view></router-view>
       </div>
     </div>
