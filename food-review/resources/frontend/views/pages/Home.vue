@@ -12,7 +12,7 @@
               img-src="https://picsum.photos/300/300/?image=41"
               img-alt="Image"
               img-top
-              class="position-relative"
+              class="position-relative shadow"
             >
               <span class="card-dot"></span>
               <b-card-text>
@@ -31,7 +31,9 @@
               img-src="https://picsum.photos/300/300/?image=41"
               img-alt="Image"
               img-top
+              class="position-relative shadow"
             >
+              <span class="card-dot"></span>
               <b-card-text>
                 This is a wider card with supporting text below as a natural lead-in to additional content.
                 This content is a little bit longer.
@@ -48,7 +50,9 @@
               img-src="https://picsum.photos/300/300/?image=41"
               img-alt="Image"
               img-top
+              class="position-relative shadow"
             >
+              <span class="card-dot"></span>
               <b-card-text>
                 This is a wider card with supporting text below as a natural lead-in to additional content.
                 This content is a little bit longer.
@@ -66,7 +70,9 @@
               img-src="https://picsum.photos/300/300/?image=41"
               img-alt="Image"
               img-top
+              class="position-relative shadow"
             >
+              <span class="card-dot"></span>
               <b-card-text>This card has supporting text below as a natural lead-in to additional content.</b-card-text>
               <template v-slot:footer>
                 <small class="text-muted">
@@ -81,7 +87,9 @@
               img-src="https://picsum.photos/300/300/?image=41"
               img-alt="Image"
               img-top
+              class="position-relative shadow"
             >
+              <span class="card-dot"></span>
               <b-card-text>This is a wider card with supporting text below as a natural lead-in to additional content.</b-card-text>
               <template v-slot:footer>
                 <small class="text-muted">
@@ -190,20 +198,26 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      reviews: []
+    };
+  }
+};
 </script>
 <style lang="css" scoped>
 .card-body,
 .card-footer {
   padding: 0.75rem;
 }
-.card-dot{
-	height: 15px;
-	width: 15px;
-	border-radius: 50%;
-	background-color: lawngreen;
-	position:absolute;
-	top: -5px;
-    left: -5px;
+.card-dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background-color: lawngreen;
+  position: absolute;
+  top: -5px;
+  left: -5px;
 }
 </style>

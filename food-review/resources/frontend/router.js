@@ -38,6 +38,11 @@ const router = new VueRouter({
                     component: Register,
                     name: 'register'
                 },
+                {
+                    path: '/',
+                    component: Register,
+                    name: 'register'
+                },
             ]
         },
     ],

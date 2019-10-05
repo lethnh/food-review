@@ -14,6 +14,7 @@ import {
     CardPlugin
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
+import Vuex from 'vuex'
 
 
 require('./bootstrap');
@@ -23,6 +24,7 @@ window.Vue = require('vue');
 Vue.use(TabsPlugin)
 Vue.use(CardPlugin)
 Vue.component('v-select', vSelect)
+Vue.use(Vuex)
 
 /**
  * The following block of code may be used to automatically register your
