@@ -1,4 +1,3 @@
-
 (function ($) {
     "use strict";
 
@@ -17,49 +16,62 @@
         timeout: false,
         timeoutCountdown: 5000,
         onLoadEvent: true,
-        browser: [ 'animation-duration', '-webkit-animation-duration'],
-        overlay : false,
-        overlayClass : 'animsition-overlay-slide',
-        overlayParentElement : 'html',
-        transition: function(url){ window.location.href = url; }
-    });
-    
-    /*[ Back to top ]
-    ===========================================================*/
-    var windowH = $(window).height()/2;
-
-    $(window).on('scroll',function(){
-        if ($(this).scrollTop() > windowH) {
-            $("#myBtn").css('display','flex');
-        } else {
-            $("#myBtn").css('display','none');
+        browser: ['animation-duration', '-webkit-animation-duration'],
+        overlay: false,
+        overlayClass: 'animsition-overlay-slide',
+        overlayParentElement: 'html',
+        transition: function (url) {
+            window.location.href = url;
         }
     });
 
-    $('#myBtn').on("click", function(){
-        $('html, body').animate({scrollTop: 0}, 300);
+    /*[ Back to top ]
+    ===========================================================*/
+    var windowH = $(window).height() / 2;
+
+    $(window).on('scroll', function () {
+        if ($(this).scrollTop() > windowH) {
+            $("#myBtn").css('display', 'flex');
+        } else {
+            $("#myBtn").css('display', 'none');
+        }
+    });
+
+    $('#myBtn').on("click", function () {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 300);
     });
 
     /*[ Fixed Header ]
     ===========================================================*/
-    debugger
-    var header = $('header');
-    var logo = $(header).find('.logo img');
-    var linkLogo1 = $(logo).attr('src');
-    var linkLogo2 = $(logo).data('logofixed');
+    // $(document).ready(function() {
+    //     var header = $('header');
+    //     var logo = $(header).find('.logo img');
+    //     var linkLogo1 = $(logo).attr('src');
+    //     var linkLogo2 = $(logo).data('logofixed');
+    //     var link = $('header .social a');
 
 
-    $(window).on('scroll',function(){
-        if($(this).scrollTop() > 5 && $(this).width() > 992) {
-            $(logo).attr('src',linkLogo2);
+    $(window).on('scroll', function () {
+        var header = $('header');
+        var logo = $(header).find('.logo img');
+        var linkLogo1 = $(logo).attr('src');
+        var linkLogo2 = $(logo).data('logofixed');
+        var link = $('header .social a');
+        if ($(this).scrollTop() > 5 && $(this).width() > 992) {
+            $(logo).attr('src', linkLogo2);
             $(header).addClass('header-fixed');
-        }
-        else {
+            $(link).removeClass('btn-outline-light');
+            $(link).addClass('btn-outline-success');
+        } else {
             $(header).removeClass('header-fixed');
-            $(logo).attr('src',linkLogo1);
+            $(logo).attr('src', linkLogo1);
+            $(link).removeClass('btn-outline-success');
+            $(link).addClass('btn-outline-light');
         }
-        
     });
+    // }
 
     /*[ Show/hide sidebar ]
     ===========================================================*/
@@ -69,17 +81,17 @@
     var btnHideSidebar = $('.btn-hide-sidebar');
     var sidebar = $('.sidebar');
 
-    $(btnShowSidebar).on('click', function(){
+    $(btnShowSidebar).on('click', function () {
         $(sidebar).addClass('show-sidebar');
         $(ovlSideBar).addClass('show-overlay-sidebar');
     })
 
-    $(btnHideSidebar).on('click', function(){
+    $(btnHideSidebar).on('click', function () {
         $(sidebar).removeClass('show-sidebar');
         $(ovlSideBar).removeClass('show-overlay-sidebar');
     })
 
-    $(ovlSideBar).on('click', function(){
+    $(ovlSideBar).on('click', function () {
         $(sidebar).removeClass('show-sidebar');
         $(ovlSideBar).removeClass('show-overlay-sidebar');
     })
@@ -94,9 +106,11 @@
     $filter.each(function () {
         $filter.on('click', 'button', function () {
             var filterValue = $(this).attr('data-filter');
-            $topeContainer.isotope({filter: filterValue});
+            $topeContainer.isotope({
+                filter: filterValue
+            });
         });
-        
+
     });
 
     // init Isotope
@@ -105,7 +119,7 @@
             $(this).isotope({
                 itemSelector: '.isotope-item',
                 percentPosition: true,
-                animationEngine : 'best-available',
+                animationEngine: 'best-available',
                 masonry: {
                     columnWidth: '.isotope-item'
                 }
@@ -115,9 +129,9 @@
 
     var labelGallerys = $('.label-gallery');
 
-    $(labelGallerys).each(function(){
-        $(this).on('click', function(){
-            for(var i=0; i<labelGallerys.length; i++) {
+    $(labelGallerys).each(function () {
+        $(this).on('click', function () {
+            for (var i = 0; i < labelGallerys.length; i++) {
                 $(labelGallerys[i]).removeClass('is-actived');
             }
 
@@ -125,6 +139,6 @@
         });
     });
 
-    
+
 
 })(jQuery);

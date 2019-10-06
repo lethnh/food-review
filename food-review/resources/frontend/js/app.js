@@ -9,9 +9,11 @@ require('./bootstrap');
 import router from '../router'
 import store from './store';
 import './ckeditor'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 
-// import './ckeditor'
+Vue.use( CKEditor );
+
 
 
 

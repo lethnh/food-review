@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->longText('content');
-            $table->integer('review_id');
+            $table->integer('post_review_id');
             $table->integer('parent_id');
             $table->timestamps();
         });
