@@ -8,40 +8,50 @@
         @vdropzone-complete="afterCompleteImagePost"-->
       </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Giá tiền trung bình</label>
-        <input type="number" class="form-control border" />
+        <label for="exampleFormControlSelect1">Giá tiền trung bình / một người</label>
+        <!-- <currency-input v-model="money" currency="VND" locale="vn" /> -->
+        <currency-input
+          class="form-control border"
+          v-model="money"
+          currency="VND"
+          locale="vn"
+          :distraction-free="distractionFree"
+        />
       </div>
       <div class="form-group">
         <label>Đánh giá sao</label>
-        <star-rating v-model="rating"></star-rating>
+        <star-rating v-bind:increment="0.5" v-bind:star-size="50"></star-rating>
       </div>
       <div class="form-group">
         <label>Nội dung</label>
         <quill-editor name="description"></quill-editor>
       </div>
-      <!-- <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>-->
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Tag</label>
+        <vue-tags-input
+          style="max-width:100%"
+          @tags-changed="newTags => tags = newTags"
+          v-model="tag"
+          :tags="tags"
+        />
+      </div>
     </form>
   </div>
 </template>
 <script>
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import vue2Dropzone from "vue2-dropzone";
+import VueTagsInput from "@johmun/vue-tags-input";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   components: {
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    VueTagsInput
   },
   data() {
     return {
+      money: 0,
+      tag: "",
+      tags: [],
       cities: [],
       dropzoneOptions: {
         url: "https://httpbin.org/post",
@@ -50,7 +60,7 @@ export default {
         uploadMultiple: true,
         thumbnailWidth: 150,
         parallelUploads: 10, // Number of files process at a time (default 2)
-        maxFiles: 5,
+        maxFiles: 10,
         thumbnailHeight: 150,
         // timeout: 180000,
         acceptedFiles: "image/*",
@@ -62,6 +72,16 @@ export default {
         }
       }
     };
+  },
+  methods: {},
+  computed: {
+    distractionFree() {
+      return {
+        hideNegligibleDecimalDigits: this.hideNegligibleDecimalDigits,
+        hideCurrencySymbol: this.hideCurrencySymbol,
+        hideGroupingSymbol: this.hideGroupingSymbol
+      };
+    }
   }
 };
 </script>

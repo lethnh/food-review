@@ -11,6 +11,9 @@ import store from './store';
 import options from './config'
 import VueQuillEditor from 'vue-quill-editor'
 import StarRating from 'vue-star-rating'
+import VueCurrencyFilter from 'vue-currency-filter'
+import VueCurrencyInput from 'vue-currency-input'
+
 
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -19,7 +22,17 @@ import quillEmij from 'quill-emoji/dist/quill-emoji'
 import 'quill-emoji/dist/quill-emoji.css'
 
 Vue.use(VueQuillEditor, options)
-
+Vue.use(VueCurrencyFilter, {
+    symbol: 'VNĐ',
+    thousandsSeparator: '.',
+    fractionCount: 0,
+    fractionSeparator: ',',
+    symbolPosition: 'front',
+    symbolSpacing: true
+})
+const pluginOptions = {
+    /* see config reference */ }
+Vue.use(VueCurrencyInput, pluginOptions)
 window.Vue = require('vue');
 
 /**
