@@ -53,3 +53,25 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+import {
+    ValidationProvider,
+    extend
+} from 'vee-validate';
+import {
+    TabsPlugin,
+    CardPlugin,
+    FormPlugin
+} from 'bootstrap-vue'
+import vSelect from 'vue-select'
+import Vuex from 'vuex'
+window.$ = require('jquery')
+window.JQuery = require('jquery')
+window.Vue = require('vue');
+Vue.use(TabsPlugin)
+Vue.use(CardPlugin)
+Vue.component('v-select', vSelect)
+Vue.use(Vuex)
+Vue.use(FormPlugin)
+Vue.component('ValidationProvider', ValidationProvider);

@@ -5,8 +5,10 @@
  */
 
 require('./bootstrap');
+require( '@ckeditor/ckeditor5-build-classic' )
 
 window.Vue = require('vue');
+
 
 /**
  * The following block of code may be used to automatically register your
