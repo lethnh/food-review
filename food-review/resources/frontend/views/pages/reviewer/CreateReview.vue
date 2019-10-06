@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    
+  </div>
 </template>
 <script>
 import vue2Dropzone from "vue2-dropzone";

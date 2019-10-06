@@ -6,12 +6,14 @@ Vue.use(VueRouter)
 // import layout
 import BasicLayout from './views/layouts/BasicLayout.vue'
 import BasicLayout2 from './views/layouts/BasicLayout2.vue'
+import BasicLayout3 from './views/layouts/BasicLayout3.vue'
 
 // import page
 import Home from './views/pages/Home.vue'
 import Login from './views/pages/Login.vue'
 import Register from './views/pages/Register.vue'
-
+import Profile from './views/pages/reviewer/Profile.vue'
+import CreateReview from './views/pages/reviewer/CreateReview.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -38,10 +40,20 @@ const router = new VueRouter({
                     component: Register,
                     name: 'register'
                 },
+            ]
+        },
+        {
+            path: '/',
+            component: BasicLayout3,
+            children: [{
+                    path: '/profile',
+                    component: Profile,
+                    name: 'profile'
+                },
                 {
-                    path: '/',
-                    component: Register,
-                    name: 'register'
+                    path: '/review',
+                    component: CreateReview,
+                    name: 'createReview'
                 },
             ]
         },

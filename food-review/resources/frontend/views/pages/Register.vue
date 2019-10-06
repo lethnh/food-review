@@ -1,9 +1,13 @@
 <template>
   <div class="limiter">
-    <div class="container-login100">
+    <div class="container-login100 flex-column">
       <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 shadow">
         <form class="login100-form validate-form">
-          <span class="login100-form-title p-b-49">Đăng ký</span>
+          <span class="login100-form-title p-b-49">
+            <router-link to="/">
+              <img src="/images/icon/logo2.png" alt="IMG-LOGO" />
+            </router-link>
+          </span>
 
           <div class="wrap-input100 validate-input m-b-23">
             <span class="label-input100">Email</span>
@@ -40,7 +44,7 @@
           <div class="container-login100-form-btn mt-5">
             <div class="wrap-login100-form-btn">
               <div class="login100-form-bgbtn"></div>
-              <button class="login100-form-btn">Login</button>
+              <button class="login100-form-btn">Tạo tài khoản</button>
             </div>
           </div>
           <div class="mt-2 text-center">
@@ -50,6 +54,15 @@
             </span>
           </div>
         </form>
+      </div>
+          <div class="site-footer mt-4">
+        <div class="site-footer-legal">
+          © 2019
+          <a href="#">Food Review</a>
+          Crafted with
+          <i class="red-600 wb wb-heart"></i> by
+          <a href="#">ThanhLV</a>
+        </div>
       </div>
     </div>
   </div>
