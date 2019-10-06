@@ -5,17 +5,22 @@
  */
 require('./bootstrap');
 
-
+import Vue from 'vue'
 import router from '../router'
 import store from './store';
-import './ckeditor'
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import options from './config'
+import VueQuillEditor from 'vue-quill-editor'
+import StarRating from 'vue-star-rating'
 
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import quillEmij from 'quill-emoji/dist/quill-emoji'
+import 'quill-emoji/dist/quill-emoji.css'
 
-Vue.use( CKEditor );
+Vue.use(VueQuillEditor, options)
 
-
-
+window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,7 +34,7 @@ Vue.use( CKEditor );
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
+Vue.component('star-rating', StarRating);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
