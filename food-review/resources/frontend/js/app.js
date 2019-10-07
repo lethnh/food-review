@@ -13,6 +13,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import StarRating from 'vue-star-rating'
 import VueCurrencyFilter from 'vue-currency-filter'
 import VueCurrencyInput from 'vue-currency-input'
+import TravelMap from "./components/TravelMap.vue";
 
 
 import 'quill/dist/quill.core.css'
@@ -48,6 +49,8 @@ window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('star-rating', StarRating);
+
+// Vue.component('travel-map', TravelMap);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

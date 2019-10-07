@@ -10,8 +10,8 @@ import BasicLayout3 from './views/layouts/BasicLayout3.vue'
 
 // import page
 import Home from './views/pages/Home.vue'
-import Login from './views/pages/Login.vue'
-import Register from './views/pages/Register.vue'
+import Login from './views/pages/auth/Login.vue'
+import Register from './views/pages/auth/Register.vue'
 import Profile from './views/pages/reviewer/Profile.vue'
 import CreateReview from './views/pages/reviewer/CreateReview.vue'
 

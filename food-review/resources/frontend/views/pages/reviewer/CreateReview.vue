@@ -8,8 +8,7 @@
         @vdropzone-complete="afterCompleteImagePost"-->
       </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Giá tiền trung bình / một người</label>
-        <!-- <currency-input v-model="money" currency="VND" locale="vn" /> -->
+        <label>Giá tiền trung bình / một người</label>
         <currency-input
           class="form-control border"
           v-model="money"

@@ -54,11 +54,7 @@ if (token) {
 //     encrypted: true
 // });
 
-
-import {
-    ValidationProvider,
-    extend
-} from 'vee-validate';
+import { ValidationProvider } from 'vee-validate';
 import {
     TabsPlugin,
     CardPlugin,
