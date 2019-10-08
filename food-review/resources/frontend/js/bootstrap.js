@@ -54,7 +54,15 @@ if (token) {
 //     encrypted: true
 // });
 
-import { ValidationProvider } from 'vee-validate';
+
+let toastrOptions = {
+    "progressBar": true,
+    "closeButton": true,
+}
+
+global.toastr = require('toastr')
+global.toastr.options = toastrOptions
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import {
     TabsPlugin,
     CardPlugin,
@@ -71,3 +79,4 @@ Vue.component('v-select', vSelect)
 Vue.use(Vuex)
 Vue.use(FormPlugin)
 Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);

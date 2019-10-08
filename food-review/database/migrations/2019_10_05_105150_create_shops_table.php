@@ -18,6 +18,11 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('city_id');
+            $table->string('district_id');
+            $table->string('address');
+            $table->float('lat', 10, 6);
+            $table->float('lng', 10, 6);
+            $table->string('type');
             $table->timestamps();
         });
     }
