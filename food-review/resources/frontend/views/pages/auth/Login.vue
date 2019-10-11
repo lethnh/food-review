@@ -1,7 +1,7 @@
 <template>
   <div class="limiter">
     <!-- <TravelMap class="travel-map" /> -->
-    <example-component v-model="country" :country="country" topCountry="US"></example-component>
+    <!-- <example-component v-model="country" :country="country" topCountry="US"></example-component> -->
     <div class="container-login100 flex-column">
       <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 shadow">
         <ValidationObserver v-slot="{ passes }" ref="loginForm" tag="form">
@@ -31,7 +31,7 @@
                       :class="{'is-invalid': errors[0]}"
                     />
                   </div>
-                   <small :class="{'is-danger': errors[0]}">{{ errors[0] }}</small>
+                  <small :class="{'is-danger': errors[0]}">{{ errors[0] }}</small>
                 </div>
               </ValidationProvider>
             </div>
@@ -109,14 +109,15 @@ export default {
         password: "",
         remember: ""
       },
-      country: ""
     };
   },
   methods: {
     async loginSubmit() {
       const isValid = await this.$refs.loginForm.validate();
       if (isValid) {
-        AuthService.login().then();
+        AuthService.login(this.loginData).then(response=>{
+          
+        });
       }
     }
   }

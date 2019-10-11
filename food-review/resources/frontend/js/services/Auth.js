@@ -9,10 +9,11 @@ export default {
     async login(loginData) {
         try {
             let response = await axios.post('/api/auth/login', loginData)
-
             return response.data
         } catch (error) {
-
+            console.log(error.message);
+    
+            toastr.error('Are you the 6 fingered man?')
         }
     },
 
@@ -24,10 +25,9 @@ export default {
         try {
             let response = await axios.post('/api/auth/register', registerData)
 
+            toastr.error('Are you the 6 fingered man?')
             return response.data
-        } catch (error) {
-
-        }
+        } catch (error) {}
     },
 
     /**

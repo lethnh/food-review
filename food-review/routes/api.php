@@ -18,6 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+/**
+ * Auth Route
+ */
+Route::post('auth/login', 'Auth\LoginController@login');
+Route::post('auth/register', 'Auth\RegisterController@register');
+Route::post('auth/logout', 'Auth\LoginController@login');
+Route::post('auth/forgotpassword', 'Auth\LoginController@login');
+
 
 
 

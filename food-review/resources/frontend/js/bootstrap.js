@@ -54,7 +54,8 @@ if (token) {
 //     encrypted: true
 // });
 
-
+import 'toastr/toastr.js'
+import 'toastr/build/toastr.css'
 let toastrOptions = {
     "progressBar": true,
     "closeButton": true,
