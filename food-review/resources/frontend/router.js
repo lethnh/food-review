@@ -58,7 +58,11 @@ const router = new VueRouter({
                     name: 'createReview'
                 },
             ]
-        },
+        }, //  DEFAULT ROUTE
+        {
+            path: '*',
+            component: NotFound
+        }
     ],
 });
 

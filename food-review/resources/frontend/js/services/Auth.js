@@ -11,9 +11,9 @@ export default {
             let response = await axios.post('/api/auth/login', loginData)
             return response.data
         } catch (error) {
-            console.log(error.message);
-    
-            toastr.error('Are you the 6 fingered man?')
+            console.log(error);
+
+            toastr.error('')
         }
     },
 

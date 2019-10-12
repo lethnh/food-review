@@ -121,15 +121,21 @@
           </form>
         </ValidationObserver>
       </div>
-      <div class="site-footer mt-4">
-        <div class="site-footer-legal">
-          © 2019
-          <a href="#">Food Review</a>
-          Crafted with
-          <i class="red-600 wb wb-heart"></i> by
-          <a href="#">ThanhLV</a>
+      <footer class="page-copyright mt-3">
+        <p>WEBSITE BY ThanhLV</p>
+        <p>© 2019. All RIGHT RESERVED.</p>
+        <div class="social mt-1">
+          <a class="btn-icon" href>
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a class="btn-icon" href>
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+          <a class="btn-icon" href>
+            <i class="fab fa-dribbble" aria-hidden="true"></i>
+          </a>
         </div>
-      </div>
+      </footer>
     </div>
   </div>
 </template>
