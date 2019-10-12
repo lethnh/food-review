@@ -37,24 +37,15 @@
           </div>
 
           <!-- Social -->
-          <div class="social flex-w flex-l-m ml-auto">
-            <a href="#">
-              <!-- <i class="fab fa-tripadvisor m-l-21"></i> -->
-            </a>
-            <a href="#">
-              <!-- <i class="fab fa-facebook m-l-21" aria-hidden="true"></i> -->
-            </a>
-            <a href="#">
-              <!-- <i class="fab fa-twitter m-l-21" aria-hidden="true"></i> -->
-            </a>
-            <form class="form-search form-inline my-2 my-lg-0 position-relative">
+          <div class="auth flex-w flex-l-m ml-auto">
+            <!-- <form class="form-search form-inline my-2 my-lg-0 position-relative">
               <input
                 class="form-control mr-sm-2"
                 type="search"
                 placeholder="Tìm kiếm..."
                 aria-label="Search"
-              />
-              <!-- <svg
+            />-->
+            <!-- <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
@@ -69,11 +60,40 @@
                   d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
                   class
                 />
-              </svg> -->
-            </form>
+            </svg>-->
+            <!-- </form>
             <router-link to="register" class="btn btn-outline-light">Đăng ký</router-link>
             <router-link to="login" class="m-l-10 btn btn-outline-light">Đăng nhập</router-link>
-            <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
+            <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>-->
+          </div>
+          <div class="flex-w flex-l-m ml-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link navbar-avatar"
+                data-toggle="dropdown"
+                href="#"
+                aria-expanded="false"
+                data-animation="scale-up"
+                role="button"
+              >
+                <span class="avatar avatar-online">
+                  <img src="/images/5.jpg" alt="..." />
+                  ThanhLV
+                </span>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a class="dropdown-item" href >
+                  <i class="fas fa-user" aria-hidden="true"></i> Thông tin cá nhân
+                </a>
+                <router-link to="/review" class="dropdown-item">
+                  <i class="fas fa-plus" aria-hidden="true"></i> Viết bài đánh giá
+                </router-link>
+                <div class="dropdown-divider" role="presentation"></div>
+                <a class="dropdown-item" href >
+                  <i class="fas fa-power-off"></i> Đăng xuất
+                </a>
+              </div>
+            </li>
           </div>
         </div>
       </div>
@@ -87,10 +107,34 @@ export default {};
 .wrap-menu-header {
   background-color: rgb(16, 11, 17);
 }
-.form-search svg{
+.form-search svg {
   right: 20px;
 }
-.form-search input{
+.form-search input {
   border-color: black;
+}
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  white-space: nowrap;
+  vertical-align: bottom;
+  border-radius: 1000px;
+  color: white;
+}
+.avatar img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 0 none;
+  border-radius: 1000px;
+}
+.header-fixed .avatar {
+  color: #222222;
+}
+.dropdown-menu .fas {
+  width: 1em;
+  text-align: center;
+  margin-right: 0.5em;
 }
 </style>

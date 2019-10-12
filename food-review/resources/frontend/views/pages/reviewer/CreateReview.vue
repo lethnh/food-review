@@ -1,8 +1,10 @@
 <template>
   <div class="py-5">
     <form class="panel p-3 mb-0">
+      <h4>Tạo bài viết</h4>
+      <hr />
       <div class="form-group">
-        <label>Ảnh</label>
+        <label>Ảnh ( tối đa năm ảnh )</label>
         <vue-dropzone ref="dropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
         <!-- @vdropzone-error="showError"
         @vdropzone-complete="afterCompleteImagePost"-->
@@ -34,6 +36,7 @@
           :tags="tags"
         />
       </div>
+      <button type="button" class="btn btn-success">Tạo bài</button>
     </form>
   </div>
 </template>
