@@ -19,6 +19,15 @@
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+/**
+ * Backend
+ */
+Route::get('/admin/{vue?}', function () {
+    return view('admin.app');
+})->where('vue', '[\/\w\.-]*')->name('admin');
+
 /**
  * Frontend
  */
