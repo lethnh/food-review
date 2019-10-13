@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -42,26 +44,42 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
+        $credentials = $request->only('email', 'password');
+
+
         if (
             method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)
         ) {
             $this->fireLockoutEvent($request);
 
-            return $this->sendLockoutResponse($request);
+            return response()->json('');
         }
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
-
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-        return response()->json($request);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $tokenResult = $user->createToken('Personal Access Token');
+            $access_token = $tokenResult->accessToken;
+            $token = $tokenResult->token;
+            if ($request->remember_me) {
+                $token->expires_at = Carbon::now()->addWeeks(1);
+            } else {
+                $token->expires_at = Carbon::now()->addDays(1);
+            }
+            $token->save();
+
+            return response()->json([
+                'access_token' => $access_token,
+                'token_type' => 'Bearer',
+                'expires_at' => Carbon::parse(
+                    $tokenResult->token->expires_at
+                )->toDateTimeString(),
+                // 'info' => 
+            ]);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
     }
 }
