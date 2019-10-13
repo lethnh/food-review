@@ -27,10 +27,17 @@ export default {
     async register(registerData) {
         try {
             let response = await axios.post('/api/auth/register', registerData)
-
-            toastr.error('Are you the 6 fingered man?')
-            return response.data
-        } catch (error) {}
+            toastr.success('Đăng ký thành công');
+            console.log(response.error);
+            return response;
+        } catch (error) {
+            debugger
+            console.log(error.response);
+            if (error.response.data.error.email) {
+                toastr.error(error.response.data.error.email);
+            }
+            return error;
+        }
     },
 
     /**

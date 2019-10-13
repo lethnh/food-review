@@ -78,15 +78,15 @@
               >
                 <span class="avatar avatar-online">
                   <img src="/images/5.jpg" alt="..." />
-                  ThanhLV
+                  {{userStore.authUser.user_info.name}}
                 </span>
               </a>
               <div class="dropdown-menu" role="menu">
-                <a class="dropdown-item" href>
-                  <i class="fas fa-user" aria-hidden="true"></i> Thông tin cá nhân
-                </a>
+                <router-link to="/profile" class="dropdown-item">
+                  <i class="fas fa-user"></i> Thông tin cá nhân
+                </router-link>
                 <router-link to="/review" class="dropdown-item">
-                  <i class="fas fa-plus" aria-hidden="true"></i> Viết bài đánh giá
+                  <i class="fas fa-plus"></i> Viết bài đánh giá
                 </router-link>
                 <div class="dropdown-divider" role="presentation"></div>
                 <a class="dropdown-item" @click="logout()">

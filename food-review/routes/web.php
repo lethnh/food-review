@@ -25,7 +25,7 @@
  * Backend
  */
 Route::get('/admin/{vue?}', function () {
-    return view('admin.app');
+    return view('backend.app');
 })->where('vue', '[\/\w\.-]*')->name('admin');
 
 /**

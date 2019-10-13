@@ -156,7 +156,12 @@ export default {
     async registerSubmit() {
       const isValid = await this.$refs.registerForm.validate();
       if (isValid) {
-        AuthService.register().then();
+        AuthService.register(this.registerData).then(response => {
+          debugger
+          if (response.status === 200) {
+            this.$route.push("/login");
+          }
+        });
       }
     }
   }

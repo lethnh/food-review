@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +55,14 @@ class LoginController extends Controller
         ) {
             $this->fireLockoutEvent($request);
 
-            return response()->json('');
+            // return response()->json('');
+            // throw new HttpResponseException()(response()->json(
+            //     [
+            //         'error' => 'Tài khoản của bạn bị khóa',
+            //         'status_code' => 422,
+            //     ],
+            //     JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+            // ));
         }
 
         $this->incrementLoginAttempts($request);
@@ -71,6 +80,7 @@ class LoginController extends Controller
             $token->save();
 
             return response()->json([
+                'user_info' => $user,
                 'access_token' => $access_token,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse(

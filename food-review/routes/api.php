@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('auth/user', function (Request $request) {
  * Auth Route
  */
 Route::post('auth/login', 'Auth\LoginController@login');
-Route::post('auth/register', 'Auth\RegisterController@register');
+Route::post('auth/register', 'Auth\RegisterController@store');
 Route::post('auth/forgotpassword', 'Auth\LoginController@login');
 
 
