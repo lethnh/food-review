@@ -1,4 +1,4 @@
-// import Ls from './ls'
+import Ls from './Ls'
 
 export default {
 
@@ -9,11 +9,14 @@ export default {
     async login(loginData) {
         try {
             let response = await axios.post('/api/auth/login', loginData)
-            return response.data
+            toastr.success("Đăng nhập thành công");
+            // Ls.set('access_token', response.data.access_token);
+            // Ls.set('expires_at', response.data.expires_at);
+            // Ls.set('token_type', response.data.token_type);
+            return response;
         } catch (error) {
-            console.log(error.message);
-    
-            toastr.error('Are you the 6 fingered man?')
+            console.log(error);
+            toastr.error('error')
         }
     },
 
@@ -36,9 +39,9 @@ export default {
     async logout() {
         try {
             let response = await axios.post('/api/auth/logout')
-
+            return response;
         } catch (error) {
-
+            toastr.error('Error')
         }
     },
 
@@ -51,8 +54,7 @@ export default {
             let response = await axios.post('/api/auth/forgotpassword', forgotData)
             return response.data;
         } catch (error) {
-            // toastr['error'](__('Something was wrong. Please try again later!'), 'Error')
-            // toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
+            toastr.error('Error');
         }
     },
 

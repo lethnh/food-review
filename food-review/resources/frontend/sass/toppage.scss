@@ -402,7 +402,7 @@ input[type="date"i] {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
 }
 
@@ -558,17 +558,20 @@ input[type="date"i] {
 /*[ Social ]
 -----------------------------------------------------------
 */
-.social a {
-    font-size: 15px;
-    color: white;
+.auth a {
+    // color: rgba(55,71,79,.6);
+    font-size: 14px;
+    color:white;
 }
 
-.header-fixed .social a {
+.header-fixed .auth a {
     color: #222222;
+    border-color: #222222;
 }
 
-.social a:hover {
-    color: white;
+
+.auth a:hover {
+    color: #222222;
 }
 
 .btn-show-sidebar {
@@ -1055,31 +1058,52 @@ input[type="date"i] {
 
 // home page
 .list-shops {
-    .card-title{
+    .card-title {
         font-size: 1.25rem;
         font-weight: 800;
         color: #299EFF;
     }
-    .shop-rate{
-        .fa-star{
+
+    .shop-rate {
+        .fa-star {
             color: #ffc120;
             font-size: 1rem;
         }
-        span{
+
+        span {
             font-size: 1rem;
             color: #ffc120;
             font-weight: 900;
         }
     }
-    .shop-money{
+
+    .shop-money {
         margin: 0.25rem 0px;
-        .fa-money-bill{
+
+        .fa-money-bill {
             color: #299EFF;
         }
     }
+
     .shop-tag {
         border: 1px solid #dee2e6;
         padding: 0.25rem 0.5rem;
         color: #343a40;
+    }
+}
+
+.page-copyright {
+    font-size: 0.858rem;
+    color: #37474f;
+    letter-spacing: 1px;
+    text-align: center;
+
+    .btn-icon {
+        padding: 0.715rem;
+        line-height: 1em;
+    }
+
+    p {
+        font-size: 0.858rem;
     }
 }
