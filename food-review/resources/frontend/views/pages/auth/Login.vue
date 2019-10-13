@@ -104,6 +104,7 @@
 <script>
 // import TravelMap from "../../js/components/TravelMap";
 import AuthService from "../../../js/services/Auth";
+import Ls from "../../../js/services/Ls";
 export default {
   // components: {
   //   TravelMap
@@ -121,7 +122,13 @@ export default {
     async loginSubmit() {
       const isValid = await this.$refs.loginForm.validate();
       if (isValid) {
-        AuthService.login(this.loginData).then(response => {});
+        AuthService.login(this.loginData).then(response => {
+          if (response.status === 200) {
+            Ls.set("authUser", JSON.stringify(response.data));
+            this.$store.dispatch("setUserObject", response.data);
+            this.$router.push("/");
+          }
+        });
       }
     }
   }
