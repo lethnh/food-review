@@ -44,7 +44,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
+
         $credentials = $request->only('email', 'password');
+
 
         if (
             method_exists($this, 'hasTooManyLoginAttempts') &&

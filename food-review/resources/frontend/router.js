@@ -10,10 +10,12 @@ import BasicLayout3 from './views/layouts/BasicLayout3.vue'
 
 // import page
 import Home from './views/pages/Home.vue'
-import Login from './views/pages/Login.vue'
-import Register from './views/pages/Register.vue'
+import Login from './views/pages/auth/Login.vue'
+import Register from './views/pages/auth/Register.vue'
+import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
 import Profile from './views/pages/reviewer/Profile.vue'
 import CreateReview from './views/pages/reviewer/CreateReview.vue'
+import NotFound from './views/pages/errors/NotFound.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -56,7 +58,11 @@ const router = new VueRouter({
                     name: 'createReview'
                 },
             ]
-        },
+        }, //  DEFAULT ROUTE
+        {
+            path: '*',
+            component: NotFound
+        }
     ],
 });
 

@@ -6,19 +6,28 @@
 require('./bootstrap');
 
 import Vue from 'vue'
+
 import router from '../router'
 import store from './store';
 import options from './config'
 import VueQuillEditor from 'vue-quill-editor'
 import VueCurrencyFilter from 'vue-currency-filter'
 import VueCurrencyInput from 'vue-currency-input'
+// import TravelMap from "./components/TravelMap.vue";
+import TimePicker from "ant-design-vue/lib/time-picker";
+import Rate from "ant-design-vue/lib/rate";
+import "ant-design-vue/lib/time-picker/style/css";
+import "ant-design-vue/lib/rate/style/css";
 
 
-import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
 import quillEmij from 'quill-emoji/dist/quill-emoji'
 import 'quill-emoji/dist/quill-emoji.css'
+import {
+    FormRadioPlugin
+} from 'bootstrap-vue'
+Vue.use(FormRadioPlugin)
+
 
 Vue.use(VueQuillEditor, options)
 Vue.use(VueCurrencyFilter, {
@@ -30,7 +39,8 @@ Vue.use(VueCurrencyFilter, {
     symbolSpacing: true
 })
 const pluginOptions = {
-    /* see config reference */ }
+    /* see config reference */
+}
 Vue.use(VueCurrencyInput, pluginOptions)
 window.Vue = require('vue');
 
@@ -46,6 +56,12 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// Vue.component('example-component', require('./components/province-select.vue').default);
+
+Vue.component('TimePicker', TimePicker);
+Vue.component('Rate', Rate);
+// Vue.component('travel-map', TravelMap);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

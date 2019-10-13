@@ -37,6 +37,26 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+
+
+window.axios.interceptors.request.use(
+    (config) => {
+        // Do something before request is sent
+        const data = JSON.parse(localStorage.getItem('authUser'));
+
+        if (data) {
+            let token = data.access_token;
+            config.headers.common['Authorization'] = `Bearer ${token}`
+        }
+
+        return config
+    },
+    (error) => {
+        // Do something with request error
+        return Promise.reject(error)
+    }
+)
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -54,11 +74,19 @@ if (token) {
 //     encrypted: true
 // });
 
+import 'toastr/toastr.js'
+import 'toastr/build/toastr.css'
+let toastrOptions = {
+    "progressBar": true,
+    "closeButton": true,
+}
 
+global.toastr = require('toastr')
+global.toastr.options = toastrOptions
 import {
-    ValidationProvider,
-    extend
-} from 'vee-validate';
+    ValidationObserver,
+    ValidationProvider
+} from "vee-validate";
 import {
     TabsPlugin,
     CardPlugin,
@@ -75,3 +103,4 @@ Vue.component('v-select', vSelect)
 Vue.use(Vuex)
 Vue.use(FormPlugin)
 Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);

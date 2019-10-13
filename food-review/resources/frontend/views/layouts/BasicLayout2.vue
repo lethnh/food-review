@@ -5,17 +5,21 @@
     <div class="content page">
       <div class="container">
         <router-view></router-view>
+        <!-- <site-footer2></site-footer2> -->
       </div>
     </div>
   </div>
 </template>
 <script type="text/babel">
-// import SiteHeader from "./partials/Header.vue";
+import SiteFooter2 from "./partials/Footer2.vue";
 
 export default {
   components: {
-    // SiteHeader,
+    SiteFooter2
   }
 };
 </script>
+<style lang="css" scoped>
+
+</style>
 

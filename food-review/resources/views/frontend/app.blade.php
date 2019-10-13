@@ -24,10 +24,8 @@
     </head>
 
     <body class="animsition">
-        <div id="app">
-            <main>
+        <div id="app" class="page">
                 <router-view></router-view>
-            </main>
         </div>
 
         <!-- Scripts -->

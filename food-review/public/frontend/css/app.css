@@ -10718,11 +10718,6 @@ li {
 
 /* ------------------------------------ */
 
-input {
-  outline: none;
-  border: none !important;
-}
-
 textarea {
   outline: none;
 }
@@ -11608,168 +11603,6 @@ input[type=date i] {
   }
 }
 
-/*[ Gallery ]
-///////////////////////////////////////////////////////////
-*/
-
-.label-gallery {
-  border-radius: 10px;
-  padding: 2px 11px;
-  margin: 5px 0;
-}
-
-.label-gallery:hover {
-  background-color: #111111;
-  color: white;
-}
-
-.is-actived {
-  background-color: #111111;
-  color: white;
-}
-
-/* ------------------------------------ */
-
-.wrap-gallery {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.item-gallery {
-  width: calc((100% - 140px) / 3);
-  margin: 30px 15px;
-  position: relative;
-}
-
-.overlay-item-gallery {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(236, 29, 37, 0.8);
-  opacity: 0;
-}
-
-.overlay-item-gallery:hover {
-  opacity: 1;
-}
-
-.btn-show-gallery {
-  font-size: 18px;
-  color: #222222;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: white;
-}
-
-input:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-
-input:focus:-moz-placeholder {
-  color: transparent;
-}
-
-input:focus::-moz-placeholder {
-  color: transparent;
-}
-
-input:focus:-ms-input-placeholder {
-  color: transparent;
-}
-
-textarea:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-
-textarea:focus:-moz-placeholder {
-  color: transparent;
-}
-
-textarea:focus::-moz-placeholder {
-  color: transparent;
-}
-
-textarea:focus:-ms-input-placeholder {
-  color: transparent;
-}
-
-input::-webkit-input-placeholder {
-  color: #999999;
-}
-
-input:-moz-placeholder {
-  color: #999999;
-}
-
-input::-moz-placeholder {
-  color: #999999;
-}
-
-input:-ms-input-placeholder {
-  color: #999999;
-}
-
-textarea::-webkit-input-placeholder {
-  color: #999999;
-}
-
-textarea:-moz-placeholder {
-  color: #999999;
-}
-
-textarea::-moz-placeholder {
-  color: #999999;
-}
-
-textarea:-ms-input-placeholder {
-  color: #999999;
-}
-
-@media (max-width: 768px) {
-  .item-gallery {
-    width: calc((100% - 110px) / 2);
-  }
-}
-
-@media (max-width: 576px) {
-  .item-gallery {
-    width: calc((100% - 30px) / 1);
-  }
-
-  .wrap-gallery {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-/*[ Pagination ]
-///////////////////////////////////////////////////////////
-*/
-
-.item-pagination {
-  font-weight: 400;
-  font-size: 13px;
-  color: #808080;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid #e6e6e6;
-  margin: 6px;
-}
-
-.item-pagination:hover {
-  background-color: #333333;
-  color: white;
-}
-
-.active-pagination {
-  background-color: #333333;
-  color: white;
-}
-
 /*[ Sidebar2 ]
 ///////////////////////////////////////////////////////////
 */
@@ -11804,20 +11637,6 @@ textarea:-ms-input-placeholder {
   height: 100%;
 }
 
-/*[ Block4 ]
-///////////////////////////////////////////////////////////
-*/
-
-.date-blo4 {
-  width: 75px;
-  height: 82px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  border-radius: 10px;
-  background-color: #ec1d25;
-}
-
 .social a:hover {
   color: #000000;
 }
@@ -11833,6 +11652,37 @@ textarea:-ms-input-placeholder {
   border: 0 solid transparent;
   border-radius: 0.286rem;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.list-shops .card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #299EFF;
+}
+
+.list-shops .shop-rate .fa-star {
+  color: #ffc120;
+  font-size: 1rem;
+}
+
+.list-shops .shop-rate span {
+  font-size: 1rem;
+  color: #ffc120;
+  font-weight: 900;
+}
+
+.list-shops .shop-money {
+  margin: 0.25rem 0px;
+}
+
+.list-shops .shop-money .fa-money-bill {
+  color: #299EFF;
+}
+
+.list-shops .shop-tag {
+  border: 1px solid #dee2e6;
+  padding: 0.25rem 0.5rem;
+  color: #343a40;
 }
 
 /*[ FONT SIZE ]
@@ -21865,6 +21715,17 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 
 .bg1-overlay {
   background-color: rgba(0, 0, 0, 0.35);
+}
+
+.is-danger {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #f35a3d;
+}
+
+.is-invalid {
+  border-color: #f35a3d;
 }
 
 .limiter {
