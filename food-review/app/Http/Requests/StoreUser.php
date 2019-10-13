@@ -13,7 +13,7 @@ class StoreUser extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreUser extends FormRequest
     public function rules()
     {
         return [
-            //
+            'password'              => 'required|min:6|max:255',
+            'password_confirmation' => 'required|min:6|max:255|same:password',
+        ];
+    }
+    public  function messages()
+    {
+        return [
+            'password.required'                 => 'Vui lòng nhập mật khẩu',
+            'password.min'                      => 'Mật khẩu cần lớn hơn :min kí tự',
+            'password.max'                      => 'Mật khẩu cần nhỏ hơn :max kí tự',
+            'password_confirmation.required'    => 'Vui lòng nhập mật khẩu',
+            'password_confirmation.min'         => 'Mật khẩu cần lớn hơn :min kí tự',
+            'password_confirmation.max'         => 'Mật khẩu cần nhỏ hơn :max kí tự',
+            'password_confirmation.same'        => 'Mật khẩu không khớp nhau',
         ];
     }
 }
