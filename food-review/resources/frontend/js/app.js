@@ -16,6 +16,8 @@ import VueCurrencyInput from 'vue-currency-input'
 // import TravelMap from "./components/TravelMap.vue";
 import TimePicker from "ant-design-vue/lib/time-picker";
 import Rate from "ant-design-vue/lib/rate";
+import Select  from 'ant-design-vue/lib/select'
+import "ant-design-vue/lib/select/style/css";
 import "ant-design-vue/lib/time-picker/style/css";
 import "ant-design-vue/lib/rate/style/css";
 
@@ -60,6 +62,7 @@ window.Vue = require('vue');
 
 Vue.component('TimePicker', TimePicker);
 Vue.component('Rate', Rate);
+Vue.use(Select);
 // Vue.component('travel-map', TravelMap);
 
 /**
