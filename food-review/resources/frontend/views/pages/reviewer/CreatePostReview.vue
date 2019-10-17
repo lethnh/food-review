@@ -213,7 +213,10 @@ export default {
         PostReviewService.storePostReview(this.post_review).then(response => {
           if (response.status === 200) {
             console.log(response.data);
-            this.$router.push({ path: "post-review/:post_id", params: { post_id: response.data.id} });
+            this.$router.push({
+              name: "postReviewDetail",
+              params: { post_id: response.data.id }
+            });
           }
         });
       }
