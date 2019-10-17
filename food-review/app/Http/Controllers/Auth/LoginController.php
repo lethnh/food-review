@@ -69,13 +69,17 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            // if ($user->clients->count() !== 0) {
+            //     $user->clients->expried_at
+            //     return response()->json(['message' => 'Đăng nhập hết hạn'],401);
+            // }
             $tokenResult = $user->createToken('Personal Access Token');
             $access_token = $tokenResult->accessToken;
             $token = $tokenResult->token;
             if ($request->remember_me) {
                 $token->expires_at = Carbon::now()->addWeeks(1);
             } else {
-                $token->expires_at = Carbon::now()->addDays(1);
+                $token->expires_at = Carbon::now()->addMinutes(1);
             }
             $token->save();
 

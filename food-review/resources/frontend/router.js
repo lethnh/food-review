@@ -14,7 +14,8 @@ import Login from './views/pages/auth/Login.vue'
 import Register from './views/pages/auth/Register.vue'
 import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
 import Profile from './views/pages/reviewer/Profile.vue'
-import CreateReview from './views/pages/reviewer/CreateReview.vue'
+import CreatePostReview from './views/pages/reviewer/CreatePostReview.vue'
+import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import NotFound from './views/pages/errors/NotFound.vue'
 
 const router = new VueRouter({
@@ -33,12 +34,12 @@ const router = new VueRouter({
             path: '/',
             component: BasicLayout2,
             children: [{
-                    path: '/login',
+                    path: 'login',
                     component: Login,
                     name: 'login'
                 },
                 {
-                    path: '/register',
+                    path: 'register',
                     component: Register,
                     name: 'register'
                 },
@@ -48,14 +49,19 @@ const router = new VueRouter({
             path: '/',
             component: BasicLayout3,
             children: [{
-                    path: '/profile',
+                    path: 'profile',
                     component: Profile,
                     name: 'profile'
                 },
                 {
-                    path: '/review',
-                    component: CreateReview,
-                    name: 'createReview'
+                    path: 'review',
+                    component: CreatePostReview,
+                    name: 'createPostReview'
+                },
+                {
+                    path: 'post-review/:post_id',
+                    component: PostReviewDetail,
+                    name: 'postReviewDetail'
                 },
             ]
         }, //  DEFAULT ROUTE

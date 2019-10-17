@@ -4,14 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Vue from 'vue'
 require('./bootstrap');
 import router from '../router'
-// import VueSidebarMenu from 'vue-sidebar-menu'
-// import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-
-
-// Vue.use(VueSidebarMenu)
 window.Vue = require('vue');
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
+
+Vue.use(VueSidebarMenu)
 
 
 /**
@@ -34,6 +35,6 @@ window.Vue = require('vue');
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#app2',
     router,
 });

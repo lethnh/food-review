@@ -14,7 +14,7 @@ export default {
         },
         {
           title: "Sản phẩm",
-          icon: "icon-fa icon-fa-archive",
+          icon: "fab fa-user",
           child: [
             {
               href: "/admin/product",

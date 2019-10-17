@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -41,5 +42,13 @@ class User extends Authenticatable
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
+    }
+
+    public function tokenExpired()
+    {
+        if (Carbon::parse($this->attributes['expires_at']) < Carbon::now()) {
+            return true;
+        }
+        return false;
     }
 }

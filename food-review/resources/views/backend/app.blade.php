@@ -24,14 +24,12 @@
     </head>
 
     <body class="animsition">
-        <div id="app" class="page">
+        <div id="app2" class="page">
                 <router-view></router-view>
         </div>
 
         <!-- Scripts -->
         <script src="{{ asset('backend/js/app.js') }}"></script>
-        {{-- <script src="{{ asset('/js/animsition.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
         @yield('scripts')
     </body>
 

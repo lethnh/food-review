@@ -6,19 +6,25 @@ Vue.use(VueRouter)
 // import layout
 import BasicLayout from './views/layouts/BasicLayout.vue'
 
+import Demo from './views/pages/Demo.vue'
+
 
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active',
     routes: [{
-            path: '/',
+            path: '/admin',
             component: BasicLayout,
-            // children: [{
-            //     // path: '/',
-            //     // component: Home,
-            //     // name: 'homepage'
-            // }]
+            children: [{
+                path: 'demo',
+                component: Demo,
+                name: 'homepage'
+            }]
         },
+        {
+            path: '*',
+            component: Demo
+        }
     ],
 });
 
