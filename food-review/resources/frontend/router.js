@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AuthService from './js/services/Auth'
 
 Vue.use(VueRouter)
 
@@ -9,7 +10,8 @@ import BasicLayout2 from './views/layouts/BasicLayout2.vue'
 import BasicLayout3 from './views/layouts/BasicLayout3.vue'
 
 // import page
-import Home from './views/pages/Home.vue'
+import TopPage from './views/pages/TopPage.vue'
+import TimeLine from './views/pages/TimeLine.vue'
 import Login from './views/pages/auth/Login.vue'
 import Register from './views/pages/auth/Register.vue'
 import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
@@ -25,9 +27,13 @@ const router = new VueRouter({
             path: '/',
             component: BasicLayout,
             children: [{
-                path: '/',
-                component: Home,
-                name: 'homepage'
+                path: 'toppage',
+                component: TopPage,
+                name: 'toppage'
+            }, {
+                path: 'timeline',
+                component: TimeLine,
+                name: 'timeline'
             }]
         },
         {

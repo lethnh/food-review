@@ -15,8 +15,10 @@ class CreatePostReviewsTable extends Migration
     {
         Schema::create('post_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->integer('shop_id');
             $table->longText('content');
+            $table->string('feature_image')->nullable();
             $table->integer('user_id');
             $table->double('money');
             $table->integer('stars');

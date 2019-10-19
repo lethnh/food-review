@@ -18,13 +18,14 @@ class UploadImageService
             //decode base64 string
             $image = base64_decode($base64_str);
             $safeName = Str::random(10) . '.' . 'png';
-            $pathImage = Storage::disk('public')->put('post-review/' . $post_id . 'images/' . $safeName, $image);
-            $image = Storage::disk('public')->url($safeName);
+            $pathImage = Storage::disk('public')->put('post-review/' . $post_id . '/' . $safeName, $image);
+            $image = Storage::disk('public')->url('post-review/' . $post_id . '/' .  $safeName);
             $data['post_review_id'] = $post_id;
             $data['link'] = $image;
             $link[] = $data;
         }
         $image =  \DB::table('post_review_images')->insert($link);
+        // $users = \DB::select('select f from users where active = ?', [1]);
         if ($image === false) {
             throw new \Exception('Upload ảnh không thành công');
         }

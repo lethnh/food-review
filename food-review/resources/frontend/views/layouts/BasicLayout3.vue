@@ -2,7 +2,7 @@
   <div class="template-container">
     <!-- Header -->
     <site-header></site-header>
-    <div class="content page p-t-120">
+    <div class="content page" style="padding-top:150px">
       <div class="container">
         <router-view></router-view>
       </div>

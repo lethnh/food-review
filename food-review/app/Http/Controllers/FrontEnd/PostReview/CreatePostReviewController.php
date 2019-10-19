@@ -21,26 +21,28 @@ class CreatePostReviewController extends Controller
 
     public function storePostReview(Request $request)
     {
-        $data = $request->all();
-        if (empty($data['shop_id'])) {
-            // $data_shop = $reque;
+
+        $data_post_review = $request->only(['images', 'content', 'money', 'stars', 'shop_id']);
+        if (empty($data_post_review['shop_id'])) {
+            $data_shop = $request->only(['begin_time', 'close_time', '']);
             $shop = Shop::create([
-                // 'name' => ''
-                    
+                'begin_time' => $data_shop['begin_time'],
+                'close_time' => $data_shop['close_time'],
+
             ]);
         }
 
         $post_review = PostReview::create([
-            'money' => $data['money'],
-            'stars' =>  $data['stars'],
-            'content' => $data['content'],
+            'money' => $data_post_review['money'],
+            'stars' =>  $data_post_review['stars'],
+            'content' => $data_post_review['content'],
             'user_id' => Auth::user()->id,
-            'shop_id' => empty($data['shop_id']) ? $shop->id : $data['shop_id'],
+            'shop_id' => empty($data_post_review['shop_id']) ? $shop->id : $data_post_review['shop_id'],
         ]);
 
 
-            
-        $this->uploadImageService->uploadImage($data['images'], $post_review->id);
+
+        $this->uploadImageService->uploadImage($data_post_review['images'], $post_review->id);
 
         return response()->json($post_review, 200);
     }

@@ -11,6 +11,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -51,4 +52,15 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function postReviews()
+    {
+        return $this->hasMany(PostReview::class, 'user_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

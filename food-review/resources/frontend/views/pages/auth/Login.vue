@@ -127,7 +127,7 @@ export default {
             Ls.set("authUser", JSON.stringify(response.data));
             this.$store.dispatch("setUserObject", response.data);
             this.$router.push({
-              name: "homepage"
+              name: "toppage"
             });
           }
         });

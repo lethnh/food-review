@@ -19,6 +19,8 @@ class ShopsTableSeeder extends Seeder
                 'address' => Str::random(10),
                 'city_id' => Str::random(10),
                 'district_id' => Str::random(10),
+                'begin_time' => Str::random(10),
+                'close_time' => Str::random(10),
                 'lat' => $faker->numberBetween($min = 1000, $max = 9000),
                 'lng' => $faker->numberBetween($min = 1000, $max = 9000),
                 'type' => Str::random(10),

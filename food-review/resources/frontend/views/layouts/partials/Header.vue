@@ -6,7 +6,7 @@
         <div class="wrap_header trans-0-3">
           <!-- Logo -->
           <div class="logo">
-            <router-link to="/">
+            <router-link to="/toppage">
               <img
                 src="/images/icon/logo.png"
                 alt="IMG-LOGO"
@@ -18,16 +18,16 @@
           <!-- Menu -->
           <div class="wrap_menu p-l-0-xl">
             <nav class="menu">
-              <ul class="main_menu" style="margin:0px">
+              <ul class="main_menu" style="margin:0px 0px 0px 20px">
                 <li>
-                  <a href="index.html">Trang chủ</a>
+                  <router-link to="/toppage">Trang chủ</router-link>
                 </li>
 
                 <li>
-                  <a href="menu.html">Cửa hàng</a>
+                  <router-link to="/toppage">Quán ăn</router-link>
                 </li>
                 <li>
-                  <a href="contact.html">Bài viết</a>
+                  <router-link to="/timeline">Bài viết</router-link>
                 </li>
                 <li>
                   <a href="contact.html">Liên hệ</a>
@@ -66,7 +66,15 @@
             <router-link to="login" class="m-l-10 btn btn-outline-light">Đăng nhập</router-link>
             <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
           </div>
-          <div class="flex-w flex-l-m ml-auto" v-if="userStore.authUser !== null">
+          <div class="flex-w ml-auto" v-if="userStore.authUser !== null">
+                <form class="form-search form-inline my-2 my-lg-0 position-relative">
+              <input
+                class="form-control mr-sm-2"
+                type="search"
+                placeholder="Tìm kiếm..."
+                aria-label="Search"
+              />
+                </form>
             <li class="nav-item dropdown">
               <a
                 class="nav-link navbar-avatar"
@@ -78,10 +86,10 @@
               >
                 <span class="avatar avatar-online">
                   <img src="/images/5.jpg" alt="..." />
-                  {{userStore.authUser.user_info.name}}
                 </span>
+                <span class="user_name">{{userStore.authUser.user_info.name}}</span>
               </a>
-              <div class="dropdown-menu" role="menu">
+              <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <router-link to="/profile" class="dropdown-item">
                   <i class="fas fa-user"></i> Thông tin cá nhân
                 </router-link>
@@ -110,7 +118,9 @@ export default {
       AuthService.logout().then(response => {
         Ls.remove("authUser");
         this.$store.dispatch("setUserObject", null);
-        this.$router.push("/");
+        this.$router.push({
+          name: "toppage"
+        });
       });
     }
   },
@@ -146,6 +156,13 @@ export default {
 .header-fixed .avatar {
   color: #222222;
 }
+.user_name {
+  color: white;
+}
+.header-fixed .user_name {
+  color: #222222 !important;
+}
+
 .dropdown-menu .fas {
   width: 1em;
   text-align: center;

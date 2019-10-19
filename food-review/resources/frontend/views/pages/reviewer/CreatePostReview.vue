@@ -10,6 +10,15 @@
       <h4>Tạo bài viết</h4>
       <hr />
       <!--  -->
+      <ValidationProvider name="title" rules="required">
+        <div slot-scope="{ errors }">
+          <div class="form-group">
+        <label>Tiêu đề</label>     <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
+        <input type="text" class="form-control" v-model="post_review.title" />
+      </div>
+      </div>
+      </ValidationProvider>
+
       <ValidationProvider name="images" rules="required">
         <div slot-scope="{ errors }">
           <div class="form-group">
@@ -155,6 +164,7 @@ export default {
     return {
       shops: [],
       post_review: {
+        title:"",
         images: [],
         content: "",
         begin_time: null,
@@ -208,7 +218,13 @@ export default {
     },
     async postReview() {
       const isValid = await this.$refs.postReviewForm.validate();
-      if (isValid) {
+      if (!isValid) {
+        window.scroll({
+          top: 10,
+          behavior: "smooth"
+        });
+        event.preventDefault();
+      } else {
         this.post_review.tags = this.tags;
         PostReviewService.storePostReview(this.post_review).then(response => {
           if (response.status === 200) {

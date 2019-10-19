@@ -346,11 +346,19 @@
   </div>
 </template>
 <script>
+import ShopService from "../../js/services/Shop";
 export default {
   data() {
     return {
-      reviews: []
+      shops: []
     };
+  },
+  methods: {
+    async getListShop() {
+      ShopService.getListShop().then(response => {
+        
+      });
+    }
   }
 };
 </script>

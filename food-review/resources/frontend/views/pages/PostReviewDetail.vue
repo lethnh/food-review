@@ -1,53 +1,209 @@
 <template>
-  <a-carousel arrows dotsClass="slick-dots slick-thumb">
-    <a slot="customPaging" slot-scope="props">
-      <img :src="getImgUrl(props.i)" />
-    </a>
-    <div v-for="item in 4">
-      <img :src="baseUrl+'abstract0'+item+'.jpg'" />
+  <div>
+    <div class="row">
+      <div class="col-9 bg-white" style="padding-bottom:50px">
+        <a-carousel arrows dotsClass="slick-dots slick-thumb">
+          <a slot="customPaging" slot-scope="props">
+            <img :src="getImgUrl(props.i)" />
+          </a>
+          <div v-for="(item, index) in post_review.post_review_images" :key="index">
+            <img :src="item.link" />
+          </div>
+        </a-carousel>
+      </div>
+      <div class="col-3 bg-white border-left">
+        <div class="content pt-2">
+          <div class="user_info">
+            <div class="rounded">
+              <img src="/images/5.jpg" alt="..." class="rounded" />
+            </div>
+            <div>
+              <p>Thanhlv</p>
+              <p>Tỉnh: Thanh Hóa</p>
+              <p>Số bài review: 1</p>
+            </div>
+          </div>
+          <div class="shop_info mt-2">
+            <span>Địa chỉ:</span>
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div>
+            <Rate v-model="post_review.stars" disabled></Rate>
+            {{post_review.stars}} sao
+          </div>
+          <div>Số tiền trung bình cho một người: {{post_review.money}}</div>
+          <div>Giờ mở cửa - đóng cửa: {{ }}</div>
+        </div>
+      </div>
     </div>
-  </a-carousel>
+    <div class="row">
+      <div class="col-9 mt-5">
+        <div class="bg-white p-2">
+          <h4 class="post_review_title">Tiêu đề bài viết</h4>
+          <div class="post_review_content" v-html="post_review.content"></div>
+        </div>
+      </div>
+      <div class="col-3 mt-5">
+        <div class="bg-white p-2">
+          <h4 class="post_review_title">Bài viết liên quan</h4>
+          <div>
+            <div class="card">
+              <img src="https://picsum.photos/600/600/?image=25" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p
+                  class="card-text"
+                >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-9">
+        <div class="post_review_comment bg-white p-2">
+          <h4>Bình luận bài viết</h4>
+          <div class="item_comment">
+            <div class="comment">
+              <div class="comment_avatar">
+                <img src="/images/5.jpg" alt class="rounded" />
+              </div>
+              <div class="comment_content">
+                <div class="user_name">ThanhLV</div>
+                <div
+                  class="content"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
+                <div class="action">
+                  <a href>Thích</a>
+                  <a href>Không thích</a>
+                  <a href>Trả lời</a>
+                </div>
+              </div>
+            </div>
+            <div class="comment_reply">
+              <div class="comment_avatar">
+                <img src="/images/5.jpg" alt class="rounded" />
+              </div>
+              <div class="comment_content">
+                <div class="user_name">ThanhLV</div>
+                <div
+                  class="content"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
+                <div class="action">
+                  <a href>Thích</a>
+                  <a href>Không thích</a>
+                  <a href>Trả lời</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item_comment">
+            <div class="comment">
+              <div class="comment_avatar">
+                <img src="/images/5.jpg" alt class="rounded" />
+              </div>
+              <div class="comment_content">
+                <div class="user_name">ThanhLV</div>
+                <div
+                  class="content"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
+                <div class="action">
+                  <a href>Thích</a>
+                  <a href>Không thích</a>
+                  <a href>Trả lời</a>
+                </div>
+              </div>
+            </div>
+            <div class="comment_reply">
+              <div class="comment_avatar">
+                <img src="/images/5.jpg" alt class="rounded" />
+              </div>
+              <div class="comment_content">
+                <div class="user_name">ThanhLV</div>
+                <div
+                  class="content"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
+                <div class="action">
+                  <a href>Thích</a>
+                  <a href>Không thích</a>
+                  <a href>Trả lời</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex"  style="margin:12px">
+            <div class="rounded mr-2">
+              <img src="/images/5.jpg" alt class="rounded"  style="height:48px" />
+            </div>
+            <div class="form-group w-100">
+              <input type="text" class="form-control" placeholder="Viết bình luận" />
+              <!-- <small
+                id="emailHelp"
+                class="form-text text-muted"
+              >We'll never share your email with anyone else.</small> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-  const baseUrl =
-    'https://raw.githubusercontent.com/vueComponent/ant-design-vue/master/components/vc-slick/assets/img/react-slick/';
-  export default {
-    data() {
-      return {
-        baseUrl,
-      };
+import PostReviewServices from "../../js/services/PostReview";
+const baseUrl =
+  "https://raw.githubusercontent.com/vueComponent/ant-design-vue/master/components/vc-slick/assets/img/react-slick/";
+export default {
+  data() {
+    return {
+      baseUrl,
+      post_review: {}
+    };
+  },
+  mounted() {
+    this.getPostReview();
+  },
+  methods: {
+    getImgUrl(i) {
+      return this.post_review.post_review_images[i].link;
     },
-    methods: {
-      getImgUrl(i) {
-        return `${baseUrl}abstract0${i + 1}.jpg`;
-      },
-    },
-  };
+    async getPostReview() {
+      PostReviewServices.getPostReview(this.$route.params.post_id).then(
+        response => {
+          this.post_review = response;
+          console.log(response);
+        }
+      );
+    }
+  }
+};
 </script>
+
+
 <style scoped>
-  /* For demo */
-  .ant-carousel >>> .slick-dots {
-    height: auto;
-  }
-  .ant-carousel >>> .slick-slide img {
-    border: 5px solid #fff;
-    display: block;
-    margin: auto;
-    max-width: 80%;
-  }
-  .ant-carousel >>> .slick-thumb {
-    bottom: -45px;
-  }
-  .ant-carousel >>> .slick-thumb li {
-    width: 60px;
-    height: 45px;
-  }
-  .ant-carousel >>> .slick-thumb li img {
-    width: 100%;
-    height: 100%;
-    filter: grayscale(100%);
-  }
-  .ant-carousel >>> .slick-thumb li.slick-active img {
-    filter: grayscale(0%);
-  }
+/* For demo */
+.ant-carousel >>> .slick-dots {
+  height: auto;
+}
+.ant-carousel >>> .slick-slide img {
+  border: 5px solid #fff;
+  display: block;
+  margin: auto;
+  max-width: 80%;
+}
+.ant-carousel >>> .slick-thumb {
+  bottom: -45px;
+}
+.ant-carousel >>> .slick-thumb li {
+  width: 60px;
+  height: 45px;
+}
+.ant-carousel >>> .slick-thumb li img {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+}
+.ant-carousel >>> .slick-thumb li.slick-active img {
+  filter: grayscale(0%);
+}
 </style>

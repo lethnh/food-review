@@ -9,4 +9,5 @@ class PostReviewImage extends Model
     protected $table = 'post_review_images';
 
     protected $fillable = ['post_review_id', 'link'];
+    
 }

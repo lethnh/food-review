@@ -35,13 +35,14 @@ Route::group([
 
 
     // Post Review
-    Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getPostReview');
-    Route::get('post-review/{id}', 'FrontEnd\PostReviewController@getPostReviewById');
+    Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getListPostReview');
     Route::post('post-review', 'FrontEnd\PostReview\CreatePostReviewController@storePostReview');
     Route::delete('post-review/{id}', 'FrontEnd\PostReviewController@storePostReview');
-
+    Route::get('post-review/{id}', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewById');
+    Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
+    
     //Comment
     Route::get('comment', 'FrontEnd\PostReviewController@storePostReview');
+    Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
-
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');

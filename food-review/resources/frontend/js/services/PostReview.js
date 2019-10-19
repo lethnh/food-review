@@ -12,5 +12,15 @@ export default {
             console.log(error);
             toastr.error('error')
         }
+    },
+
+    async getPostReview(post_review_id) {
+        try {
+            let response = await axios.get(`/api/post-review/${post_review_id}`)
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
     }
 }

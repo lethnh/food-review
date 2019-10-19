@@ -6,7 +6,7 @@
           <a class="avatar avatar-lg" href>
             <img src="https://picsum.photos/100/100" class="rounded-circle" alt="..." />
           </a>
-          <h4 class="profile-user">Terrance arnold</h4>
+          <h4 class="profile-user">{{userStore.authUser.user_info.name}}</h4>
           <p class="profile-job">Art director</p>
           <p>
             Hi! I'm Adrian the Senior UI Designer at AmazingSurge. We hope
@@ -54,7 +54,15 @@
   </div>
 </template>
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      
+    }
+  },
+    computed: mapState(["userStore"])
+};
 </script>
 <style lang="css" scoped>
 .panel {
