@@ -42,7 +42,15 @@ Route::group([
     Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
     
     //Comment
-    Route::get('comment', 'FrontEnd\PostReviewController@storePostReview');
+    Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
+    Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
+    Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
+    Route::post('comment/like', 'FrontEnd\PostReviewController@storePostReview');
+    Route::post('comment/dislike', 'FrontEnd\PostReviewController@storePostReview');
+
+    //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
+
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');
+Route::post('shops', 'FrontEnd\Shop\GetShopController@index');

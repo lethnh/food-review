@@ -5,6 +5,7 @@
         <div class="card-block">
           <a class="avatar avatar-lg" href>
             <img src="https://picsum.photos/100/100" class="rounded-circle" alt="..." />
+            <input type="file" />
           </a>
           <h4 class="profile-user">{{userStore.authUser.user_info.name}}</h4>
           <p class="profile-job">Art director</p>
@@ -57,11 +58,9 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      
-    }
+    return {};
   },
-    computed: mapState(["userStore"])
+  computed: mapState(["userStore"])
 };
 </script>
 <style lang="css" scoped>

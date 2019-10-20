@@ -64,7 +64,54 @@
       <div class="col-9">
         <div class="post_review_comment bg-white p-2">
           <h4>Bình luận bài viết</h4>
-          <div class="item_comment">
+          <div class="item_comment" v-for="(comment, index) in comments" :key="index">
+            <div class="comment">
+              <div class="comment_avatar">
+                <img src="/images/5.jpg" alt class="rounded" />
+              </div>
+              <div class="comment_content">
+                <div class="user_name">{{comment.user.name}}</div>
+                <div class="content">{{comment.content}}</div>
+                <div class="action">
+                  <a href>Thích</a>
+                  <a href>Không thích</a>
+                  <a href>Trả lời</a>
+                </div>
+              </div>
+            </div>
+            <div v-if="comment.sub_comment">
+              <div class="comment_reply" v-for="(item, index) in comment.sub_comment" :key="index">
+                <div class="comment_avatar">
+                  <img src="/images/5.jpg" alt class="rounded" />
+                </div>
+                <div class="comment_content">
+                  <div class="user_name">{{item.user.name}}</div>
+                  <div class="content">{{item.content}}</div>
+                  <div class="action">
+                    <a href>Thích</a>
+                    <a href>Không thích</a>
+                    <a href>Trả lời</a>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex" style="margin:12px 12px 0px 0px;padding:0px 0px 0px 70px">
+                <div class="rounded mr-2">
+                  <img src="/images/5.jpg" alt class="rounded" style="height:32px" />
+                </div>
+                <form
+                  class="form-group w-100"
+                  @submit.prevent="commetPostReview(comment.id,$event)"
+                >
+                  <input type="text" class="form-control" placeholder="Viết bình luận" />
+                  <!-- <small
+                id="emailHelp"
+                class="form-text text-muted"
+                  >We'll never share your email with anyone else.</small>-->
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="item_comment">
             <div class="comment">
               <div class="comment_avatar">
                 <img src="/images/5.jpg" alt class="rounded" />
@@ -97,52 +144,23 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="item_comment">
-            <div class="comment">
-              <div class="comment_avatar">
-                <img src="/images/5.jpg" alt class="rounded" />
-              </div>
-              <div class="comment_content">
-                <div class="user_name">ThanhLV</div>
-                <div
-                  class="content"
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
-                <div class="action">
-                  <a href>Thích</a>
-                  <a href>Không thích</a>
-                  <a href>Trả lời</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment_reply">
-              <div class="comment_avatar">
-                <img src="/images/5.jpg" alt class="rounded" />
-              </div>
-              <div class="comment_content">
-                <div class="user_name">ThanhLV</div>
-                <div
-                  class="content"
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
-                <div class="action">
-                  <a href>Thích</a>
-                  <a href>Không thích</a>
-                  <a href>Trả lời</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex"  style="margin:12px">
+          </div>-->
+          <div class="d-flex" style="margin:12px">
             <div class="rounded mr-2">
-              <img src="/images/5.jpg" alt class="rounded"  style="height:48px" />
+              <img src="/images/5.jpg" alt class="rounded" style="height:48px" />
             </div>
-            <div class="form-group w-100">
-              <input type="text" class="form-control" placeholder="Viết bình luận" />
+            <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)">
+              <input
+                type="text"
+                class="form-control"
+                v-model="commentData.content"
+                placeholder="Viết bình luận"
+              />
               <!-- <small
                 id="emailHelp"
                 class="form-text text-muted"
-              >We'll never share your email with anyone else.</small> -->
-            </div>
+              >We'll never share your email with anyone else.</small>-->
+            </form>
           </div>
         </div>
       </div>
@@ -151,17 +169,25 @@
 </template>
 <script>
 import PostReviewServices from "../../js/services/PostReview";
+import CommentServices from "../../js/services/Comment";
 const baseUrl =
   "https://raw.githubusercontent.com/vueComponent/ant-design-vue/master/components/vc-slick/assets/img/react-slick/";
 export default {
   data() {
     return {
       baseUrl,
-      post_review: {}
+      post_review: {},
+      comments: [],
+      commentData: {
+        content: "",
+        post_review_id: this.$route.params.post_id,
+        parent_id: 0
+      }
     };
   },
   mounted() {
     this.getPostReview();
+    this.getComment();
   },
   methods: {
     getImgUrl(i) {
@@ -174,6 +200,22 @@ export default {
           console.log(response);
         }
       );
+    },
+    async getComment() {
+      CommentServices.getComment(this.$route.params.post_id).then(response => {
+        this.comments = response.data;
+      });
+    },
+    async likeComment() {},
+    commetPostReview(comment_id, $event) {
+      if ($event !== null) {
+        this.commentData.content = $($event.target[0]).val();
+      }
+      this.commentData.parent_id = comment_id;
+      CommentServices.commetPostReview(this.commentData).then(response => {
+        this.commentData.content = "";
+        this.getComment();
+      });
     }
   }
 };
