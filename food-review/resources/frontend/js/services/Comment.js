@@ -20,4 +20,14 @@ export default {
             toastr.error('error')
         }
     },
+    async likeComment(actionComment) {
+        try {
+            debugger
+            let response = await axios.post(`/api/comment/${actionComment.comment_id}/like`, actionComment)
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
+    },
 }

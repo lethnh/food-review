@@ -45,8 +45,8 @@ Route::group([
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
-    Route::post('comment/like', 'FrontEnd\PostReviewController@storePostReview');
-    Route::post('comment/dislike', 'FrontEnd\PostReviewController@storePostReview');
+    Route::post('comment/{id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
+    Route::post('comment/{id}/dislike', 'FrontEnd\PostReviewController@storePostReview');
 
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');

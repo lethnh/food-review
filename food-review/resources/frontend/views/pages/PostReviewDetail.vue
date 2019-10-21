@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-9 mt-5">
         <div class="bg-white p-2">
-          <h4 class="post_review_title">Tiêu đề bài viết</h4>
+          <h4 class="post_review_title">{{ post_review.title }}</h4>
           <div class="post_review_content" v-html="post_review.content"></div>
         </div>
       </div>
@@ -73,9 +73,12 @@
                 <div class="user_name">{{comment.user.name}}</div>
                 <div class="content">{{comment.content}}</div>
                 <div class="action">
-                  <a href>Thích</a>
-                  <a href>Không thích</a>
-                  <a href>Trả lời</a>
+                  <a
+                    href
+                    @click.prevent="likeComment(comment.id)"
+                    :class="{'text-blue': like === true}"
+                  >Thích</a>
+                  <a href @click.prevent="likeComment(comment.id)">Không thích</a>
                 </div>
               </div>
             </div>
@@ -90,7 +93,6 @@
                   <div class="action">
                     <a href>Thích</a>
                     <a href>Không thích</a>
-                    <a href>Trả lời</a>
                   </div>
                 </div>
               </div>
@@ -177,12 +179,17 @@ export default {
     return {
       baseUrl,
       post_review: {},
+      actionComment: {
+        status: null,
+        comment_id: null
+      },
       comments: [],
       commentData: {
         content: "",
         post_review_id: this.$route.params.post_id,
         parent_id: 0
-      }
+      },
+      like: false
     };
   },
   mounted() {
@@ -206,7 +213,15 @@ export default {
         this.comments = response.data;
       });
     },
-    async likeComment() {},
+    likeComment(comment_id) {
+      this.actionComment.status = 1;
+      this.actionComment.comment_id = comment_id;
+      CommentServices.likeComment(this.actionComment).then(response => {
+        if (response) {
+          this.like = true;
+        }
+      });
+    },
     commetPostReview(comment_id, $event) {
       if ($event !== null) {
         this.commentData.content = $($event.target[0]).val();
@@ -247,5 +262,9 @@ export default {
 }
 .ant-carousel >>> .slick-thumb li.slick-active img {
   filter: grayscale(0%);
+}
+.text-blue {
+  color: rgb(32, 120, 244) !important;
+  font-weight: 800 !important;
 }
 </style>
