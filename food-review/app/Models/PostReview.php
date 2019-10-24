@@ -11,6 +11,7 @@ class PostReview extends Model
     protected $fillable = [
         'content', 'user_id', 'shop_id', 'feature_image', 'money', 'stars', 'title',
     ];
+    protected $appends = ['totalComment'];
 
     public function post_review_images()
     {
@@ -19,6 +20,12 @@ class PostReview extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function getTotalCommentAttribute()
+    {
+        $totalComment = Comment::where('post_review_id', $this->id)->count();
+        return $totalComment;
     }
 }

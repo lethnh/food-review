@@ -18,6 +18,9 @@ import TimePicker from "ant-design-vue/lib/time-picker";
 import Rate from "ant-design-vue/lib/rate";
 import Select from 'ant-design-vue/lib/select';
 import Carousel from 'ant-design-vue/lib/carousel';
+
+import Pagination from 'ant-design-vue/lib/pagination';
+import "ant-design-vue/lib/pagination/style/css";
 import "ant-design-vue/lib/carousel/style/css";
 import "ant-design-vue/lib/select/style/css";
 import "ant-design-vue/lib/time-picker/style/css";
@@ -66,6 +69,7 @@ Vue.component('TimePicker', TimePicker);
 Vue.component('Rate', Rate);
 Vue.use(Select);
 Vue.use(Carousel);
+Vue.use(Pagination);
 // Vue.component('travel-map', TravelMap);
 
 /**

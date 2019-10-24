@@ -31,6 +31,7 @@
         "google-maps-api-loader": "^1.1.1",
         "quill": "^1.3.7",
         "quill-emoji": "^0.1.7",
+        "sweetalert2": "^8.18.5",
         "toastr": "^2.1.4",
         "vee-validate": "^2.2.15",
         "vue-currency-filter": "^3.4.3",

@@ -67,17 +67,17 @@
             <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
           </div>
           <div class="flex-w ml-auto" v-if="userStore.authUser !== null">
-                <form class="form-search form-inline my-2 my-lg-0 position-relative">
+            <form class="form-search form-inline my-2 my-lg-0 position-relative">
               <input
                 class="form-control mr-sm-2"
                 type="search"
                 placeholder="Tìm kiếm..."
                 aria-label="Search"
               />
-                </form>
+            </form>
             <li class="nav-item dropdown">
               <a
-                class="nav-link navbar-avatar"
+                class="nav-link navbar-avatar d-flex align-items-center"
                 data-toggle="dropdown"
                 href="#"
                 aria-expanded="false"
@@ -85,9 +85,14 @@
                 role="button"
               >
                 <span class="avatar avatar-online">
-                  <img src="/images/5.jpg" alt="..." />
+                  <img
+                    v-if="userStore.authUser.user_info.avatar !== null"
+                    :src="userStore.authUser.user_info.avatar"
+                    alt="..."
+                  />
+                  <img v-else src="/images/5.jpg" alt="..." />
                 </span>
-                <span class="user_name">{{userStore.authUser.user_info.name}}</span>
+                <div class="user_name">{{userStore.authUser.user_info.name}}</div>
               </a>
               <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <router-link to="/profile" class="dropdown-item">
@@ -149,7 +154,7 @@ export default {
 .avatar img {
   width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 40px;
   border: 0 none;
   border-radius: 1000px;
 }
@@ -158,6 +163,7 @@ export default {
 }
 .user_name {
   color: white;
+  margin-left: 10px;
 }
 .header-fixed .user_name {
   color: #222222 !important;

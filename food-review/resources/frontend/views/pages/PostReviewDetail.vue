@@ -18,7 +18,7 @@
               <img src="/images/5.jpg" alt="..." class="rounded" />
             </div>
             <div>
-              <p>Thanhlv</p>
+              <p>{{ post_review.user.name }}</p>
               <p>Tỉnh: Thanh Hóa</p>
               <p>Số bài review: 1</p>
             </div>
@@ -31,7 +31,7 @@
             <Rate v-model="post_review.stars" disabled></Rate>
             {{post_review.stars}} sao
           </div>
-          <div>Số tiền trung bình cho một người: {{post_review.money}}</div>
+          <div>Tiền/người: {{post_review.money | currency}}</div>
           <div>Giờ mở cửa - đóng cửa: {{ }}</div>
         </div>
       </div>
@@ -172,13 +172,12 @@
 <script>
 import PostReviewServices from "../../js/services/PostReview";
 import CommentServices from "../../js/services/Comment";
-const baseUrl =
-  "https://raw.githubusercontent.com/vueComponent/ant-design-vue/master/components/vc-slick/assets/img/react-slick/";
 export default {
   data() {
     return {
-      baseUrl,
-      post_review: {},
+      post_review: {
+        user: {}
+      },
       actionComment: {
         status: null,
         comment_id: null
@@ -192,6 +191,7 @@ export default {
       like: false
     };
   },
+
   mounted() {
     this.getPostReview();
     this.getComment();
@@ -204,7 +204,12 @@ export default {
       PostReviewServices.getPostReview(this.$route.params.post_id).then(
         response => {
           this.post_review = response;
-          console.log(response);
+          console.log($(".post_review_content span"));
+          $(".post_review_content span").forEach(element => {
+            debugger;
+            element;
+            // element.style.color =
+          });
         }
       );
     },

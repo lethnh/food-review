@@ -2,15 +2,17 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UploadImageService
 {
-    public function uploadImage($data_image, $post_id)
+    public function uploadImage($data_image, $post_review)
     {
         $link = [];
         $data = [];
+        $post_id = $post_review->id;
         $image_data = $data_image;
         foreach ($image_data as $k => $value) {
             // Mã hóa chuỗi base  thành ảnh
@@ -25,6 +27,9 @@ class UploadImageService
             $link[] = $data;
         }
         $image =  \DB::table('post_review_images')->insert($link);
+        $post_review->update([
+            'feature_image' => $link[0]['link'],
+        ]);
         // $users = \DB::select('select f from users where active = ?', [1]);
         if ($image === false) {
             throw new \Exception('Upload ảnh không thành công');

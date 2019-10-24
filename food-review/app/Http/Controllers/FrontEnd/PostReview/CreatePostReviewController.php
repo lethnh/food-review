@@ -22,7 +22,7 @@ class CreatePostReviewController extends Controller
     public function storePostReview(Request $request)
     {
 
-        $data_post_review = $request->only(['images', 'content', 'money', 'stars', 'shop_id','title']);
+        $data_post_review = $request->only(['images', 'content', 'money', 'stars', 'shop_id', 'title']);
         if (empty($data_post_review['shop_id'])) {
             $data_shop = $request->only(['begin_time', 'close_time', '']);
             $shop = Shop::create([
@@ -43,7 +43,7 @@ class CreatePostReviewController extends Controller
 
 
 
-        $this->uploadImageService->uploadImage($data_post_review['images'], $post_review->id);
+        $this->uploadImageService->uploadImage($data_post_review['images'], $post_review);
 
         return response()->json($post_review, 200);
     }

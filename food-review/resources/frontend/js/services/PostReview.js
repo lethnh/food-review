@@ -22,5 +22,15 @@ export default {
             console.log(error);
             toastr.error('error')
         }
+    },
+
+    async getPostReviewLatestNew(page) {
+        try {
+            let response = await axios.get(`/api/post-review-latest-new?page=${page}`)
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
     }
 }

@@ -31,8 +31,10 @@ Route::group([
 ], function () {
 
     Route::post('auth/logout', 'Auth\LogoutController@logOut');
-    Route::get('auth/user', 'HomeController@user');
-
+    Route::get('auth/user', 'Auth\GetUserController@getUser');
+    Route::get('auth/post-review', 'Auth\GetUserController@getPostReview');
+    Route::post('auth/avatar', 'FrontEnd\Profile\ProfileController@uploadAvatar');
+    Route::post('auth/edit', 'FrontEnd\Profile\ProfileController@editUser');
 
     // Post Review
     Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getListPostReview');
@@ -45,12 +47,13 @@ Route::group([
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
-    Route::post('comment/{id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
+    Route::post('comment/{comment_id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
     Route::post('comment/{id}/dislike', 'FrontEnd\PostReviewController@storePostReview');
-
+    
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
 
+Route::get('post-review-latest-new', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewLatestNew');
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');
 Route::post('shops', 'FrontEnd\Shop\GetShopController@index');

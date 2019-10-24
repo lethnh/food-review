@@ -133,3 +133,35 @@
     }
 
 }
+
+
+.post-item {
+    display: flex;
+    margin-bottom: 15px;
+
+    img {
+        border-right: 10px solid #f6f5f1;
+        height: 150px;
+    }
+
+    .post-body {
+        display: flex;
+        flex-direction: column;
+        .action {
+            margin-top: auto;
+            padding-bottom: 10px;
+            display: flex;
+            div{
+            }
+            .fa-thumbs-up {
+                color: rgb(32, 120, 244);
+                margin-right: 10px;
+            }
+
+            .fa-thumbs-down {
+                color: rgb(233, 113, 15);
+                margin-right: 10px;
+            }
+        }
+    }
+}

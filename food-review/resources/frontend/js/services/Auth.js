@@ -65,4 +65,54 @@ export default {
         }
     },
 
+
+    /**
+     * 
+     * @param {*} forgotData 
+     */
+    async getUser() {
+        try {
+            let response = await axios.get('/api/auth/user')
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    },
+
+    async getMyPostReview() {
+        try {
+            let response = await axios.get('/api/auth/post-review')
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    },
+
+    async getMyComment() {
+        try {
+            let response = await axios.get('/api/auth/comment')
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    },
+
+    async uploadAvatar(data) {
+        try {
+            let response = await axios.post('/api/auth/avatar', data)
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    },
+
+    async editUser(data) {
+        try {
+            let response = await axios.post('/api/auth/edit', data)
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    }
+
 }

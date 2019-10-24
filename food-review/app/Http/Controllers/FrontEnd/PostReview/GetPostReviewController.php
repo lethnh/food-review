@@ -13,12 +13,21 @@ class GetPostReviewController extends Controller
     {
         $post_review = PostReview::findOrFail($id);
         $post_review->post_review_images;
+        $post_review->user;
         return response()->json($post_review, 200);
     }
 
     public function getPostReviewByUser(Request $request, $user_id)
-    {  
+    {
 
+        // $post_review = PostReview::findOrFail($);
+        // $post_review->post_review_images;
+        // return response()->json($post_review, 200);
+    }
+    public function getPostReviewLatestNew()
+    {
+        $post_reviews = PostReview::with('user:id,name')->orderBy('created_at', 'DESC')->paginate(5);
+        return response()->json($post_reviews, 200);
         // $post_review = PostReview::findOrFail($);
         // $post_review->post_review_images;
         // return response()->json($post_review, 200);
