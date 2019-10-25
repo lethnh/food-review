@@ -49,8 +49,12 @@
           <b-tabs card>
             <b-tab title="Bài viết của tôi" active>
               <div class="row">
-                <div class="col-12" v-for="(post, index) in post_reviews" :key="index">
-                  <div class="post-item">
+                <div class="col-12">
+                  <div
+                    class="post-item border-bottom"
+                    v-for="(post, index) in post_reviews.data"
+                    :key="index"
+                  >
                     <router-link
                       v-if="post.feature_image !== null"
                       :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
@@ -68,22 +72,41 @@
                         <h5>{{ post.title }}</h5>
                       </router-link>
                       <div>{{ post.money | currency}}</div>
-                      <Rate :defaultValue="post.stars" allowHalf />
-                      <span>{{ post.stars }} sao</span>
+                      <div>
+                        <Rate :defaultValue="post.stars" allowHalf />
+                        <span>{{ post.stars }} sao</span>
+                      </div>
                       <div class="action mt-2">
-                        <div>
+                        <!-- <div>
                           <i class="fas fa-thumbs-up"></i>
                         </div>
                         <div>
                           <i class="fas fa-thumbs-down"></i>
+                        </div>-->
+                        <div class="mr-2">
+                          <i class="far fa-eye"></i>
+                          {{ post.total_view }}
                         </div>
                         <div>
                           <i class="fas fa-comment-dots"></i>
+                          {{ post.totalComment }}
                         </div>
                       </div>
                       <div></div>
                     </div>
+                    <div class="post-footer ml-auto">
+                      <router-link :to="{ name: 'editPostReview', params: { post_id: post.id }}">
+                        <i class="fas fa-edit text-dark"></i>
+                      </router-link>
+                    </div>
                   </div>
+                  <a-pagination
+                    v-show="post_reviews !== null"
+                    class="text-center mt-3"
+                    @change="onChange"
+                    :pageSize="post_reviews.per_page"
+                    :total="post_reviews.total"
+                  />
                 </div>
               </div>
             </b-tab>
@@ -155,8 +178,8 @@ export default {
         this.user = response;
       });
     },
-    async getMyPostReview() {
-      AuthServices.getMyPostReview().then(response => {
+    async getMyPostReview(current) {
+      AuthServices.getMyPostReview(current).then(response => {
         this.post_reviews = response;
       });
     },
@@ -209,6 +232,9 @@ export default {
       AuthServices.editUser(this.user).then(response => {
         this.user = response;
       });
+    },
+    onChange(current) {
+      this.getMyPostReview(current);
     }
   },
   computed: mapState(["userStore"])

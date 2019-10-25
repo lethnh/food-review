@@ -32,5 +32,25 @@ export default {
             console.log(error);
             toastr.error('error')
         }
+    },
+
+    async getPostReviewHasManyComment() {
+        try {
+            let response = await axios.get('/api/post-review-has-many-comment')
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
+    },
+
+    async getPostReviewHasManyView() {
+        try {
+            let response = await axios.get('/api/post-review-has-many-view')
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
     }
 }

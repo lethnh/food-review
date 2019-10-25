@@ -17,6 +17,7 @@ import Register from './views/pages/auth/Register.vue'
 import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
 import Profile from './views/pages/reviewer/Profile.vue'
 import CreatePostReview from './views/pages/reviewer/CreatePostReview.vue'
+import EditPostReview from './views/pages/reviewer/EditPostReview.vue'
 import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import NotFound from './views/pages/errors/NotFound.vue'
 
@@ -68,6 +69,11 @@ const router = new VueRouter({
                     path: 'post-review/:post_id',
                     component: PostReviewDetail,
                     name: 'postReviewDetail'
+                },
+                {
+                    path: 'edit/post-review/:post_id',
+                    component: EditPostReview,
+                    name: 'editPostReview'
                 },
             ]
         }, //  DEFAULT ROUTE

@@ -20,9 +20,9 @@ class GetUserController extends Controller
     }
 
     public function getPostReview()
-    {
+    {   
         $user_id = Auth::id();
-        $post_review = PostReview::where('user_id', $user_id)->orderBy('created_at')->get();
+        $post_review = PostReview::where('user_id', $user_id)->orderBy('created_at')->paginate(5);
         return response()->json($post_review, 200);
     }
 }

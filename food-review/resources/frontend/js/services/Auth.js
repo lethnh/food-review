@@ -79,9 +79,9 @@ export default {
         }
     },
 
-    async getMyPostReview() {
+    async getMyPostReview(page) {
         try {
-            let response = await axios.get('/api/auth/post-review')
+            let response = await axios.get(`/api/auth/post-review?page=${page}`)
             return response.data;
         } catch (error) {
             toastr.error('Error');

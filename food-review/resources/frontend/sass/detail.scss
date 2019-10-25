@@ -135,6 +135,22 @@
 }
 
 
+.list-post-review-top-view {
+    .post-item {
+        flex-direction: column;
+        img{
+            width: 100%;
+            border: none;
+        }
+        .post-body{
+            h5{
+                margin-top: 10px;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
 .post-item {
     display: flex;
     margin-bottom: 15px;
@@ -142,17 +158,21 @@
     img {
         border-right: 10px solid #f6f5f1;
         height: 150px;
+        width: 160px;
+        object-fit: cover;
     }
 
     .post-body {
         display: flex;
         flex-direction: column;
+
         .action {
             margin-top: auto;
             padding-bottom: 10px;
             display: flex;
-            div{
-            }
+
+            div {}
+
             .fa-thumbs-up {
                 color: rgb(32, 120, 244);
                 margin-right: 10px;

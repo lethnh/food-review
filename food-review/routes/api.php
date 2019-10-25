@@ -37,23 +37,29 @@ Route::group([
     Route::post('auth/edit', 'FrontEnd\Profile\ProfileController@editUser');
 
     // Post Review
-    Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getListPostReview');
     Route::post('post-review', 'FrontEnd\PostReview\CreatePostReviewController@storePostReview');
     Route::delete('post-review/{id}', 'FrontEnd\PostReviewController@storePostReview');
-    Route::get('post-review/{id}', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewById');
-    Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
-    
+
     //Comment
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
     Route::post('comment/{comment_id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
     Route::post('comment/{id}/dislike', 'FrontEnd\PostReviewController@storePostReview');
-    
+
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
 
-Route::get('post-review-latest-new', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewLatestNew');
+
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');
+Route::get('shop/post-review', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
 Route::post('shops', 'FrontEnd\Shop\GetShopController@index');
+
+Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
+Route::get('post-review/{id}', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewById');
+Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getListPostReview');
+Route::get('post-review-latest-new', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewLatestNew');
+Route::get('post-review-has-many-comment', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopComment');
+Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopView');
+// Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');

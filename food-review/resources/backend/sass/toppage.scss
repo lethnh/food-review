@@ -561,7 +561,7 @@ input[type="date"i] {
 .auth a {
     // color: rgba(55,71,79,.6);
     font-size: 14px;
-    color:white;
+    color: white;
 }
 
 .header-fixed .auth a {
@@ -1065,16 +1065,8 @@ input[type="date"i] {
     }
 
     .shop-rate {
-        .fa-star {
-            color: #ffc120;
-            font-size: 1rem;
-        }
-
-        span {
             font-size: 1rem;
             color: #ffc120;
-            font-weight: 900;
-        }
     }
 
     .shop-money {
