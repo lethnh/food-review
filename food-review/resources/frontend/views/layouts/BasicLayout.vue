@@ -1,5 +1,5 @@
 <template>
-  <div class="template-container">
+  <div>
     <!-- Header -->
     <site-header></site-header>
     <silde-bar></silde-bar>

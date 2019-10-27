@@ -15,6 +15,16 @@ class Shop extends Model
         return $this->hasMany(PostReview::class, 'shop_id', 'id');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+
     public function getStarsAttribute()
     {
         $stars = PostReview::where('shop_id', $this->id)->sum('stars');

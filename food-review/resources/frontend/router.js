@@ -12,6 +12,7 @@ import BasicLayout3 from './views/layouts/BasicLayout3.vue'
 // import page
 import TopPage from './views/pages/TopPage.vue'
 import TimeLine from './views/pages/TimeLine.vue'
+import ShopDetail from './views/pages/ShopDetail.vue'
 import Login from './views/pages/auth/Login.vue'
 import Register from './views/pages/auth/Register.vue'
 import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
@@ -76,6 +77,12 @@ const router = new VueRouter({
                     component: EditPostReview,
                     name: 'editPostReview'
                 },
+                {
+                    path: 'shop/:shop_id',
+                    component: ShopDetail,
+                    name: 'shopDetail'
+                },
+
             ]
         }, //  DEFAULT ROUTE
         {
@@ -85,19 +92,19 @@ const router = new VueRouter({
     ],
 });
 
-// router.beforeEach((to, from, next) => {
-//     //  If the next route is requires user to be Logged IN
-//     if (to.matched.some(m => m.meta.requiresAuth)) {
-//         return AuthService.checkLogin().then(authenticated => {
-//             if (!authenticated) {
-//                 return next({
-//                     path: '/login'
-//                 })
-//             }
-//             return next()
-//         })
-//     }
-//     return next()
-// })
+router.beforeEach((to, from, next) => {
+    //  If the next route is requires user to be Logged IN
+    if (to.matched.some(m => m.meta.requiresAuth)) {
+        return AuthService.checkLogin().then(authenticated => {
+            if (!authenticated) {
+                return next({
+                    path: '/login'
+                })
+            }
+            return next()
+        })
+    }
+    return next()
+})
 
 export default router

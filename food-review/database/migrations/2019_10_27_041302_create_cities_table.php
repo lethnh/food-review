@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableTags extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateTableTags extends Migration
      */
     public function up()
     {
-        Schema::create('table_tags', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('priority');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateTableTags extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_tags');
+        Schema::dropIfExists('cities');
     }
 }

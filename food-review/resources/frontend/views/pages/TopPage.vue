@@ -15,9 +15,9 @@
                 tag="article"
                 class="mb-2 shadow"
               >
-                <a href>
+                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
                   <h4 class="card-title">{{ shop.name }}</h4>
-                </a>
+                </router-link>
                 <div class="d-flex align-items-center">
                   <div class="shop-rate">
                     <Rate v-model="shop.stars" disable allowHalf />
@@ -35,7 +35,7 @@
                 <div class="shop-address">
                   <small class="text-muted">
                     <i class="fas fa-map-marker-alt"></i>
-                    Hà Nội
+                    {{shop.district.name}}, {{ shop.city.name }}
                   </small>
                 </div>
                 <b-card-text></b-card-text>

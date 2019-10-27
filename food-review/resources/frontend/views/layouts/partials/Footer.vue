@@ -223,9 +223,12 @@ export default {};
 </script>
 <style lang="css">
 footer {
-  display: block;
-  box-sizing: border-box;
   position: relative;
+  left: 0;
+  bottom: 0;
   width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
 }
 </style>

@@ -65,6 +65,15 @@ export default {
         }
     },
 
+    /**
+     * 
+     * @param {*} forgotData 
+     */
+    async checkLogin() {
+        let authUser = JSON.parse(Ls.get('authUser'));
+        return authUser;
+    },
+
 
     /**
      * 

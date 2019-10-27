@@ -24,8 +24,8 @@
     </head>
 
     <body class="animsition">
-        <div id="app">
-                <router-view></router-view>
+        <div id="app" style="background: #f1f4f5;">
+            <router-view></router-view>
         </div>
 
         <!-- Scripts -->

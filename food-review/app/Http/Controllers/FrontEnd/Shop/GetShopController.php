@@ -16,7 +16,7 @@ class GetShopController extends Controller
 
     public function getShopHasManyPostReview()
     {
-        $shop_post_review = Shop::withCount('postReviews')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
+        $shop_post_review = Shop::with('city:id,name','district:id,name,city_id')->withCount('postReviews')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
         return response()->json($shop_post_review, 200);
     }
 }
