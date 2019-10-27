@@ -98,6 +98,7 @@
                       <router-link :to="{ name: 'editPostReview', params: { post_id: post.id }}">
                         <i class="fas fa-edit text-dark"></i>
                       </router-link>
+                      <i class="far fa-trash-alt text-dark"></i>
                     </div>
                   </div>
                   <a-pagination

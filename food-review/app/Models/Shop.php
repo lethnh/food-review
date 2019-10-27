@@ -18,14 +18,17 @@ class Shop extends Model
     public function getStarsAttribute()
     {
         $stars = PostReview::where('shop_id', $this->id)->sum('stars');
-        $avg = round(($stars /  $this->post_reviews_count), 2);
+        if($this->post_review_count !== 0){    
+            $avg = round(($stars /  $this->post_reviews_count), 2);
+        } else{
+            $avg = 0;
+        }
         return $avg;
     }
 
     public function getMoneyAttribute()
     {
-        $money = PostReview::where('shop_id', $this->id)->sum('money');
-        $avg = round(($money /  $this->post_reviews_count), 2);
-        return $avg;
+        $money = PostReview::where('shop_id', $this->id)->avg('money');
+        return $money;
     }
 }

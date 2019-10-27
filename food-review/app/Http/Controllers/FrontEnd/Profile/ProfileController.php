@@ -46,6 +46,9 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->update([
             'name' => $request->name,
+            'phone_number' => $request->phone_number,
+            'age' => $request->age,
+            'address' => $request->address
         ]);
      }
 }

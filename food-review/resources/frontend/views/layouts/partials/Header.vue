@@ -20,10 +20,6 @@
             <nav class="menu">
               <ul class="main_menu" style="margin:0px 0px 0px 20px">
                 <li>
-                  <router-link to="/toppage">Trang chủ</router-link>
-                </li>
-
-                <li>
                   <router-link to="/toppage">Quán ăn</router-link>
                 </li>
                 <li>

@@ -33,10 +33,24 @@
               @vdropzone-error="showError"
               @vdropzone-complete="afterCompleteImagePost"
             ></vue-dropzone>
-            <button class="btn mt-2" @click="removeAllFiles">Remove All Files</button>
+            <!-- <button class="btn mt-2" @click="removeAllFiles">Remove All Files</button> -->
           </div>
         </div>
       </ValidationProvider>
+      <div class="mb-3">
+        <div>Ảnh</div>
+        <div class="d-flex flex-wrap">
+          <div
+            class="edit mr-2"
+            v-for="(image, index) in post_review.post_review_images"
+            :key="index"
+          >
+            <div class="overlay"></div>
+            <img :src="image.link" alt class="edit_image" />
+            <i class="fas fa-window-close" @click="deleteImage(image.link)"></i>
+          </div>
+        </div>
+      </div>
       <!--  -->
 
       <!--  -->
@@ -160,7 +174,7 @@ export default {
   },
   data() {
     return {
-      shops:[],
+      shops: [],
       post_review: { user: {} },
       isShow: false,
       selected: 0,
@@ -229,6 +243,17 @@ export default {
     },
     removeAllFiles() {
       this.$refs.dropzone.removeAllFiles();
+    },
+    deleteImage(link) {
+      let vm = this;
+      let data = new FormData();
+      data.set("link", link);
+      // debugger;
+      PostReviewService.deleteImage(this.$route.params.post_id, link).then(
+        response => {
+          this.getPostReview();
+        }
+      );
     }
   },
   computed: {
@@ -242,3 +267,34 @@ export default {
   }
 };
 </script>
+<style lang="css" scoped>
+.edit_image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.edit {
+  position: relative;
+}
+.edit i {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: none;
+  z-index: 9999;
+  color: white;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: black;
+  display: none;
+}
+.edit:hover .overlay,
+.edit:hover i {
+  display: block;
+  cursor: pointer;
+}
+</style>

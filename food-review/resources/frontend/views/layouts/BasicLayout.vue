@@ -3,7 +3,7 @@
     <!-- Header -->
     <site-header></site-header>
     <silde-bar></silde-bar>
-    <section class="section-slide">
+    <!-- <section class="section-slide">
       <div class="wrap-slick1">
         <div class="slick1">
           <div
@@ -22,16 +22,31 @@
               >Pato Place</h2>
 
               <div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
-                <!-- Button1 -->
                 <a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">Look Menu</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </section>-->
+    <section class="section-slide">
+      <a-carousel autoplays>
+        <div>
+          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+        </div>
+        <div>
+          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+        </div>
+      </a-carousel>
     </section>
-    <div class="content page">
-      <div class="container m-b-50">
+    <div class="content page m-t-20">
+      <div class="container">
         <router-view></router-view>
       </div>
     </div>
@@ -60,4 +75,17 @@ export default {
   computed: mapState(["userStore"])
 };
 </script>
+<style scoped>
+/* For demo */
+.ant-carousel >>> .slick-slide {
+  height: 300px;
+  overflow: hidden;
+}
 
+.ant-carousel >>> .slick-slide h3 {
+  color: #fff;
+}
+.section-slide {
+  padding-top: 80px;
+}
+</style>

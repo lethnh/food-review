@@ -40,7 +40,10 @@ Route::group([
     Route::post('post-review', 'FrontEnd\PostReview\CreatePostReviewController@storePostReview');
     Route::delete('post-review/{id}', 'FrontEnd\PostReviewController@storePostReview');
 
+    Route::delete('post-review/{id}/delete-image', 'FrontEnd\PostReview\EditPostReviewController@deleteImage');
+
     //Comment
+    
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');

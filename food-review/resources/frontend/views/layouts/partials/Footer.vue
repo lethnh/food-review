@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div style="position: relavtive;
+    bottom: 0;
+    width: 100%;">
     <footer class="bg1">
-      <div class="container p-t-40 p-b-70">
+      <!-- <div class="container p-t-40 p-b-70">
         <div class="row">
           <div class="col-sm-6 col-md-4 p-t-50">
-            <!-- - -->
+     
             <h4 class="txt13 m-b-33">Contact Us</h4>
 
             <ul class="m-b-70">
@@ -24,7 +26,7 @@
               </li>
             </ul>
 
-            <!-- - -->
+     
             <h4 class="txt13 m-b-32">Thời gian làm việc</h4>
 
             <ul>
@@ -35,7 +37,7 @@
           </div>
 
           <div class="col-sm-6 col-md-4 p-t-50">
-            <!-- - -->
+     
             <h4 class="txt13 m-b-33">Latest twitter</h4>
 
             <div class="m-b-25">
@@ -74,10 +76,10 @@
           </div>
 
           <div class="col-sm-6 col-md-4 p-t-50">
-            <!-- - -->
+     
             <h4 class="txt13 m-b-38">Gallery</h4>
 
-            <!-- Gallery footer -->
+   
             <div class="wrap-gallery-footer flex-w">
               <a
                 class="item-gallery-footer wrap-pic-w"
@@ -177,7 +179,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="end-footer bg2">
         <div class="container">
@@ -219,3 +221,11 @@
 <script>
 export default {};
 </script>
+<style lang="css">
+footer {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+</style>

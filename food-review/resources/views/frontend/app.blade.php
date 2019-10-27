@@ -24,7 +24,7 @@
     </head>
 
     <body class="animsition">
-        <div id="app" class="page">
+        <div id="app">
                 <router-view></router-view>
         </div>
 

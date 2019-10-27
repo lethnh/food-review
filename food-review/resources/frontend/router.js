@@ -33,6 +33,7 @@ const router = new VueRouter({
                 name: 'toppage'
             }, {
                 path: 'timeline',
+                // component: () => import('./views/pages/TimeLine'),
                 component: TimeLine,
                 name: 'timeline'
             }]

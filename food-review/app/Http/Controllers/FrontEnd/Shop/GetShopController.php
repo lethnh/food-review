@@ -11,7 +11,7 @@ class GetShopController extends Controller
     public function index()
     {
         $shops = Shop::all();
-        return $shops;
+        return response()->json($shops);
     }
 
     public function getShopHasManyPostReview()

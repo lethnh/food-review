@@ -27,9 +27,11 @@ class UploadImageService
             $link[] = $data;
         }
         $image =  \DB::table('post_review_images')->insert($link);
-        $post_review->update([
-            'feature_image' => $link[0]['link'],
-        ]);
+        if (empty($post_review)) {
+            $post_review->update([
+                'feature_image' => $link[0]['link'],
+            ]);
+        };
         // $users = \DB::select('select f from users where active = ?', [1]);
         if ($image === false) {
             throw new \Exception('Upload ảnh không thành công');

@@ -52,5 +52,15 @@ export default {
             console.log(error);
             toastr.error('error')
         }
+    },
+    async deleteImage(id, link) {
+        try {
+            debugger
+            let response = await axios.delete(`/api/post-review/${id}/delete-image?link=${link}`);
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
     }
 }
