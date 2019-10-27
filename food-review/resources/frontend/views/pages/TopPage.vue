@@ -1,5 +1,19 @@
 <template>
   <div>
+    <div class="d-flex mb-5 align-items-center">
+      <div class="mr-2">Địa điểm:</div>
+      <a-select
+        :defaultValue="provinceData[0]"
+        style="width: 120px"
+        class="mr-2"
+        @change="handleProvinceChange"
+      >
+        <a-select-option v-for="province in provinceData" :key="province">{{province}}</a-select-option>
+      </a-select>
+      <a-select v-model="secondCity" style="width: 120px">
+        <a-select-option v-for="city in cities" :key="city">{{city}}</a-select-option>
+      </a-select>
+    </div>
     <section>
       <div class="section-title">
         <h4 class="pb-2" style="border-bottom: 5px solid lightgray;">Cửa hàng review nhiều nhất</h4>
@@ -104,9 +118,18 @@
 </template>
 <script>
 import ShopService from "../../js/services/Shop";
+const provinceData = ["Zhejiang", "Jiangsu"];
+const cityData = {
+  Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
+  Jiangsu: ["Nanjing", "Suzhou", "Zhenjiang"]
+};
 export default {
   data() {
     return {
+      provinceData,
+      cityData,
+      cities: cityData[provinceData[0]],
+      secondCity: cityData[provinceData[0]][0],
       shops: {},
       shop_post_review: {}
     };
@@ -127,6 +150,10 @@ export default {
           this.shop_post_review = response.data;
         }
       });
+    },
+    handleProvinceChange(value) {
+      this.cities = cityData[value];
+      this.secondCity = cityData[value][0];
     }
   }
 };

@@ -4,23 +4,21 @@
     box-sizing: border-box;
 }
 
+
+body,
+html,
+.site-wrapper,
+.template-container {
+    height: 100%;
+    font-weight: 400;
+}
+
 .page {
     position: relative;
     min-height: calc(100% - 44px);
     background: #f1f4f5;
 }
 
-body,
-html {
-    height: 100%;
-    font-weight: 400;
-    min-height: 100vh;
-}
-
-body {
-    margin:0px;
-    padding: 0px;
-}
 
 /* ------------------------------------ */
 a {
@@ -567,7 +565,7 @@ input[type="date"i] {
 .auth a {
     // color: rgba(55,71,79,.6);
     font-size: 14px;
-    color:white;
+    color: white;
 }
 
 .header-fixed .auth a {

@@ -23,8 +23,8 @@
         @yield('styles')
     </head>
 
-    <body class="animsition">
-        <div id="app" style="background: #f1f4f5;">
+    <body>
+        <div id="app" class="site-wrapper">
             <router-view></router-view>
         </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="template-container">
     <!-- Header -->
     <site-header></site-header>
     <silde-bar></silde-bar>
@@ -30,22 +30,22 @@
       </div>
     </section>-->
     <section class="section-slide">
-      <a-carousel autoplays>
+      <a-carousel autoplay>
         <div>
-          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+          <img src="/images/slide/20-3670x1200.jpg" alt class="img-fluid" />
         </div>
         <div>
-          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+          <img src="/images/slide/431-5398x1500.jpg" alt class="img-fluid" />
         </div>
         <div>
-          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+          <img src="/images/slide/429-4128x1500.jpg" alt class="img-fluid" />
         </div>
         <div>
-          <img src="https://picsum.photos/2000/350" alt class="img-fluid" />
+          <img src="/images/slide/163-3800x1500.jpg" alt class="img-fluid" />
         </div>
       </a-carousel>
     </section>
-    <div class="content page m-t-20">
+    <div class="content page" style="padding:50px 0px">
       <div class="container">
         <router-view></router-view>
       </div>
@@ -78,14 +78,11 @@ export default {
 <style scoped>
 /* For demo */
 .ant-carousel >>> .slick-slide {
-  height: 300px;
+  height: 600px;
   overflow: hidden;
 }
 
 .ant-carousel >>> .slick-slide h3 {
   color: #fff;
-}
-.section-slide {
-  padding-top: 80px;
 }
 </style>

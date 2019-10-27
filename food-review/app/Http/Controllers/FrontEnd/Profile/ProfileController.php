@@ -50,5 +50,6 @@ class ProfileController extends Controller
             'age' => $request->age,
             'address' => $request->address
         ]);
-     }
+        return response()->json($user, 200);
+    }
 }
