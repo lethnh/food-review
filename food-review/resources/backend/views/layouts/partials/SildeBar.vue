@@ -1,5 +1,5 @@
 <template>
-  <sidebar-menu :menu="menu" :width="'240px'" />
+  <sidebar-menu :menu="menu" :width="'240px'" style="padding-top:75px" />
 </template>
  
 <script>
@@ -8,13 +8,13 @@ export default {
     return {
       menu: [
         {
-          title: "Danh mục sản phẩm",
-          icon: "icon-fa icon-fa-bookmark",
+          title: "Người dùng",
+          icon: "fas fa-users",
           href: "/admin/category"
         },
         {
-          title: "Sản phẩm",
-          icon: "fab fa-user",
+          title: "Bài viết",
+          icon: "fas fa-mail-bulk",
           child: [
             {
               href: "/admin/product",
@@ -26,49 +26,10 @@ export default {
             }
           ]
         },
-
         {
-          title: "Người dùng",
-          icon: "icon-fa icon-fa-user",
-          child: [
-            {
-              href: "/admin/user",
-              title: "Danh sách người dùng "
-            },
-            {
-              href: "/admin/unlock",
-              title: "Danh sách yêu cầu mở khóa"
-            }
-          ]
-        },
-        {
-          title: "Templates Email",
-          icon: "icon-fa icon-fa-envelope-square",
+          title: "Cửa hàng",
+          icon: "fas fa-store-alt",
           href: "/admin/template-email/list"
-        },
-        {
-          title: "Cài đặt mật khẩu",
-          icon: "icon-fa icon-fa-key",
-          child: [
-            {
-              title: "Mật khẩu",
-              href: "/admin/password-policy"
-            },
-            {
-              title: "Chặn",
-              icon: "icon-fa icon-fa-times-circle",
-              child: [
-                {
-                  href: "/admin/ip",
-                  title: "Ip"
-                },
-                {
-                  href: "/admin/domain-email",
-                  title: "Tên miền Email"
-                }
-              ]
-            }
-          ]
         }
       ]
     };

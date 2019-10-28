@@ -97,9 +97,9 @@ export default {
         }
     },
 
-    async getMyComment() {
+    async getMyComment(page) {
         try {
-            let response = await axios.get('/api/auth/comment')
+            let response = await axios.get(`/api/auth/comment?page=${page}`)
             return response.data;
         } catch (error) {
             toastr.error('Error');
@@ -118,6 +118,7 @@ export default {
     async editUser(data) {
         try {
             let response = await axios.post('/api/auth/edit', data)
+            toastr.success('Cập nhập thành công');
             return response.data;
         } catch (error) {
             toastr.error('Error');

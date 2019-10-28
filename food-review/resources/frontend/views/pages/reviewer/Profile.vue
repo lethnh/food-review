@@ -32,12 +32,12 @@
         <div class="card-footer">
           <div class="row no-space">
             <div class="col-6">
-              <strong class="profile-stat-count">260</strong>
-              <span>Follower</span>
+              <strong class="profile-stat-count">{{ post_reviews.total }}</strong>
+              <span>Bài viết</span>
             </div>
             <div class="col-6">
               <strong class="profile-stat-count">180</strong>
-              <span>Following</span>
+              <span>Lượt thích</span>
             </div>
           </div>
         </div>
@@ -116,14 +116,13 @@
               </div>
             </b-tab>
             <b-tab title="Cập nhập thông tin">
-                <ValidationObserver
-      class="panel p-3 mb-0"
-      v-slot="{ passes }"
-      ref="postReviewForm"
-      tag="form"
-      @submit.prevent="postReview()"
-    >
-              <form @submit.prevent="updateUser()">
+              <ValidationObserver
+                class="panel p-3 mb-0"
+                v-slot="{ passes }"
+                ref="editUserForm"
+                tag="form"
+                @submit.prevent="updateUser()"
+              >
                 <div class="row">
                   <div class="form-group col-6">
                     <label for>Email</label>
@@ -160,11 +159,80 @@
                   </div>
                 </div>
                 <button class="btn btn-primary">Cập nhập</button>
-              </form>
               </ValidationObserver>
             </b-tab>
             <b-tab title="Bình luận của tôi">
-              <b-card-text>Tab Contents 2</b-card-text>
+              <div class="list-comment">
+                <div class="item_comment" v-for="(comment, index) in comments.data" :key="index">
+                  <div class="comment d-flex align-items-start mb-3">
+                    <div class="comment_avatar">
+                      <img
+                        v-if="user.avatar !== null"
+                        :src="user.avatar"
+                        alt
+                        style="height:40px;width:40px"
+                      />
+                      <img v-else src="/images/5.jpg" class="rounded-circle" alt="..." />
+                    </div>
+                    <div class="comment_content ml-2">
+                      <div class="text-dark text-bold">
+                        {{user.name}} bình luận
+                        <span class="content bold">{{comment.content}}</span>
+                      </div>
+                      <router-link
+                        v-if="comment.post_review.feature_image !== null"
+                        :to="{ name: 'postReviewDetail', params: { post_id: comment.post_review.id }}"
+                      >
+                        <img
+                          :src="comment.post_review.feature_image"
+                          class="img-fluid"
+                          style="width:100px"
+                          alt="..."
+                        />
+                        <div class="content">{{comment.post_review.title}}</div>
+                      </router-link>
+                      <router-link
+                        v-else
+                        :to="{ name: 'postReviewDetail', params: { post_id: comment.post_review.id }}"
+                      >
+                        <img
+                          src="/images/noimage.png"
+                          class="img-fluid"
+                          style="width:100px"
+                          alt="..."
+                        />
+                        <div class="content">{{comment.post_review.title}}</div>
+                      </router-link>
+                    </div>
+                  </div>
+                  <!-- <div v-if="comment.sub_comment">
+                    <div
+                      class="comment_reply"
+                      v-for="(item, index) in comment.sub_comment"
+                      :key="index"
+                    >
+                      <div class="comment_avatar">
+                        <img src="/images/5.jpg" alt class="rounded" />
+                      </div>
+                      <div class="comment_content">
+                        <div class="user_name">{{item.user.name}}</div>
+                        <div class="content">{{item.content}}</div>
+                        <div class="action">
+                          <a href>Thích</a>
+                          <a href>Không thích</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>-->
+                </div>
+                <a-pagination
+                  v-show="comments !== null"
+                  class="text-center mt-3"
+                  @change="onChange2"
+                  :pageSize="comments.per_page"
+                  :total="comments.total"
+                />
+              </div>
             </b-tab>
           </b-tabs>
         </b-card>
@@ -189,6 +257,7 @@ export default {
   mounted() {
     this.getUser();
     this.getMyPostReview();
+    this.getMyComment();
   },
   methods: {
     async getUser() {
@@ -201,8 +270,8 @@ export default {
         this.post_reviews = response;
       });
     },
-    async getMyComment() {
-      AuthServices.getMyComment().then(response => {
+    async getMyComment(current) {
+      AuthServices.getMyComment(current).then(response => {
         this.comments = response;
       });
     },
@@ -246,13 +315,25 @@ export default {
         }
       });
     },
-    updateUser() {
-      AuthServices.editUser(this.user).then(response => {
-        this.user = response;
-      });
+    async updateUser() {
+      const isValid = await this.$refs.editUserForm.validate();
+      if (!isValid) {
+        window.scroll({
+          top: 10,
+          behavior: "smooth"
+        });
+        event.preventDefault();
+      } else {
+        AuthServices.editUser(this.user).then(response => {
+          this.user = response;
+        });
+      }
     },
     onChange(current) {
       this.getMyPostReview(current);
+    },
+    onChange2(current) {
+      this.getMyComment(current);
     }
   },
   computed: mapState(["userStore"])

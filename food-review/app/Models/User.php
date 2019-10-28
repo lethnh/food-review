@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_number', 'address', 'activation_token', 'avatar',
+        'name', 'email', 'password', 'phone_number', 'address', 'activation_token', 'avatar', 'age', 'city_id'
     ];
 
     /**
@@ -30,6 +30,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'activation_token',
     ];
+    // protected $appends = ['total_post_review', 'total_like', 'total_dislike'];
 
     /**
      * The attributes that should be cast to native types.
@@ -58,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(PostReview::class, 'user_id', 'id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -72,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
+
+    // public function getTotalPostReviewAttribute()
+    // {
+    //     return Auth::user()->withCount('postReviews')->get();
+    // }
 }

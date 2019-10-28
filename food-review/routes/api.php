@@ -33,6 +33,7 @@ Route::group([
     Route::post('auth/logout', 'Auth\LogoutController@logOut');
     Route::get('auth/user', 'Auth\GetUserController@getUser');
     Route::get('auth/post-review', 'Auth\GetUserController@getPostReview');
+    Route::get('auth/comment', 'FrontEnd\Profile\ProfileController@getComment');
     Route::post('auth/avatar', 'FrontEnd\Profile\ProfileController@uploadAvatar');
     Route::post('auth/edit', 'FrontEnd\Profile\ProfileController@editUser');
 

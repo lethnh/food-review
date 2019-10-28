@@ -31,6 +31,7 @@ class UploadImageService
             $post_review->update([
                 'feature_image' => $link[0]['link'],
             ]);
+            $post_review->save();
         };
         // $users = \DB::select('select f from users where active = ?', [1]);
         if ($image === false) {

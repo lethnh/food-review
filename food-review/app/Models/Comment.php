@@ -15,6 +15,11 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function postReview()
+    {
+        return $this->belongsTo(PostReview::class, 'post_review_id', 'id');
+    }
+
     public function sub_comment()
     {
         return $this->hasMany(Comment::class, 'parent_id');
