@@ -27,7 +27,7 @@ class UploadImageService
             $link[] = $data;
         }
         $image =  \DB::table('post_review_images')->insert($link);
-        if (empty($post_review)) {
+        if (empty($post_review->feature_image)) {
             $post_review->update([
                 'feature_image' => $link[0]['link'],
             ]);

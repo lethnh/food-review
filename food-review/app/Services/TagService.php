@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Logic;
+namespace App\Services;
 
 
 use App\Models\Tag;

@@ -13,14 +13,14 @@
               v-if="post.feature_image !== null"
               :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
             >
-              <img :src="post.feature_image" class="mr-3 img-fluid" alt="..." />
+              <img :src="post.feature_image" class="img-fluid" alt="..." />
             </router-link>
             <router-link v-else :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
-              <img src="/images/noimage.png" class="mr-3 img-fluid" alt="..." />
+              <img src="/images/noimage.png" class="img-fluid" alt="..." />
             </router-link>
-            <div class="post-body">
+            <div class="post-body col-9">
               <router-link :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
-                <h5>{{ post.title }}</h5>
+                <h5 class="text-justify">{{ post.title }}</h5>
               </router-link>
               <div>{{ post.money | currency}}</div>
               <div>
@@ -96,7 +96,7 @@
                   <!-- <div>
                     <i class="fas fa-comment-dots"></i>
                     {{ post.totalComment }}
-                  </div> -->
+                  </div>-->
                 </div>
                 <div></div>
               </div>

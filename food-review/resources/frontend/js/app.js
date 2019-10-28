@@ -28,6 +28,7 @@ import "ant-design-vue/lib/rate/style/css";
 
 
 import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 import quillEmij from 'quill-emoji/dist/quill-emoji'
 import 'quill-emoji/dist/quill-emoji.css'
 import {
@@ -37,6 +38,7 @@ Vue.use(FormRadioPlugin)
 
 
 Vue.use(VueQuillEditor, options)
+$('[data-toggle="tooltip"]').tooltip();
 Vue.use(VueCurrencyFilter, {
     symbol: 'VNĐ',
     thousandsSeparator: '.',
@@ -70,6 +72,19 @@ Vue.component('Rate', Rate);
 Vue.use(Select);
 Vue.use(Carousel);
 Vue.use(Pagination);
+
+/**
+ * Add global router function
+ */
+global.route = function (name, params = {}, query = {}) {
+    return router.resolve({
+        name: name,
+        params: params,
+        query: query,
+    })
+}
+Vue.prototype.route = global.route;
+
 // Vue.component('travel-map', TravelMap);
 
 /**

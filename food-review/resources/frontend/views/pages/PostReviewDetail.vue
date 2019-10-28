@@ -19,13 +19,17 @@
             </div>
             <div>
               <p>{{ post_review.user.name }}</p>
-              <p>Tỉnh: Thanh Hóa</p>
+              <p>
+                <i class="fas fa-map-marker-alt"></i>
+                {{post_review.user.district.name}}, {{post_review.user.city.name}}
+              </p>
               <p>Số bài review: 1</p>
             </div>
           </div>
           <div class="shop_info mt-2">
             <span>Địa chỉ:</span>
             <i class="fas fa-map-marker-alt"></i>
+            <!-- <span>{{ post_review.user }}</span> -->
           </div>
           <div>
             <Rate v-model="post_review.stars" disabled></Rate>
@@ -176,7 +180,10 @@ export default {
   data() {
     return {
       post_review: {
-        user: {}
+        user: {
+          city: {},
+          district: {}
+        }
       },
       actionComment: {
         status: null,
@@ -205,11 +212,11 @@ export default {
         response => {
           this.post_review = response;
           console.log($(".post_review_content span"));
-          $(".post_review_content span").forEach(element => {
-            debugger;
-            element;
-            // element.style.color =
-          });
+          // $(".post_review_content span").forEach(element => {
+          //   debugger;
+          //   element;
+          //   // element.style.color =
+          // });
         }
       );
     },

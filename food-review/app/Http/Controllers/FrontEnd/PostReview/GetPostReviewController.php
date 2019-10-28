@@ -15,7 +15,8 @@ class GetPostReviewController extends Controller
         $post_review->total_view = $post_review->increment('total_view');
         $post_review->save();
         $post_review->post_review_images;
-        $post_review->user;
+        $post_review->user->city;
+        $post_review->user->district;
         return response()->json($post_review, 200);
     }
 

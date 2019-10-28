@@ -277,6 +277,6 @@ export default {
 </script>
 <style>
 .ql-container {
-  height: 350px !important;
+  min-height: 350px !important;
 }
 </style>

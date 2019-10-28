@@ -38,6 +38,7 @@ Route::group([
 
     // Post Review
     Route::post('post-review', 'FrontEnd\PostReview\CreatePostReviewController@storePostReview');
+    Route::post('post-review/{id}', 'FrontEnd\PostReview\EditPostReviewController@editPostReview');
     Route::delete('post-review/{id}', 'FrontEnd\PostReviewController@storePostReview');
 
     Route::delete('post-review/{id}/delete-image', 'FrontEnd\PostReview\EditPostReviewController@deleteImage');

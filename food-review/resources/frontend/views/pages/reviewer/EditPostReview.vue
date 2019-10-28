@@ -3,9 +3,9 @@
     <ValidationObserver
       class="panel p-3 mb-0"
       v-slot="{ passes }"
-      ref="postReviewForm"
+      ref="editPostReviewForm"
       tag="form"
-      @submit.prevent="postReview()"
+      @submit.prevent="editPostReview()"
     >
       <h4>Tạo bài viết</h4>
       <hr />
@@ -175,7 +175,7 @@ export default {
   data() {
     return {
       shops: [],
-      post_review: { user: {} },
+      post_review: { user: {}, images: [] },
       isShow: false,
       selected: 0,
       options: [
@@ -220,6 +220,7 @@ export default {
       PostReviewService.getPostReview(this.$route.params.post_id).then(
         response => {
           this.post_review = response;
+          this.post_review.images = [];
         }
       );
     },
@@ -254,6 +255,30 @@ export default {
           this.getPostReview();
         }
       );
+    },
+    async editPostReview() {
+      const isValid = await this.$refs.editPostReviewForm.validate();
+      if (!isValid) {
+        window.scroll({
+          top: 10,
+          behavior: "smooth"
+        });
+        event.preventDefault();
+      } else {
+        // this.post_review.tags = this.tags;
+        PostReviewService.editPostReview(
+          this.$route.params.post_id,
+          this.post_review
+        ).then(response => {
+          if (response.status === 200) {
+            console.log(response.data);
+            this.$router.push({
+              name: "postReviewDetail",
+              params: { post_id: response.data.id }
+            });
+          }
+        });
+      }
     }
   },
   computed: {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\FrontEnd\PostReview;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostReviewRequest;
-use App\Logic\TagService;
+use App\Services\TagService;
 use App\Models\PostReview;
 use App\Models\Shop;
 use App\Services\UploadImageService;
@@ -47,7 +47,7 @@ class CreatePostReviewController extends Controller
 
 
         $this->uploadImageService->uploadImage($data_post_review['images'], $post_review);
-        $this->tagService->storeTag();
+        // $this->tagService->storeTag();
 
         return response()->json($post_review, 200);
     }

@@ -54,6 +54,7 @@ const options = {
         toolbar: toolbarOptions,
         "emoji-toolbar": true,
     },
+    scrollingContainer: '#scrolling-container', 
     placeholder: 'Viết nội dung đánh giá vào đây ...',
     theme: 'snow',
 

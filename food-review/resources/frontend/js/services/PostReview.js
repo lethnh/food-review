@@ -14,6 +14,21 @@ export default {
         }
     },
 
+    /**
+     * 
+     * @param {*} postReviewData 
+     */
+    async editPostReview(id, postReviewData) {
+        try {
+            let response = await axios.post(`/api/post-review/${id}`, postReviewData)
+            toastr.success("Chỉnh sửa bài viết thành công");
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
+    },
+
     async getPostReview(post_review_id) {
         try {
             let response = await axios.get(`/api/post-review/${post_review_id}`)

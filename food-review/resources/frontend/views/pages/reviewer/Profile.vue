@@ -48,80 +48,96 @@
         <b-card no-body>
           <b-tabs card>
             <b-tab title="Bài viết của tôi" active>
-              <div class="row">
-                <div class="col-12">
-                  <div
-                    class="post-item border-bottom"
-                    v-for="(post, index) in post_reviews.data"
-                    :key="index"
+              <div class="w-100">
+                <div
+                  class="post-item border-bottom"
+                  v-for="(post, index) in post_reviews.data"
+                  :key="index"
+                >
+                  <router-link
+                    v-if="post.feature_image !== null"
+                    :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
                   >
-                    <router-link
-                      v-if="post.feature_image !== null"
-                      :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
-                    >
-                      <img :src="post.feature_image" class="mr-3 img-fluid" alt="..." />
+                    <img :src="post.feature_image" class="img-fluid" alt="..." />
+                  </router-link>
+                  <router-link
+                    v-else
+                    :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
+                  >
+                    <img src="/images/noimage.png" class="img-fluid" alt="..." />
+                  </router-link>
+                  <div class="post-body col-7">
+                    <router-link :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
+                      <h5 class="text-justify">{{ post.title }}</h5>
                     </router-link>
-                    <router-link
-                      v-else
-                      :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
-                    >
-                      <img src="/images/noimage.png" class="mr-3 img-fluid" alt="..." />
-                    </router-link>
-                    <div class="post-body">
-                      <router-link :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
-                        <h5>{{ post.title }}</h5>
-                      </router-link>
-                      <div>{{ post.money | currency}}</div>
+                    <div>{{ post.money | currency}}</div>
+                    <div>
+                      <Rate :defaultValue="post.stars" allowHalf />
+                      <span>{{ post.stars }} sao</span>
+                    </div>
+                    <div class="action mt-2">
+                      <div class="mr-2">
+                        <i class="far fa-eye"></i>
+                        {{ post.total_view }}
+                      </div>
                       <div>
-                        <Rate :defaultValue="post.stars" allowHalf />
-                        <span>{{ post.stars }} sao</span>
+                        <i class="fas fa-comment-dots"></i>
+                        {{ post.totalComment }}
                       </div>
-                      <div class="action mt-2">
-                        <!-- <div>
-                          <i class="fas fa-thumbs-up"></i>
-                        </div>
-                        <div>
-                          <i class="fas fa-thumbs-down"></i>
-                        </div>-->
-                        <div class="mr-2">
-                          <i class="far fa-eye"></i>
-                          {{ post.total_view }}
-                        </div>
-                        <div>
-                          <i class="fas fa-comment-dots"></i>
-                          {{ post.totalComment }}
-                        </div>
-                      </div>
-                      <div></div>
                     </div>
-                    <div class="post-footer ml-auto">
-                      <router-link :to="{ name: 'editPostReview', params: { post_id: post.id }}">
-                        <i class="fas fa-edit text-dark"></i>
-                      </router-link>
-                      <i class="far fa-trash-alt text-dark"></i>
-                    </div>
+                    <div></div>
                   </div>
-                  <a-pagination
-                    v-show="post_reviews !== null"
-                    class="text-center mt-3"
-                    @change="onChange"
-                    :pageSize="post_reviews.per_page"
-                    :total="post_reviews.total"
-                  />
+                  <div class="post-footer ml-auto">
+                    <router-link
+                      :to="{ name: 'editPostReview', params: { post_id: post.id }}"
+                      class="btn btn-primary"
+                    >
+                      <span class="ladda-label">
+                        <i class="fas fa-edit text-white mr-1"></i>Chỉnh sửa
+                      </span>
+                    </router-link>
+                    <router-link
+                      :to="{ name: 'editPostReview', params: { post_id: post.id }}"
+                      class="btn btn-danger"
+                    >
+                      <span class="ladda-label">
+                        <i class="far fa-trash-alt text-white mr-1"></i>Xóa
+                      </span>
+                    </router-link>
+                  </div>
                 </div>
+                <a-pagination
+                  v-show="post_reviews !== null"
+                  class="text-center mt-3"
+                  @change="onChange"
+                  :pageSize="post_reviews.per_page"
+                  :total="post_reviews.total"
+                />
               </div>
             </b-tab>
             <b-tab title="Cập nhập thông tin">
+                <ValidationObserver
+      class="panel p-3 mb-0"
+      v-slot="{ passes }"
+      ref="postReviewForm"
+      tag="form"
+      @submit.prevent="postReview()"
+    >
               <form @submit.prevent="updateUser()">
                 <div class="row">
                   <div class="form-group col-6">
                     <label for>Email</label>
                     <input type="text" v-model="user.email" disabled class="form-control" />
                   </div>
-                  <div class="form-group col-6">
-                    <label for>Tên</label>
-                    <input type="text" v-model="user.name" class="form-control" />
-                  </div>
+                  <ValidationProvider name="name" rules="required" class="col-6">
+                    <div slot-scope="{ errors }">
+                      <div class="form-group">
+                        <label for>Tên</label>
+                        <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
+                        <input type="text" v-model="user.name" class="form-control" />
+                      </div>
+                    </div>
+                  </ValidationProvider>
                 </div>
                 <div class="row">
                   <div class="form-group col-6">
@@ -145,6 +161,7 @@
                 </div>
                 <button class="btn btn-primary">Cập nhập</button>
               </form>
+              </ValidationObserver>
             </b-tab>
             <b-tab title="Bình luận của tôi">
               <b-card-text>Tab Contents 2</b-card-text>
