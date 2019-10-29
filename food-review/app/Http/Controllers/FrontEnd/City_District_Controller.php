@@ -11,7 +11,7 @@ class City_District_Controller extends Controller
 {
     public function getCities()
     {
-        $cities = City::all();
+        $cities = City::with('districts')->get();
         return response()->json($cities, 200);
     }
 

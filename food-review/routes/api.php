@@ -45,7 +45,7 @@ Route::group([
     Route::delete('post-review/{id}/delete-image', 'FrontEnd\PostReview\EditPostReviewController@deleteImage');
 
     //Comment
-    
+
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
@@ -68,3 +68,4 @@ Route::get('post-review-latest-new', 'FrontEnd\PostReview\GetPostReviewControlle
 Route::get('post-review-has-many-comment', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopComment');
 Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopView');
 // Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
+Route::get('cities', 'FrontEnd\City_District_Controller@getCities');

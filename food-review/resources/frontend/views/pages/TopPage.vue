@@ -3,15 +3,15 @@
     <div class="d-flex mb-5 align-items-center">
       <div class="mr-2">Địa điểm:</div>
       <a-select
-        :defaultValue="provinceData[0]"
-        style="width: 120px"
+        style="width: 150px"
         class="mr-2"
+        :defaultValue="defaulValue"
         @change="handleProvinceChange"
       >
-        <a-select-option v-for="province in provinceData" :key="province">{{province}}</a-select-option>
+        <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
       </a-select>
-      <a-select v-model="secondCity" style="width: 120px">
-        <a-select-option v-for="city in cities" :key="city">{{city}}</a-select-option>
+      <a-select style="width: 150px" :defaultValue="defaulValue2">
+        <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
       </a-select>
     </div>
     <section>
@@ -118,18 +118,18 @@
 </template>
 <script>
 import ShopService from "../../js/services/Shop";
-const provinceData = ["Zhejiang", "Jiangsu"];
-const cityData = {
-  Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
-  Jiangsu: ["Nanjing", "Suzhou", "Zhenjiang"]
-};
+import CityService from "../../js/services/City";
 export default {
   data() {
     return {
-      provinceData,
-      cityData,
-      cities: cityData[provinceData[0]],
-      secondCity: cityData[provinceData[0]][0],
+      citiesData: {},
+      districtsData: {},
+      cities: {},
+      districts: {},
+      // cities: cityData[provinceData[0]],
+      // secondCity: districtsData[provinceData[0]][0],
+      defaulValue: "An Giang",
+      defaulValue2: "",
       shops: {},
       shop_post_review: {}
     };
@@ -137,8 +137,23 @@ export default {
   mounted() {
     // this.getListShop();
     this.getShopHasManyPostReview();
+    this.getCities();
   },
   methods: {
+    getCities() {
+      CityService.getCities().then(response => {
+        let cities = [];
+        let districts = [];
+        response.forEach(element => {
+          if (element["districts"]) {
+            districts.push(element["districts"]);
+          }
+          cities.push(element);
+        });
+        this.citiesData = cities;
+        this.districtsData = districts;
+      });
+    },
     async getListShop() {
       ShopService.getShops().then(response => {
         this.shops = response;
@@ -152,8 +167,8 @@ export default {
       });
     },
     handleProvinceChange(value) {
-      this.cities = cityData[value];
-      this.secondCity = cityData[value][0];
+      this.districts = this.districtsData[value - 1];
+      this.defaulValue2 = this.districtsData[value - 1][0];
     }
   }
 };

@@ -22,7 +22,6 @@ export default {
     },
     async likeComment(actionComment) {
         try {
-            debugger
             let response = await axios.post(`/api/comment/${actionComment.comment_id}/like`, actionComment)
             return response;
         } catch (error) {

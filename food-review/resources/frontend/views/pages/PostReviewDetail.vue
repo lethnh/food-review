@@ -74,15 +74,20 @@
                 <img src="/images/5.jpg" alt class="rounded" />
               </div>
               <div class="comment_content">
-                <div class="user_name">{{comment.user.name}}</div>
+                <div class="user_name ml-0">{{comment.user.name}}</div>
                 <div class="content">{{comment.content}}</div>
                 <div class="action">
+                  {{comment.total_likes}}
                   <a
-                    href
-                    @click.prevent="likeComment(comment.id)"
-                    :class="{'text-blue': like === true}"
+                    v-bind:class="styleLike(comment.likes,userStore.authUser.user_info.id)"
+                    @click.prevent="likeComment(comment.id,1)"
                   >Thích</a>
-                  <a href @click.prevent="likeComment(comment.id)">Không thích</a>
+                  <!-- :class="{'text-blue': auth_id =  }" -->
+                  {{comment.total_dislikes}}
+                  <a
+                    v-bind:class="styleDisLike(comment.likes,userStore.authUser.user_info.id)"
+                    @click.prevent="likeComment(comment.id,-1)"
+                  >Không thích</a>
                 </div>
               </div>
             </div>
@@ -92,11 +97,19 @@
                   <img src="/images/5.jpg" alt class="rounded" />
                 </div>
                 <div class="comment_content">
-                  <div class="user_name">{{item.user.name}}</div>
+                  <div class="user_name ml-0">{{item.user.name}}</div>
                   <div class="content">{{item.content}}</div>
                   <div class="action">
-                    <a href>Thích</a>
-                    <a href>Không thích</a>
+                    {{item.total_likes}}
+                    <a
+                      v-bind:class="styleLike(item.likes,userStore.authUser.user_info.id)"
+                      @click.prevent="likeComment(item.id,1)"
+                    >Thích</a>
+                    {{item.total_dislikes}}
+                    <a
+                      v-bind:class="styleDisLike(item.likes,userStore.authUser.user_info.id)"
+                      @click.prevent="likeComment(item.id,-1)"
+                    >Không thích</a>
                   </div>
                 </div>
               </div>
@@ -174,6 +187,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import PostReviewServices from "../../js/services/PostReview";
 import CommentServices from "../../js/services/Comment";
 export default {
@@ -189,7 +203,7 @@ export default {
         status: null,
         comment_id: null
       },
-      comments: [],
+      comments: {},
       commentData: {
         content: "",
         post_review_id: this.$route.params.post_id,
@@ -225,12 +239,12 @@ export default {
         this.comments = response.data;
       });
     },
-    likeComment(comment_id) {
-      this.actionComment.status = 1;
+    likeComment(comment_id, status) {
+      this.actionComment.status = status;
       this.actionComment.comment_id = comment_id;
       CommentServices.likeComment(this.actionComment).then(response => {
         if (response) {
-          this.like = true;
+          this.getComment();
         }
       });
     },
@@ -243,8 +257,26 @@ export default {
         this.commentData.content = "";
         this.getComment();
       });
+    },
+    styleLike(like, user_id) {
+      for (let index = 0; index < like.length; index++) {
+        if (like[index]["user_id"] === user_id && like[index]["status"] === 1) {
+          return "text-blue";
+        }
+      }
+    },
+    styleDisLike(dislike, user_id) {
+      for (let index = 0; index < dislike.length; index++) {
+        if (
+          dislike[index]["user_id"] === user_id &&
+          dislike[index]["status"] === -1
+        ) {
+          return "text-danger";
+        }
+      }
     }
-  }
+  },
+  computed: mapState(["userStore"])
 };
 </script>
 
@@ -277,6 +309,10 @@ export default {
 }
 .text-blue {
   color: rgb(32, 120, 244) !important;
+  font-weight: 800 !important;
+}
+.text-danger {
+  color: #e3342f !important;
   font-weight: 800 !important;
 }
 </style>

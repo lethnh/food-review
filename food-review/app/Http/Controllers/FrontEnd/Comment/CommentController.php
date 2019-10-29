@@ -30,9 +30,14 @@ class CommentController extends Controller
     public function getCommentByPostReview(Request $request, $id)
     {
         try {
-            $comments = Comment::where('post_review_id', $id)->where('parent_id', 0)->with('user:id,name')->with(['sub_comment' => function ($query) {
-                $query->with('user:id,name');
-            }])->get();
+            $comments = Comment::where('post_review_id', $id)
+                ->where('parent_id', 0)
+                ->with('user:id,name')->with(['sub_comment' => function ($query) {
+                    $query->with('user:id,name');
+                }])
+                ->with(['likes' => function ($query) {
+                    $query->whereIn('status', [1, -1]);
+                }])->get();
             return response()->json($comments, 200);
         } catch (\Throwable $th) {
             return response()->json($th);
