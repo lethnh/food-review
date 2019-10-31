@@ -6,7 +6,9 @@ Vue.use(VueRouter)
 // import layout
 import BasicLayout from './views/layouts/BasicLayout.vue'
 
-import Demo from './views/pages/Demo.vue'
+import User from './views/pages/User.vue'
+import PostReview from './views/pages/PostReview.vue'
+import Shop from './views/pages/Shop.vue'
 
 
 const router = new VueRouter({
@@ -16,14 +18,22 @@ const router = new VueRouter({
             path: '/admin',
             component: BasicLayout,
             children: [{
-                path: 'demo',
-                component: Demo,
-                name: 'homepage'
+                path: 'user',
+                component: User,
+                name: 'user'
+            }, {
+                path: 'post-review',
+                component: PostReview,
+                name: 'postReview'
+            }, {
+                path: 'shop',
+                component: Shop,
+                name: 'shop'
             }]
         },
         {
             path: '*',
-            component: Demo
+            // component: Demo
         }
     ],
 });

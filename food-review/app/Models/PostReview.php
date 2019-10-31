@@ -23,6 +23,11 @@ class PostReview extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shop_id', 'id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'post_review_id', 'id');

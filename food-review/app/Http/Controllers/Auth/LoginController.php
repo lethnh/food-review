@@ -82,6 +82,7 @@ class LoginController extends Controller
                 $token->expires_at = Carbon::now()->addMinutes(1);
             }
             $token->save();
+            $expiration = $tokenResult->token->expires_at->diffInSeconds(Carbon::now());
 
             return response()->json([
                 'user_info' => $user,

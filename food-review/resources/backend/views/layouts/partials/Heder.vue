@@ -60,18 +60,6 @@
               <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
                 <span class="flag-icon flag-icon-gb"></span> English
               </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-fr"></span> French
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-cn"></span> Chinese
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-de"></span> German
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-nl"></span> Dutch
-              </a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -84,27 +72,20 @@
               role="button"
             >
               <span class="avatar avatar-online">
-                <img src alt="..." />
+                <img src="/images/5.jpg" alt="..." />
                 <i></i>
+              </span>
+              <span>
+                Admin
               </span>
             </a>
             <div class="dropdown-menu" role="menu">
               <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <i class="icon wb-user" aria-hidden="true"></i> Profile
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <i class="icon wb-payment" aria-hidden="true"></i> Billing
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <i class="icon wb-settings" aria-hidden="true"></i> Settings
-              </a>
-              <div class="dropdown-divider" role="presentation"></div>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <i class="icon wb-power" aria-hidden="true"></i> Logout
+                <i class="fas fa-cog"></i>  Cài đặt
               </a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link"
               data-toggle="dropdown"
@@ -220,8 +201,8 @@
                 <a class="dropdown-item" href="javascript:void(0)" role="menuitem">All notifications</a>
               </div>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link"
               data-toggle="dropdown"
@@ -323,8 +304,8 @@
                 <a class="dropdown-item" href="javascript:void(0)" role="menuitem">See all messages</a>
               </div>
             </div>
-          </li>
-          <li class="nav-item" id="toggleChat">
+          </li>-->
+          <!-- <li class="nav-item" id="toggleChat">
             <a
               class="nav-link"
               data-toggle="site-sidebar"
@@ -334,7 +315,7 @@
             >
               <i class="icon wb-chat" aria-hidden="true"></i>
             </a>
-          </li>
+          </li>-->
         </ul>
         <!-- End Navbar Toolbar Right -->
       </div>
@@ -349,58 +330,3 @@
 <script>
 export default {};
 </script>
-<style lang="css">
-.site-navbar {
-  background-color: #3e8ef7;
-}
-.navbar-default {
-  background-color: #fff;
-  border-color: #e4eaec;
-}
-.navbar-fixed-top {
-  width: 100%;
-}
-.navbar {
-  min-height: 4.715rem;
-  padding: 0;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-}
-.navbar-fixed-top {
-  top: 0;
-}
-.navbar-fixed-bottom,
-.navbar-fixed-top {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 1500;
-}
-@media (min-width: 768px) {
-  .navbar-right {
-    float: right;
-    margin-right: -1.0715rem;
-  }
-}
-@media (min-width: 768px) {
-  .site-menubar-unfold .site-navbar .navbar-container {
-    margin-left: 0;
-  }
-}
-@media (min-width: 480px) {
-  .navbar-mega .container,
-  .navbar-mega .container-fluid {
-    position: relative;
-  }
-}
-.navbar>.container, .navbar>.container-fluid {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-</style>

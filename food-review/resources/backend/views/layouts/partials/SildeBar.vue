@@ -10,14 +10,14 @@ export default {
         {
           title: "Người dùng",
           icon: "fas fa-users",
-          href: "/admin/category"
+          href: "/admin/user"
         },
         {
           title: "Bài viết",
           icon: "fas fa-mail-bulk",
           child: [
             {
-              href: "/admin/product",
+              href: "/admin/post-review",
               title: "Danh sách"
             },
             {

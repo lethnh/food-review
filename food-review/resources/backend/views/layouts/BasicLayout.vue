@@ -2,10 +2,8 @@
   <div class="template-container">
     <slide-header></slide-header>
     <slide-bar></slide-bar>
-    <div class="content page">
-      <div class="container m-b-50">
+    <div class="page">
         <router-view></router-view>
-      </div>
     </div>
     <!-- Footer -->
     <!-- <site-footer></site-footer> -->

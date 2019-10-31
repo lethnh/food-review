@@ -7,10 +7,17 @@
 import Vue from 'vue'
 require('./bootstrap');
 import router from '../router'
+import {
+    TableComponent,
+    TableColumn
+} from 'vue-table-component'
 window.Vue = require('vue');
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 
+
+Vue.component('table-component', TableComponent);
+Vue.component('table-column', TableColumn);
 
 Vue.use(VueSidebarMenu)
 
@@ -25,7 +32,14 @@ Vue.use(VueSidebarMenu)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
+global.route = function (name, params = {}, query = {}) {
+    return router.resolve({
+        name: name,
+        params: params,
+        query: query,
+    })
+}
+Vue.prototype.route = global.route;
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\PostReview;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class GetUserController extends Controller
@@ -20,9 +22,18 @@ class GetUserController extends Controller
     }
 
     public function getPostReview()
-    {   
+    {
         $user_id = Auth::id();
         $post_review = PostReview::where('user_id', $user_id)->orderBy('created_at')->paginate(5);
         return response()->json($post_review, 200);
+    }
+
+    public function getUsers()
+    {
+        $users = DB::table('users')->join('cities', 'users.city_id', '=', 'cities.id')
+        ->select('users.*', 'cities.name as city_name')
+        ->paginate(5);
+        // $users = User::with('city')->paginate(5);
+        return response()->json($users, 200);
     }
 }

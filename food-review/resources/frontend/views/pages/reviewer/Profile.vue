@@ -245,6 +245,7 @@ import { mapState } from "vuex";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import AuthServices from "../../../js/services/Auth";
+import PostReviewServices from "../../../js/services/PostReview";
 export default {
   data() {
     return {
@@ -329,6 +330,33 @@ export default {
         });
       }
     },
+    deletePostReview() {
+      Swal.fire({
+        title: "Bạn muốn thay đổi ảnh đại diện không ?",
+        type: "warning",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Quay lại",
+        showCloseButton: true
+      }).then(result => {
+        if (result.value) {
+          PostReviewServices.deletePostReview(data).then(response => {
+            if (response) {
+              Swal.fire({
+                type: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            } else {
+              Swal("Xin lỗi", "Cập nhật thất bại", "error");
+            }
+          });
+        }
+      });
+    },
+
     onChange(current) {
       this.getMyPostReview(current);
     },

@@ -69,3 +69,20 @@ Route::get('post-review-has-many-comment', 'FrontEnd\PostReview\GetPostReviewCon
 Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopView');
 // Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
+
+Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
+
+
+
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+
+    Route::get('admin/user', 'Auth\GetUserController@getUsers');
+
+    Route::get('admin/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
+
+    Route::get('admin/shop', 'BackEnd\Shop\ShopController@getShops');
+
+    Route::post('admin/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
+});

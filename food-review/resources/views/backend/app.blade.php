@@ -23,9 +23,12 @@
         @yield('styles')
     </head>
 
-    <body class="animsition">
-        <div id="app2" class="page">
-                <router-view></router-view>
+    <body class="dashboard site-menubar-unfold">
+        <div id="app2" style="    position: relative;
+        min-height: calc(100% - 44px);
+        background: #f1f4f5;
+    }">
+            <router-view></router-view>
         </div>
 
         <!-- Scripts -->
