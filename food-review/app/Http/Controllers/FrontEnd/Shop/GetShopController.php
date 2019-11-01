@@ -20,7 +20,7 @@ class GetShopController extends Controller
         return response()->json($shop_post_review, 200);
     }
 
-    public function getShopHasPostReviewInWWeek()
+    public function getShopHasPostReviewInDay()
     {
         $shop_post_review = Shop::with('city:id,name', 'district:id,name,city_id')->withCount('postReviews')->orderBy('post_reviews_count', 'DESC')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
         return response()->json($shop_post_review, 200);

@@ -20,6 +20,7 @@ import Profile from './views/pages/reviewer/Profile.vue'
 import CreatePostReview from './views/pages/reviewer/CreatePostReview.vue'
 import EditPostReview from './views/pages/reviewer/EditPostReview.vue'
 import PostReviewDetail from './views/pages/PostReviewDetail.vue'
+import ResultSearch from './views/pages/ResultSearch.vue'
 import NotFound from './views/pages/errors/NotFound.vue'
 
 const router = new VueRouter({
@@ -58,11 +59,17 @@ const router = new VueRouter({
             path: '/',
             component: BasicLayout3,
             children: [{
+                    meta: {
+                        requiresAuth: true,
+                    },
                     path: 'profile',
                     component: Profile,
                     name: 'profile'
                 },
                 {
+                    meta: {
+                        requiresAuth: true,
+                    },
                     path: 'review',
                     component: CreatePostReview,
                     name: 'createPostReview'
@@ -73,6 +80,9 @@ const router = new VueRouter({
                     name: 'postReviewDetail'
                 },
                 {
+                    meta: {
+                        requiresAuth: true,
+                    },
                     path: 'edit/post-review/:post_id',
                     component: EditPostReview,
                     name: 'editPostReview'
@@ -81,6 +91,11 @@ const router = new VueRouter({
                     path: 'shop/:shop_id',
                     component: ShopDetail,
                     name: 'shopDetail'
+                },
+                {
+                    path: 'search',
+                    component: ResultSearch,
+                    name: 'resultSearch'
                 },
 
             ]

@@ -1058,6 +1058,26 @@ input[type="date"i] {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
+.panel-heading {
+    border-top-left-radius: 0.214rem;
+    border-top-right-radius: 0.214rem;
+    position: relative;
+    padding: 0;
+    border-bottom: 1px solid transparent;
+}
+
+.panel-bordered>.panel-heading {
+    border-bottom: 1px solid #e4eaec;
+}
+
+.panel-body {
+    position: relative;
+    padding: 30px 30px;
+}
+
+.panel-bordered > .panel-body {
+    padding-top: 30px;
+}
 
 
 // home page

@@ -77,5 +77,15 @@ export default {
             console.log(error);
             toastr.error('error')
         }
-    }
+    },
+    async searchText(params) {
+        try {
+            let response = await axios.get("/api/search", {
+                params: params
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Error", error.message);
+        }
+    },
 }

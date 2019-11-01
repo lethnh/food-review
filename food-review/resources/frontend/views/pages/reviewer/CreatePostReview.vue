@@ -49,6 +49,7 @@
         ></b-form-radio-group>
       </div>
       <!--  -->
+         <TravelMap class="travel-map" />
       <div v-if="isShow">
         <div class="form-group">
           <label>Tên nhà hàng</label>
@@ -146,6 +147,7 @@
   </ValidationProvider>
 </template>
 <script>
+import TravelMap from "../../js/components/TravelMap";
 import PostReviewService from "../../../js/services/PostReview";
 import ShopService from "../../../js/services/Shop";
 import vue2Dropzone from "vue2-dropzone";
@@ -158,7 +160,8 @@ import moment from "moment";
 export default {
   components: {
     vueDropzone: vue2Dropzone,
-    VueTagsInput
+    VueTagsInput,
+    TravelMap,
   },
   data() {
     return {

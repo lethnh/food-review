@@ -73,6 +73,9 @@ Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 
 
+Route::get('search', 'FrontEnd\SearchController@postSearch');
+
+
 
 Route::group([
     'middleware' => 'auth:api'

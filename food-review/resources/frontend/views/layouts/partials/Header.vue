@@ -63,13 +63,20 @@
             <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
           </div>
           <div class="flex-w ml-auto" v-if="userStore.authUser !== null">
-            <form class="form-search form-inline my-2 my-lg-0 position-relative">
+            <form
+              class="form-search form-inline my-2 my-lg-0 position-relative"
+              v-on:submit.prevent="passingValue()"
+            >
               <input
                 class="form-control mr-sm-2"
                 type="search"
                 placeholder="Tìm kiếm..."
+                v-model="searchText"
                 aria-label="Search"
               />
+              <a-select style="width: 150px" class="mr-2" @change="handleProvinceChange">
+                <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
+              </a-select>
             </form>
             <li class="nav-item dropdown">
               <a
@@ -113,8 +120,39 @@
 import { mapState } from "vuex";
 import Ls from "../../../js/services/Ls";
 import AuthService from "../../../js/services/Auth";
+import CityService from "../../../js/services/City";
 export default {
+  data() {
+    return {
+      searchText: "",
+      city_id: null,
+      citiesData: {}
+    };
+  },
+  mounted() {
+    this.getCities();
+  },
   methods: {
+    getCities() {
+      CityService.getCities().then(response => {
+        // if (response.status === 200) {
+        this.citiesData = response;
+        // this.districtsData = districts;
+        // }
+      });
+    },
+    passingValue() {
+      this.$router.push({
+        name: "resultSearch",
+        query: { searchText: this.searchText, city_id: this.city_id !== null ? this.city_id : 'null' }
+      });
+      // this.location.reload();
+      // Post.listPost({ city_id: this.city_id, title: this.title }).then(
+      //   response => {
+      //     this.posts = response;
+      // }
+      // );
+    },
     logout() {
       AuthService.logout().then(response => {
         Ls.remove("authUser");
@@ -123,6 +161,10 @@ export default {
           name: "toppage"
         });
       });
+    },
+    handleProvinceChange(value) {
+      this.city_id = value;
+      this.passingValue();
     }
   },
   computed: mapState(["userStore"])
