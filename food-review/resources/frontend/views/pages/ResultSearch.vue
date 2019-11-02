@@ -1,5 +1,19 @@
 <template>
   <div class="row">
+      <div class="d-flex col-12 p-2 align-items-center panel">
+      <div class="mr-2">Lọc:</div>
+      <a-select
+        style="width: 200px"
+        class="mr-2"
+        :defaultValue="defaulValue"
+        @change="handleProvinceChange"
+      >
+        <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
+      </a-select>
+      <a-select style="width: 200px" :defaultValue="defaulValue2">
+        <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
+      </a-select>
+    </div>
     <div class="col-6">
       <div class="panel panel-bordered">
         <div class="panel-heading">

@@ -18,9 +18,12 @@ import TimePicker from "ant-design-vue/lib/time-picker";
 import Rate from "ant-design-vue/lib/rate";
 import Select from 'ant-design-vue/lib/select';
 import Carousel from 'ant-design-vue/lib/carousel';
-
+import VueLoading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 import Pagination from 'ant-design-vue/lib/pagination';
 import "ant-design-vue/lib/pagination/style/css";
+
 import "ant-design-vue/lib/carousel/style/css";
 import "ant-design-vue/lib/select/style/css";
 import "ant-design-vue/lib/time-picker/style/css";
@@ -47,37 +50,49 @@ Vue.use(VueCurrencyFilter, {
     symbolPosition: 'front',
     symbolSpacing: true
 })
-const pluginOptions = {
-    /* see config reference */
-}
+
+let config = {
+    // props
+    color: '#000000',
+    isFullPage: 'true',
+    width: 75,
+    height: 85,
+    opacity: 0.5,
+    zIndex: 999,
+    backgroundColor: '#808080',
+    loader: 'spinner',
+
+};
+
+Vue.component('loading', VueLoading);
 
 import * as VueGoogleMaps from 'vue2-google-maps'
- 
+
 Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyDC4X1rsM5q_r53_iL9hqFC3ctzsQD7HEc',
-    libraries: 'places', // This is required if you use the Autocomplete plugin
-    // OR: libraries: 'places,drawing'
-    // OR: libraries: 'places,drawing,visualization'
-    // (as you require)
- 
-    //// If you want to set the version, you can do so:
-    // v: '3.26',
-  },
- 
-  //// If you intend to programmatically custom event listener code
-  //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
-  //// instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
-  //// you might need to turn this on.
-  // autobindAllEvents: false,
- 
-  //// If you want to manually install components, e.g.
-  //// import {GmapMarker} from 'vue2-google-maps/src/components/marker'
-  //// Vue.component('GmapMarker', GmapMarker)
-  //// then disable the following:
-  // installComponents: true,
+    load: {
+        key: 'AIzaSyDC4X1rsM5q_r53_iL9hqFC3ctzsQD7HEc',
+        libraries: 'places', // This is required if you use the Autocomplete plugin
+        // OR: libraries: 'places,drawing'
+        // OR: libraries: 'places,drawing,visualization'
+        // (as you require)
+
+        //// If you want to set the version, you can do so:
+        // v: '3.26',
+    },
+
+    //// If you intend to programmatically custom event listener code
+    //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
+    //// instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
+    //// you might need to turn this on.
+    // autobindAllEvents: false,
+
+    //// If you want to manually install components, e.g.
+    //// import {GmapMarker} from 'vue2-google-maps/src/components/marker'
+    //// Vue.component('GmapMarker', GmapMarker)
+    //// then disable the following:
+    // installComponents: true,
 })
-Vue.use(VueCurrencyInput, pluginOptions)
+Vue.use(VueCurrencyInput)
 window.Vue = require('vue');
 
 /**

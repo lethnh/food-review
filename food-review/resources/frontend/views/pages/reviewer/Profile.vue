@@ -1,5 +1,14 @@
 <template>
   <div class="row page-profile">
+      <loading
+      :active.sync="isLoading"
+      :color="color"
+      :width="width"
+      :height="height"
+      :isFullPage="isFullPage"
+      :backgroundColor="backgroundColor"
+      :opactiy="opacity"
+    ></loading>
     <section class="col-3">
       <div class="card card-shadow text-center">
         <div class="card-block">
@@ -47,7 +56,7 @@
       <div class="panel">
         <b-card no-body>
           <b-tabs card>
-            <b-tab title="Bài viết của tôi" active>
+            <b-tab title="Bài viết của tôi" active >
               <div class="w-100">
                 <div
                   class="post-item border-bottom"
@@ -90,7 +99,7 @@
                   <div class="post-footer ml-auto">
                     <router-link
                       :to="{ name: 'editPostReview', params: { post_id: post.id }}"
-                      class="btn btn-primary"
+                      class="btn btn-primary" style="font-size:13px"
                     >
                       <span class="ladda-label">
                         <i class="fas fa-edit text-white mr-1"></i>Chỉnh sửa
@@ -98,7 +107,7 @@
                     </router-link>
                     <router-link
                       :to="{ name: 'editPostReview', params: { post_id: post.id }}"
-                      class="btn btn-danger"
+                      class="btn btn-danger" style="font-size:13px"
                     >
                       <span class="ladda-label">
                         <i class="far fa-trash-alt text-white mr-1"></i>Xóa
@@ -249,6 +258,16 @@ import PostReviewServices from "../../../js/services/PostReview";
 export default {
   data() {
     return {
+         color: "#267BFF",
+      isFullPage: true,
+      width: 75,
+      height: 85,
+      opacity: 0.5,
+      zIndex: 999,
+      backgroundColor: "#808080",
+      loader: "dots",
+
+      isLoading: false,
       user: {},
       post_reviews: {},
       comments: {},
@@ -262,17 +281,23 @@ export default {
   },
   methods: {
     async getUser() {
+      this.isLoading = true;
       AuthServices.getUser().then(response => {
+           this.isLoading = false;
         this.user = response;
       });
     },
     async getMyPostReview(current) {
+         this.isLoading = true;
       AuthServices.getMyPostReview(current).then(response => {
+           this.isLoading = false;
         this.post_reviews = response;
       });
     },
     async getMyComment(current) {
+         this.isLoading = true;
       AuthServices.getMyComment(current).then(response => {
+           this.isLoading = false;
         this.comments = response;
       });
     },

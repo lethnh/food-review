@@ -9,6 +9,7 @@ body,
 html,
 .site-wrapper,
 .template-container {
+    font-family: 'Roboto', sans-serif;
     height: 100%;
     font-weight: 400;
 }
@@ -23,7 +24,7 @@ html,
 /* ------------------------------------ */
 a {
     font-weight: 400;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.7;
     margin: 0px;
     transition: all 0.4s;
@@ -477,11 +478,10 @@ input[type="date"i] {
 }
 
 .main_menu>li>a {
-
     font-weight: 400;
     font-size: 14px;
     text-transform: uppercase;
-    color: white;
+    color: #222222;
     padding: 15px;
 }
 
@@ -1049,6 +1049,7 @@ input[type="date"i] {
     color: #ffffff;
 }
 
+
 .panel {
     position: relative;
     margin-bottom: 2.143rem;
@@ -1075,16 +1076,15 @@ input[type="date"i] {
     padding: 30px 30px;
 }
 
-.panel-bordered > .panel-body {
+.panel-bordered>.panel-body {
     padding-top: 30px;
 }
-
 
 // home page
 .list-shops {
     .card-title {
-        font-size: 1.25rem;
-        font-weight: 800;
+        font-size: 1rem;
+        font-weight: 600;
         color: #299EFF;
     }
 
@@ -1126,4 +1126,9 @@ input[type="date"i] {
     p {
         font-size: 0.858rem;
     }
+}
+
+.section-title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }

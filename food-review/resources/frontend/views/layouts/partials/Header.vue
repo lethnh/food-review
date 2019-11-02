@@ -8,7 +8,7 @@
           <div class="logo">
             <router-link to="/toppage">
               <img
-                src="/images/icon/logo.png"
+                src="/images/icon/logo2.png"
                 alt="IMG-LOGO"
                 data-logofixed="/images/icon/logo2.png"
               />
@@ -26,6 +26,9 @@
                   <router-link to="/timeline">Bài viết</router-link>
                 </li>
                 <li>
+                  <a href="contact.html">Về chúng tôi</a>
+                </li>
+                <li>
                   <a href="contact.html">Liên hệ</a>
                 </li>
               </ul>
@@ -41,22 +44,6 @@
                 placeholder="Tìm kiếm..."
                 aria-label="Search"
               />
-              <!-- <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="search"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                class="svg-inline--fa fa-search fa-w-16 fa-fw position-absolute"
-              >
-                <path
-                  fill="currentColor"
-                  d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
-                  class
-                />
-              </svg>-->
             </form>
             <router-link to="register" class="btn btn-outline-light">Đăng ký</router-link>
             <router-link to="login" class="m-l-10 btn btn-outline-light">Đăng nhập</router-link>
@@ -69,15 +56,37 @@
             >
               <input
                 class="form-control mr-sm-2"
+                style="height:34px;padding-right: 36px;"
                 type="search"
                 placeholder="Tìm kiếm..."
                 v-model="searchText"
                 aria-label="Search"
               />
-              <a-select style="width: 150px" class="mr-2" @change="handleProvinceChange">
+              <i class="fas fa-search text-custom" aria-hidden="true"></i>
+              <!-- <a-select
+                style="width: 150px"
+                class="mr-2"
+                placeholder="Chọn tỉnh thành"
+                @change="handleProvinceChange"
+              >
                 <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
-              </a-select>
+              </a-select>-->
             </form>
+            <!-- <button class="text-custom">
+              <i class="fas fa-search text-white" style="font-size:15px"></i>
+            </button>-->
+            <!-- <form class="form-inline md-form form-sm active-cyan-2 mt-2">
+              <input
+                v-if="isShow"
+                class="form-control form-control-sm mr-3 w-75"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                style="border: none;
+    border-bottom: 1px solid #ced4da;"
+              />
+              <i class="fas fa-search text-custom text-white" @click="show" aria-hidden="true"></i>
+            </form>-->
             <li class="nav-item dropdown">
               <a
                 class="nav-link navbar-avatar d-flex align-items-center"
@@ -97,12 +106,15 @@
                 </span>
                 <div class="user_name">{{userStore.authUser.user_info.name}}</div>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" role="menu">
+              <div class="dropdown-menu dropdown-menu-right">
                 <router-link to="/profile" class="dropdown-item">
                   <i class="fas fa-user"></i> Thông tin cá nhân
                 </router-link>
                 <router-link to="/review" class="dropdown-item">
                   <i class="fas fa-plus"></i> Viết bài đánh giá
+                </router-link>
+                <router-link to="/review" class="dropdown-item">
+                  <i class="fas fa-plus"></i> Đổi mật khẩu
                 </router-link>
                 <div class="dropdown-divider" role="presentation"></div>
                 <a class="dropdown-item" @click="logout()">
@@ -144,7 +156,10 @@ export default {
     passingValue() {
       this.$router.push({
         name: "resultSearch",
-        query: { searchText: this.searchText, city_id: this.city_id !== null ? this.city_id : 'null' }
+        query: {
+          searchText: this.searchText,
+          city_id: this.city_id !== null ? this.city_id : "null"
+        }
       });
       // this.location.reload();
       // Post.listPost({ city_id: this.city_id, title: this.title }).then(
@@ -165,6 +180,12 @@ export default {
     handleProvinceChange(value) {
       this.city_id = value;
       this.passingValue();
+    },
+    scroll() {
+      window.scroll({
+        top: 100,
+        behavior: "smooth"
+      });
     }
   },
   computed: mapState(["userStore"])
@@ -172,13 +193,12 @@ export default {
 </script>
 <style lang="css">
 .wrap-menu-header {
-  background-color: rgb(16, 11, 17);
+  color: #222222;
+  background-color: white;
+  /* background-image: linear-gradient(250deg, #dd512a, #ff734c); */
 }
 .form-search svg {
   right: 20px;
-}
-.form-search input {
-  border-color: black;
 }
 .avatar {
   position: relative;
@@ -199,8 +219,15 @@ export default {
 .header-fixed .avatar {
   color: #222222;
 }
+.header-fixed .text-custom {
+  color: black !important;
+}
+.text-custom {
+  position: absolute;
+  right: 20px;
+}
 .user_name {
-  color: white;
+  color: #222222;
   margin-left: 10px;
 }
 .header-fixed .user_name {

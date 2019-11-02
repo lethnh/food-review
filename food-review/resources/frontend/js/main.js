@@ -24,7 +24,7 @@
             window.location.href = url;
         }
     });
-    $(document).keypress(
+    $('form[ref=postReviewForm]').keypress(
         function (event) {
             if (event.which == '13') {
                 event.preventDefault();

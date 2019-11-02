@@ -1,9 +1,21 @@
 <template>
   <div>
+    <loading
+      :active.sync="isLoading"
+      :color="color"
+      :width="width"
+      :height="height"
+      :isFullPage="isFullPage"
+      :backgroundColor="backgroundColor"
+      :opactiy="opacity"
+    ></loading>
     <div class="row">
       <div class="col-8">
-        <div class="bg-white p-2">
-          <h4 class="pb-2" style="border-bottom: 5px solid lightgray;">Dòng thời gian</h4>
+        <div class="p-2">
+              <div class="bg-white mb-2 section-title">
+           <h4 class="p-2">Dòng thời gian</h4>
+           </div>
+           <div class="bg-white p-2">
           <div
             class="post-item border-bottom"
             v-for="(post, index) in post_reviews.data"
@@ -24,7 +36,7 @@
               </router-link>
               <div>{{ post.money | currency}}</div>
               <div>
-                <Rate v-model="post.stars" disable />
+                <Rate v-model="post.stars" disabled />
                 <span>{{ post.stars }} sao</span>
               </div>
               <div class="action">
@@ -54,11 +66,14 @@
             :total="post_reviews.total"
           />
         </div>
+        </div>
       </div>
-      <div class="col-4 bg-white">
-        <div>
-          <h4 class="py-2" style="border-bottom: 5px solid lightgray;">Lượt xem nhiều nhất</h4>
-          <div class="list-post-review-top-view row">
+      <div class="col-4">
+        <div class="bg-white row mb-2 section-title">
+          <h4 class="px-2 pt-2">Lượt xem nhiều nhất</h4>
+        </div>
+        <div class="">
+          <div class="list-post-review-top-view row bg-white pt-2">
             <div
               class="post-item border-bottom col-6"
               v-for="(post, index) in post_review_view"
@@ -104,8 +119,10 @@
           </div>
         </div>
         <div>
-          <h4 class="py-2" style="border-bottom: 5px solid lightgray;">Bình luận nhiều nhất</h4>
-          <div class="list-post-review-top-view row">
+              <div class="bg-white row mb-2 section-title">
+              <h4 class="px-2 pt-2">Bình luận nhiều nhất</h4>
+              </div>
+          <div class="list-post-review-top-view row bg-white">
             <div
               class="post-item border-bottom col-6"
               v-for="(post, index) in post_review_comment"
@@ -154,6 +171,16 @@ import PostReviewService from "../../js/services/PostReview.js";
 export default {
   data() {
     return {
+      color: "#267BFF",
+      isFullPage: true,
+      width: 75,
+      height: 85,
+      opacity: 0.5,
+      zIndex: 999,
+      backgroundColor: "#808080",
+      loader: "dots",
+
+      isLoading: false,
       post_reviews: {
         data: {}
       },
@@ -168,8 +195,10 @@ export default {
   },
   methods: {
     async getPostReviewLatestNew(page) {
+      this.isLoading = true;
       PostReviewService.getPostReviewLatestNew(page).then(response => {
         // if (response.status === 200) {
+        this.isLoading = false;
         this.post_reviews = response;
         // }
       });
@@ -178,17 +207,21 @@ export default {
       this.getPostReviewLatestNew(current);
     },
     async getPostReviewHasManyComment() {
+      this.isLoading = true;
       PostReviewService.getPostReviewHasManyComment().then(response => {
         console.log(response);
         if (response.status === 200) {
+          this.isLoading = false;
           this.post_review_comment = response.data;
         }
       });
     },
     async getPostReviewHasManyView() {
+      this.isLoading = true;
       PostReviewService.getPostReviewHasManyView().then(response => {
         console.log(response);
         if (response.status === 200) {
+          this.isLoading = false;
           this.post_review_view = response.data;
         }
       });

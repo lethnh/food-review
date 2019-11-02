@@ -1,25 +1,34 @@
 <template>
   <div>
-    <div class="d-flex mb-5 align-items-center">
-      <div class="mr-2">Địa điểm:</div>
+    <loading
+      :active.sync="isLoading"
+      :color="color"
+      :width="width"
+      :height="height"
+      :isFullPage="isFullPage"
+      :backgroundColor="backgroundColor"
+      :opactiy="opacity"
+    ></loading>
+    <div class="d-flex p-2 align-items-center panel">
+      <div class="mr-2">Lọc:</div>
       <a-select
-        style="width: 150px"
+        style="width: 200px"
         class="mr-2"
         :defaultValue="defaulValue"
         @change="handleProvinceChange"
       >
         <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
       </a-select>
-      <a-select style="width: 150px" :defaultValue="defaulValue2">
+      <a-select style="width: 200px" :defaultValue="defaulValue2">
         <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
       </a-select>
     </div>
     <section>
-      <div class="section-title">
-        <h4 class="pb-2" style="border-bottom: 5px solid lightgray;">Cửa hàng review nhiều nhất</h4>
+      <div class="section-title bg-white">
+        <h4 class="p-2" style>Cửa hàng review nhiều nhất</h4>
       </div>
       <div class="section-content m-t-20">
-        <div class="list-shops">
+        <div class="list-shops panel">
           <div class="row">
             <div class="col-3" v-for="(shop, index) in shop_post_review" :key="index">
               <b-card
@@ -27,14 +36,14 @@
                 img-alt="Image"
                 img-top
                 tag="article"
-                class="mb-2 shadow"
+                class="shadow"
               >
                 <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
-                  <h4 class="card-title">{{ shop.name }}</h4>
+                  <h6 class="card-title">{{ shop.name }}</h6>
                 </router-link>
                 <div class="d-flex align-items-center">
                   <div class="shop-rate">
-                    <Rate v-model="shop.stars" disable allowHalf />
+                    <Rate disabled v-model="shop.stars" allowHalf />
                     <span>{{ shop.stars }}</span>
                   </div>
                   <div class="ml-3 shop-comment ml-auto">
@@ -64,11 +73,11 @@
     </section>
     <hr class="my-5" />
     <section>
-      <div class="section-title">
-        <h4 class="pb-2" style="border-bottom: 5px solid lightgray;">Cửa hàng review gần đây</h4>
+      <div class="section-title bg-white">
+        <h4 class="p-2">Cửa hàng review gần đây</h4>
       </div>
       <div class="section-content m-t-20">
-        <div class="list-shops">
+        <div class="list-shops panel">
           <div class="row">
             <div class="col-3">
               <b-card
@@ -76,7 +85,7 @@
                 img-alt="Image"
                 img-top
                 tag="article"
-                class="mb-2 shadow"
+                class="border-right border-left"
               >
                 <a href>
                   <h4 class="card-title">Card Title</h4>
@@ -122,6 +131,16 @@ import CityService from "../../js/services/City";
 export default {
   data() {
     return {
+      color: "#267BFF",
+      isFullPage: true,
+      width: 75,
+      height: 85,
+      opacity: 0.5,
+      zIndex: 999,
+      backgroundColor: "#808080",
+      loader: "dots",
+
+      isLoading: false,
       citiesData: {},
       districtsData: {},
       cities: {},
@@ -155,12 +174,16 @@ export default {
       });
     },
     async getListShop() {
+      this.isLoading = true;
       ShopService.getShops().then(response => {
+        this.isLoading = false;
         this.shops = response;
       });
     },
     async getShopHasManyPostReview() {
+      this.isLoading = true;
       ShopService.getShopHasManyPostReview().then(response => {
+        this.isLoading = false;
         if (response.status === 200) {
           this.shop_post_review = response.data;
         }
@@ -180,5 +203,9 @@ export default {
 }
 .card-footer {
   background-color: #fff;
+}
+.section-title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 </style>
