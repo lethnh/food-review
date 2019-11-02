@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $table = 'shops';
-    protected $fillable = ['name', 'description', 'address', 'lat', 'lng', 'type', 'city_id', 'district_id'];
-    protected $appends = ['stars','money'];
+    protected $fillable = ['name', 'description', 'address', 'lat', 'lng', 'type', 'city_id', 'district_id', 'feature_image', 'google_map_id', 'begin_time', 'close_time'];
+    protected $appends = ['stars', 'money'];
 
     public function postReviews()
     {
@@ -28,9 +28,9 @@ class Shop extends Model
     public function getStarsAttribute()
     {
         $stars = PostReview::where('shop_id', $this->id)->sum('stars');
-        if( $this->post_reviews_count !== null && $this->post_reviews_count !== 0){    
+        if ($this->post_reviews_count !== null && $this->post_reviews_count !== 0) {
             $avg = round(($stars /  $this->post_reviews_count), 2);
-        } else{
+        } else {
             $avg = 0;
         }
         return $avg;

@@ -13,9 +13,8 @@ class CreatePostReviewShopTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_review_shop_tags', function (Blueprint $table) {
+        Schema::create('post_review_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('shop_id');
             $table->integer('post_review_id');
             $table->integer('tag_id');
             $table->timestamps();

@@ -24,6 +24,12 @@
             window.location.href = url;
         }
     });
+    $(document).keypress(
+        function (event) {
+            if (event.which == '13') {
+                event.preventDefault();
+            }
+        });
 
     /*[ Back to top ]
     ===========================================================*/

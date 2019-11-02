@@ -42,6 +42,7 @@
         "vue-sidebar-menu": "^4.2.3",
         "vue-table-component": "^1.9.2",
         "vue2-dropzone": "^3.6.0",
+        "vue2-google-maps": "^0.10.7",
         "vuex": "^3.1.1"
     }
 }

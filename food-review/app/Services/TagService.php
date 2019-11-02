@@ -3,18 +3,18 @@
 
 namespace App\Services;
 
-
+use App\Models\Post_Review_Shop_Tag;
 use App\Models\Tag;
 
 class TagService
 {
-    public function storeTag($data)
+    public function storeTag($data, $post_review_id)
     {
-
-        if (!empty($data['tags'])) {
+        
+        if (!empty($data)) {
             $arr = array_map(function ($item) {
                 return $item['text'];
-            }, $data['tags']);
+            }, $data);
             $test_tag = $this->getTagName($arr);
             $tag_name = array_map(function ($item) {
                 return $item['name'];
@@ -29,7 +29,16 @@ class TagService
                 ];
                 return $list;
             }, $result);
-            \DB::table('tags')->insert($insert_tag);
+            foreach ($insert_tag as $key => $value) {
+                $tag = Tag::create([
+                    'name' => $value['name'],
+                    'slug' => $value['slug'],
+                ]);
+                Post_Review_Shop_Tag::create([
+                    'post_review_id' => $post_review_id,
+                    'tag_id' => $tag->id,
+                ]);
+            };
             $list_tag = $this->getTagName($arr);
             $list_id = array_map(function ($value) {
                 return $value['id'];

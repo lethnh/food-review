@@ -9,7 +9,7 @@ class PostReview extends Model
     protected $table = 'post_reviews';
 
     protected $fillable = [
-        'content', 'user_id', 'shop_id', 'feature_image', 'money', 'stars', 'title', 'total_view'
+        'content', 'user_id', 'shop_id', 'feature_image', 'money', 'stars', 'title', 'total_view', 'is_approve', 'like', 'unlike'
     ];
     protected $appends = ['totalComment'];
 
@@ -33,7 +33,7 @@ class PostReview extends Model
         return $this->hasMany(Comment::class, 'post_review_id', 'id');
     }
 
-  
+
 
     public function getTotalCommentAttribute()
     {

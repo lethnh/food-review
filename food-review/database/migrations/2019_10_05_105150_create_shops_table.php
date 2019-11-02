@@ -15,11 +15,14 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('google_map_id');
+            $table->unique('google_map_id');
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('city_id');
             $table->string('district_id');
             $table->string('address');
+            $table->text('feature_image')->nullable();
             $table->string('begin_time');
             $table->string('close_time');
             $table->float('lat', 10, 6);

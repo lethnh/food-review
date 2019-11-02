@@ -16,9 +16,10 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'avatar' => 'admin@gmail.com',
             'password' => bcrypt('123456'),
-            'address' => Str::random(10),
-            'city_id' => Str::random(10),
-            'district_id' => Str::random(10),
+            'address' => "Thanh Hóa",
+            'city_id' => 11,
+            'role_id' => 2,
+            'district_id' => 148,
         ]);
     }
 }

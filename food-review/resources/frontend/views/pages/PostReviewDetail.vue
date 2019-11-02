@@ -26,23 +26,24 @@
               <p>Số bài review: 1</p>
             </div>
           </div>
+          <hr>
           <div class="shop_info mt-2">
             <span>Địa chỉ:</span>
             <i class="fas fa-map-marker-alt"></i>
-            <!-- <span>{{ post_review.user }}</span> -->
+            <span>{{ post_review.shop.address }}</span>
           </div>
           <div>
             <Rate v-model="post_review.stars" disabled></Rate>
             {{post_review.stars}} sao
           </div>
           <div>Tiền/người: {{post_review.money | currency}}</div>
-          <div>Giờ mở cửa - đóng cửa: {{ }}</div>
+          <div>Giờ mở cửa {{ post_review.shop.begin_time}} - đóng cửa: {{post_review.shop.close_time}}</div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-9 mt-5">
-        <div class="bg-white p-2">
+        <div class="bg-white p-2" style="min-height:450px">
           <h4 class="post_review_title">{{ post_review.title }}</h4>
           <div class="post_review_content" v-html="post_review.content"></div>
         </div>
@@ -197,6 +198,11 @@ export default {
         user: {
           city: {},
           district: {}
+        },
+        shop: {
+          address: "",
+          begin_time: "",
+          close_time: ""
         }
       },
       actionComment: {

@@ -44,16 +44,21 @@
                   <div class="table__actions">
                     <a
                       class="btn btn-primary btn-sm text-white"
+                      v-if="row.is_approve === 0"
                       @click="apporove(row.id,1, 'phê duyệt')"
                     >
                       <i class="icon-fa icon-fa-trash" />
                       Phê duyệt
                     </a>
-                    <a class="btn btn-danger btn-sm text-white" @click="apporove(row.id,0,'chặn')">
+                    <a
+                      v-else
+                      class="btn btn-danger btn-sm text-white"
+                      @click="apporove(row.id,0,'chặn')"
+                    >
                       <i class="icon-fa icon-fa-trash" />
                       Chặn
                     </a>
-                    <a class="btn btn-primary btn-sm text-white" @click="deleteDomain(row.id)">
+                    <a class="btn btn-success btn-sm text-white" @click="deleteDomain(row.id)">
                       <i class="icon-fa icon-fa-trash" />
                       Chi tiết
                     </a>
@@ -106,6 +111,7 @@ export default {
       }
     },
     apporove(id, status, title) {
+      let vm = this;
       Swal.fire({
         title: `Bạn muốn ${title} bài viết này ?`,
         type: "warning",
@@ -125,12 +131,7 @@ export default {
                 timer: 1500
               });
               console.log(response);
-              let authUser = localStorage.getItem("authUser");
-              const userObj = JSON.parse(authUser);
-              userObj.user_info.avatar = response.avatar;
-              localStorage.setItem("authUser", JSON.stringify(userObj));
-              this.$store.dispatch("setUserObject", userObj);
-              this.user = response;
+              vm.$refs.table.refresh();
             } else {
               Swal("Xin lỗi", "Cập nhật thất bại", "error");
             }

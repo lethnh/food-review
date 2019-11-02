@@ -17,7 +17,8 @@ class PostReviewController extends Controller
     public function approve(Request $request, $id)
     {
         $post_review = PostReview::findOrFail($id);
-        $post_review->approve = $request->status;
+        $post_review->is_approve = $request->status;
+        $post_review->save();
         return response()->json($post_review, 200);
     }
 }
