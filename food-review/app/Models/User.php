@@ -30,7 +30,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'activation_token',
     ];
-    // protected $appends = ['total_post_review', 'total_like', 'total_dislike'];
+    protected $appends = ['total_post_review'];
 
     /**
      * The attributes that should be cast to native types.
@@ -74,8 +74,8 @@ class User extends Authenticatable
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
-    // public function getTotalPostReviewAttribute()
-    // {
-    //     return Auth::user()->withCount('postReviews')->get();
-    // }
+    public function getTotalPostReviewAttribute()
+    {
+        return $this->postReviews->count();
+    }
 }

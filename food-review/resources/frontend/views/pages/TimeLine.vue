@@ -13,7 +13,7 @@
       <div class="col-8">
         <div class="px-2 pb-2">
           <div class="bg-white mb-2 section-title">
-            <h4 class="p-2">Dòng thời gian</h4>
+            <h5 class="p-2">Dòng thời gian</h5>
           </div>
           <div class="bg-white p-2">
             <div
@@ -70,7 +70,7 @@
       </div>
       <div class="col-4">
         <div class="bg-white row mb-2 section-title">
-          <h4 class="px-2 pt-2">Lượt xem nhiều nhất</h4>
+          <h5 class="px-2 pt-2">Lượt xem nhiều nhất</h5>
         </div>
         <div class>
           <div class="list-post-review-top-view row bg-white pt-2">

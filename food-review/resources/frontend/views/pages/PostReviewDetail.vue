@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-3">
     <loading
       :active.sync="isLoading"
       :color="color"
@@ -10,36 +10,40 @@
       :opactiy="opacity"
     ></loading>
     <div class="row">
-      <div class="col-9 bg-white" style="padding-bottom:50px">
-        <a-carousel arrows dotsClass="slick-dots slick-thumb">
-          <a slot="customPaging" slot-scope="props">
-            <img :src="getImgUrl(props.i)" />
-          </a>
-          <div v-for="(item, index) in post_review.post_review_images" :key="index">
-            <img :src="item.link" />
-          </div>
-        </a-carousel>
+      <div class="col-9">
+        <div class="bg-white" style="padding-bottom:80px">
+          <a-carousel arrows dotsClass="slick-dots slick-thumb">
+            <a slot="customPaging" slot-scope="props">
+              <img :src="getImgUrl(props.i)" />
+            </a>
+            <div v-for="(item, index) in post_review.post_review_images" :key="index">
+              <img :src="item.link" />
+            </div>
+          </a-carousel>
+        </div>
       </div>
-      <div class="col-3 bg-white border-left">
+      <div class="col-3 bg-white">
         <div class="content pt-2">
           <div class="user_info">
             <div class="rounded">
-              <img src="/images/5.jpg" alt="..." class="rounded" />
+              <img :src="post_review.user.avatar" alt="..." class="rounded" />
             </div>
             <div>
-              <p>{{ post_review.user.name }}</p>
-              <p>
+              <p style="font-size:13px;font-weight:800">{{ post_review.user.name }}</p>
+              <p style="font-size:13px">
                 <i class="fas fa-map-marker-alt"></i>
                 {{post_review.user.district.name}}, {{post_review.user.city.name}}
               </p>
-              <p>Số bài review: 1</p>
+              <p style="font-size:13px">Số bài review: {{post_review.user.total_post_review}}</p>
             </div>
           </div>
           <hr />
           <div class="shop_info mt-2">
             <span>Địa chỉ:</span>
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{ post_review.shop.address }}</span>
+            <a v-bind:href="url(post_review.shop.address)" target="_blank">
+              <span>{{ post_review.shop.address }}</span>
+            </a>
           </div>
           <div>
             <Rate v-model="post_review.stars" disabled></Rate>
@@ -51,33 +55,35 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-9 mt-5">
+      <div class="col-9 mt-3">
         <div class="bg-white p-2" style="min-height:450px">
-          <h4 class="post_review_title">{{ post_review.title }}</h4>
+          <h5 class="post_review_title">{{ post_review.title }}</h5>
           <div class="post_review_content" v-html="post_review.content"></div>
         </div>
       </div>
-      <div class="col-3 mt-5">
+      <div class="col-3 mt-3">
+        <div class="bg-white section-title">
+          <h5 class="p-2">Bài viết liên quan</h5>
+        </div>
         <div class="bg-white p-2">
-          <h4 class="post_review_title">Bài viết liên quan</h4>
-          <div>
-            <div class="card">
-              <img src="https://picsum.photos/600/600/?image=25" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p
-                  class="card-text"
-                >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
+          <div class="card">
+            <img src="https://picsum.photos/600/600/?image=25" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p
+                class="card-text"
+              >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row">
       <div class="col-9">
+        <div class="bg-white section-title">
+          <h5 class="p-2">Bình luận bài viết</h5>
+        </div>
         <div class="post_review_comment bg-white p-2">
-          <h4>Bình luận bài viết</h4>
           <div class="item_comment" v-for="(comment, index) in comments" :key="index">
             <div class="comment">
               <div class="comment_avatar">
@@ -133,7 +139,12 @@
               </div>
               <div class="d-flex" style="margin:12px 12px 0px 0px;padding:0px 0px 0px 70px">
                 <div class="rounded mr-2">
-                  <img :src="userStore.authUser.user_info.avatar" alt class="rounded" style="height:32px;width:32px" />
+                  <img
+                    :src="userStore.authUser.user_info.avatar"
+                    alt
+                    class="rounded"
+                    style="height:32px;width:32px"
+                  />
                 </div>
                 <form
                   class="form-group w-100"
@@ -148,43 +159,14 @@
               </div>
             </div>
           </div>
-          <!-- <div class="item_comment">
-            <div class="comment">
-              <div class="comment_avatar">
-                <img src="/images/5.jpg" alt class="rounded" />
-              </div>
-              <div class="comment_content">
-                <div class="user_name">ThanhLV</div>
-                <div
-                  class="content"
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
-                <div class="action">
-                  <a href>Thích</a>
-                  <a href>Không thích</a>
-                  <a href>Trả lời</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment_reply">
-              <div class="comment_avatar">
-                <img src="/images/5.jpg" alt class="rounded" />
-              </div>
-              <div class="comment_content">
-                <div class="user_name">ThanhLV</div>
-                <div
-                  class="content"
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, porro? Nostrum quaerat nesciunt delectus in, officia expedita, nihil, earum rem illo dolor amet nobis? Itaque rerum ullam natus eum hic!</div>
-                <div class="action">
-                  <a href>Thích</a>
-                  <a href>Không thích</a>
-                  <a href>Trả lời</a>
-                </div>
-              </div>
-            </div>
-          </div>-->
           <div class="d-flex" style="margin:12px">
             <div class="rounded mr-2">
-              <img :src="userStore.authUser.user_info.avatar" alt class="rounded" style="height:48px;width:48px" />
+              <img
+                :src="userStore.authUser.user_info.avatar"
+                alt
+                class="rounded"
+                style="height:48px;width:48px"
+              />
             </div>
             <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)">
               <input
@@ -250,6 +232,9 @@ export default {
     this.getComment();
   },
   methods: {
+    url(address) {
+      return `http://maps.google.com/?q=${address}`;
+    },
     getImgUrl(i) {
       return this.post_review.post_review_images[i].link;
     },
@@ -324,14 +309,15 @@ export default {
   border: 5px solid #fff;
   display: block;
   margin: auto;
-  max-width: 80%;
+  max-height: 400px;
+  /* max-width: 100%; */
 }
 .ant-carousel >>> .slick-thumb {
-  bottom: -45px;
+  bottom: -70px;
 }
 .ant-carousel >>> .slick-thumb li {
-  width: 60px;
-  height: 45px;
+  width: 93px;
+  height: 69px;
 }
 .ant-carousel >>> .slick-thumb li img {
   width: 100%;

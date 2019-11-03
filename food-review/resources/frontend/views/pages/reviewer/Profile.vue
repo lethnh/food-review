@@ -1,6 +1,6 @@
 <template>
   <div class="row page-profile">
-      <loading
+    <loading
       :active.sync="isLoading"
       :color="color"
       :width="width"
@@ -56,7 +56,7 @@
       <div class="panel">
         <b-card no-body>
           <b-tabs card>
-            <b-tab title="Bài viết của tôi" active >
+            <b-tab title="Bài viết của tôi" active>
               <div class="w-100">
                 <div
                   class="post-item border-bottom"
@@ -99,7 +99,8 @@
                   <div class="post-footer ml-auto">
                     <router-link
                       :to="{ name: 'editPostReview', params: { post_id: post.id }}"
-                      class="btn btn-primary" style="font-size:13px"
+                      class="btn btn-primary"
+                      style="font-size:13px"
                     >
                       <span class="ladda-label">
                         <i class="fas fa-edit text-white mr-1"></i>Chỉnh sửa
@@ -107,7 +108,8 @@
                     </router-link>
                     <router-link
                       :to="{ name: 'editPostReview', params: { post_id: post.id }}"
-                      class="btn btn-danger" style="font-size:13px"
+                      class="btn btn-danger"
+                      style="font-size:13px"
                     >
                       <span class="ladda-label">
                         <i class="far fa-trash-alt text-white mr-1"></i>Xóa
@@ -258,7 +260,7 @@ import PostReviewServices from "../../../js/services/PostReview";
 export default {
   data() {
     return {
-         color: "#267BFF",
+      color: "#267BFF",
       isFullPage: true,
       width: 75,
       height: 85,
@@ -283,21 +285,21 @@ export default {
     async getUser() {
       this.isLoading = true;
       AuthServices.getUser().then(response => {
-           this.isLoading = false;
+        this.isLoading = false;
         this.user = response;
       });
     },
     async getMyPostReview(current) {
-         this.isLoading = true;
+      this.isLoading = true;
       AuthServices.getMyPostReview(current).then(response => {
-           this.isLoading = false;
+        this.isLoading = false;
         this.post_reviews = response;
       });
     },
     async getMyComment(current) {
-         this.isLoading = true;
+      this.isLoading = true;
       AuthServices.getMyComment(current).then(response => {
-           this.isLoading = false;
+        this.isLoading = false;
         this.comments = response;
       });
     },
@@ -351,6 +353,13 @@ export default {
         event.preventDefault();
       } else {
         AuthServices.editUser(this.user).then(response => {
+          let authUser = localStorage.getItem("authUser");
+          const userObj = JSON.parse(authUser);
+          userObj.user_info.age = response.age;
+          userObj.user_info.phone_number = response.phone_number;
+          userObj.user_info.name = response.name;
+          localStorage.setItem("authUser", JSON.stringify(userObj));
+          this.$store.dispatch("setUserObject", userObj);
           this.user = response;
         });
       }

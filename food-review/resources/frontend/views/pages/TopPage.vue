@@ -25,7 +25,7 @@
     </div>
     <section>
       <div class="section-title bg-white">
-        <h4 class="p-2" style>Cửa hàng review nhiều nhất</h4>
+        <h5 class="p-2" style>Cửa hàng review nhiều nhất</h5>
       </div>
       <div class="section-content m-t-20">
         <div class="list-shops panel">
@@ -74,7 +74,7 @@
     <hr class="my-5" />
     <section>
       <div class="section-title bg-white">
-        <h4 class="p-2">Cửa hàng review gần đây</h4>
+        <h5 class="p-2">Cửa hàng review gần đây</h5>
       </div>
       <div class="section-content m-t-20">
         <div class="list-shops panel">
@@ -88,7 +88,7 @@
                 class="border-right border-left"
               >
                 <a href>
-                  <h4 class="card-title">Card Title</h4>
+                  <h5 class="card-title">Card Title</h5>
                 </a>
                 <div class="d-flex align-items-center">
                   <div class="shop-rate">
