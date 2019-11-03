@@ -1,5 +1,14 @@
 <template>
   <div>
+    <loading
+      :active.sync="isLoading"
+      :color="color"
+      :width="width"
+      :height="height"
+      :isFullPage="isFullPage"
+      :backgroundColor="backgroundColor"
+      :opactiy="opacity"
+    ></loading>
     <div class="row">
       <div class="col-9 bg-white" style="padding-bottom:50px">
         <a-carousel arrows dotsClass="slick-dots slick-thumb">
@@ -26,7 +35,7 @@
               <p>Số bài review: 1</p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="shop_info mt-2">
             <span>Địa chỉ:</span>
             <i class="fas fa-map-marker-alt"></i>
@@ -72,7 +81,7 @@
           <div class="item_comment" v-for="(comment, index) in comments" :key="index">
             <div class="comment">
               <div class="comment_avatar">
-                <img src="/images/5.jpg" alt class="rounded" />
+                <img :src="comment.user.avatar" alt class="rounded" />
               </div>
               <div class="comment_content">
                 <div class="user_name ml-0">{{comment.user.name}}</div>
@@ -82,20 +91,24 @@
                   <a
                     v-bind:class="styleLike(comment.likes,userStore.authUser.user_info.id)"
                     @click.prevent="likeComment(comment.id,1)"
-                  >Thích</a>
+                  >
+                    <a-icon type="like" style="vertical-align: 0.125em;" />Thích
+                  </a>
                   <!-- :class="{'text-blue': auth_id =  }" -->
                   {{comment.total_dislikes}}
                   <a
                     v-bind:class="styleDisLike(comment.likes,userStore.authUser.user_info.id)"
                     @click.prevent="likeComment(comment.id,-1)"
-                  >Không thích</a>
+                  >
+                    <a-icon type="dislike" />Không thích
+                  </a>
                 </div>
               </div>
             </div>
             <div v-if="comment.sub_comment">
               <div class="comment_reply" v-for="(item, index) in comment.sub_comment" :key="index">
                 <div class="comment_avatar">
-                  <img src="/images/5.jpg" alt class="rounded" />
+                  <img :src="item.user.avatar" alt class="rounded" />
                 </div>
                 <div class="comment_content">
                   <div class="user_name ml-0">{{item.user.name}}</div>
@@ -105,18 +118,22 @@
                     <a
                       v-bind:class="styleLike(item.likes,userStore.authUser.user_info.id)"
                       @click.prevent="likeComment(item.id,1)"
-                    >Thích</a>
+                    >
+                      <a-icon type="like" style="vertical-align: 0.125em;" />Thích
+                    </a>
                     {{item.total_dislikes}}
                     <a
                       v-bind:class="styleDisLike(item.likes,userStore.authUser.user_info.id)"
                       @click.prevent="likeComment(item.id,-1)"
-                    >Không thích</a>
+                    >
+                      <a-icon type="dislike" />Không thích
+                    </a>
                   </div>
                 </div>
               </div>
               <div class="d-flex" style="margin:12px 12px 0px 0px;padding:0px 0px 0px 70px">
                 <div class="rounded mr-2">
-                  <img src="/images/5.jpg" alt class="rounded" style="height:32px" />
+                  <img :src="userStore.authUser.user_info.avatar" alt class="rounded" style="height:32px;width:32px" />
                 </div>
                 <form
                   class="form-group w-100"
@@ -167,7 +184,7 @@
           </div>-->
           <div class="d-flex" style="margin:12px">
             <div class="rounded mr-2">
-              <img src="/images/5.jpg" alt class="rounded" style="height:48px" />
+              <img :src="userStore.authUser.user_info.avatar" alt class="rounded" style="height:48px;width:48px" />
             </div>
             <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)">
               <input
@@ -194,6 +211,15 @@ import CommentServices from "../../js/services/Comment";
 export default {
   data() {
     return {
+      color: "#267BFF",
+      isFullPage: true,
+      width: 75,
+      height: 85,
+      opacity: 0.5,
+      zIndex: 999,
+      backgroundColor: "#808080",
+      loader: "spinner",
+      isLoading: false,
       post_review: {
         user: {
           city: {},
@@ -228,8 +254,10 @@ export default {
       return this.post_review.post_review_images[i].link;
     },
     async getPostReview() {
+      this.isLoading = true;
       PostReviewServices.getPostReview(this.$route.params.post_id).then(
         response => {
+          this.isLoading = false;
           this.post_review = response;
           console.log($(".post_review_content span"));
           // $(".post_review_content span").forEach(element => {

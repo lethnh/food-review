@@ -265,7 +265,7 @@ export default {
       opacity: 0.5,
       zIndex: 999,
       backgroundColor: "#808080",
-      loader: "dots",
+      loader: "spinner",
 
       isLoading: false,
       user: {},

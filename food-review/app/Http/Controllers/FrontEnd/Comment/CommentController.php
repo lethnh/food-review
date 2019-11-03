@@ -32,8 +32,8 @@ class CommentController extends Controller
         try {
             $comments = Comment::where('post_review_id', $id)
                 ->where('parent_id', 0)
-                ->with('user:id,name')->with(['sub_comment' => function ($query) {
-                    $query->with('user:id,name');
+                ->with('user:id,name,avatar')->with(['sub_comment' => function ($query) {
+                    $query->with('user:id,name,avatar');
                 }])
                 ->with(['likes' => function ($query) {
                     $query->whereIn('status', [1, -1]);

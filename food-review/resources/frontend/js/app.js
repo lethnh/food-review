@@ -15,6 +15,7 @@ import VueCurrencyFilter from 'vue-currency-filter'
 import VueCurrencyInput from 'vue-currency-input'
 // import TravelMap from "./components/TravelMap.vue";
 import TimePicker from "ant-design-vue/lib/time-picker";
+import Icon from 'ant-design-vue/lib/icon';
 import Rate from "ant-design-vue/lib/rate";
 import Select from 'ant-design-vue/lib/select';
 import Carousel from 'ant-design-vue/lib/carousel';
@@ -51,18 +52,7 @@ Vue.use(VueCurrencyFilter, {
     symbolSpacing: true
 })
 
-let config = {
-    // props
-    color: '#000000',
-    isFullPage: 'true',
-    width: 75,
-    height: 85,
-    opacity: 0.5,
-    zIndex: 999,
-    backgroundColor: '#808080',
-    loader: 'spinner',
 
-};
 
 Vue.component('loading', VueLoading);
 
@@ -114,6 +104,7 @@ Vue.component('Rate', Rate);
 Vue.use(Select);
 Vue.use(Carousel);
 Vue.use(Pagination);
+Vue.use(Icon);
 
 /**
  * Add global router function
