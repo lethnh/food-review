@@ -1,5 +1,14 @@
 <template>
   <div class="pb-5">
+      <loading
+      :active.sync="isLoading"
+      :color="color"
+      :width="width"
+      :height="height"
+      :isFullPage="isFullPage"
+      :backgroundColor="backgroundColor"
+      :opactiy="opacity"
+    ></loading>
     <ValidationProvider>
       <ValidationObserver
         class="panel p-3 mb-0"
@@ -113,7 +122,7 @@
                 <div class="form-group">
                   <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
                   <a-select class="w-100" v-model="post_review.shop_id" @change="handleChange">
-                    <a-select-option v-for="(item, index) in shops" :key="item.id">{{ item.name }}</a-select-option>
+                    <a-select-option v-for="(item, index) in shops" :key="item.id">{{ item.name }} - {{ item.address }}</a-select-option>
                   </a-select>
                 </div>
               </div>
@@ -205,6 +214,16 @@ export default {
   },
   data() {
     return {
+         color: "#267BFF",
+      isFullPage: true,
+      width: 75,
+      height: 85,
+      opacity: 0.5,
+      zIndex: 999,
+      backgroundColor: "#808080",
+      loader: "spinner",
+
+      isLoading: false,
       infoWindowPos: null,
       infoWinOpen: true,
       currentMidx: null,
@@ -298,7 +317,9 @@ export default {
         event.preventDefault();
       } else {
         this.post_review.tags = this.tags;
+        this.isLoading = true;
         PostReviewService.storePostReview(this.post_review).then(response => {
+              this.isLoading = false;
           if (response.status === 200) {
             console.log(response.data);
             this.$router.push({

@@ -33,7 +33,10 @@ class PostReview extends Model
         return $this->hasMany(Comment::class, 'post_review_id', 'id');
     }
 
-
+    public function tags()
+    {
+        return $this->hasMany(Post_Review_Shop_Tag::class, 'post_review_id', 'id');
+    }
 
     public function getTotalCommentAttribute()
     {

@@ -33,6 +33,7 @@
               <div class="post-body col-9">
                 <router-link :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
                   <h5 class="text-justify">{{ post.title }}</h5>
+                  <div v-html="sliceContent(post.content)"></div>
                 </router-link>
                 <div>{{ post.money | currency}}</div>
                 <div>
@@ -194,6 +195,10 @@ export default {
     this.getPostReviewHasManyView();
   },
   methods: {
+    sliceContent(content) {
+      let index = content.indexOf("</p>");
+      return content.slice(0, index);
+    },
     async getPostReviewLatestNew(page) {
       this.isLoading = true;
       PostReviewService.getPostReviewLatestNew(page).then(response => {
