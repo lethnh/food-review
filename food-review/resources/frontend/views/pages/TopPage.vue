@@ -32,11 +32,48 @@
           <div class="row">
             <div class="col-3" v-for="(shop, index) in shop_post_review" :key="index">
               <b-card
+                v-if="shop.feature_image !== null"
+                :img-src="shop.feature_image"
+                img-alt="Image"
+                img-top
+                tag="article"
+                class="shadow h-100"
+              >
+                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
+                  <h6 class="card-title">{{ shop.name }}</h6>
+                </router-link>
+                <div class="d-flex align-items-center">
+                  <div class="shop-rate">
+                    <Rate disabled v-model="shop.stars" allowHalf />
+                    <span>{{ shop.stars }}</span>
+                  </div>
+                  <div class="ml-3 shop-comment ml-auto">
+                    <i class="fas fa-edit"></i>
+                    <span>{{ shop.post_reviews_count }}</span>
+                  </div>
+                </div>
+                <div class="shop-money">
+                  <i class="fas fa-money-bill"></i>
+                  <span>{{ shop.money | currency}}</span>
+                </div>
+                <div class="shop-address">
+                  <small class="text-muted">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{shop.district.name}}, {{ shop.city.name }}
+                  </small>
+                </div>
+                <b-card-text></b-card-text>
+                <template v-slot:footer>
+                  <a href class="shop-tag rounded">cửa hàng</a>
+                </template>
+              </b-card>
+              <b-card
+                v-else
                 img-src="https://picsum.photos/600/600/?image=25"
                 img-alt="Image"
                 img-top
                 tag="article"
-                class="shadow"
+                class="shadow h-100"
               >
                 <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
                   <h6 class="card-title">{{ shop.name }}</h6>

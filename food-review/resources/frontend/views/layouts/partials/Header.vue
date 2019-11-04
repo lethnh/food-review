@@ -45,8 +45,8 @@
                 aria-label="Search"
               />
             </form>
-            <router-link to="register" class="btn btn-outline-light">Đăng ký</router-link>
-            <router-link to="login" class="m-l-10 btn btn-outline-light">Đăng nhập</router-link>
+            <router-link to="register" class="btn btn-primary">Đăng ký</router-link>
+            <router-link to="login" class="m-l-10 btn btn-success">Đăng nhập</router-link>
             <button class="btn-show-sidebar m-l-33 trans-0-4 d-sm-none"></button>
           </div>
           <div class="flex-w ml-auto" v-if="userStore.authUser !== null">
@@ -172,9 +172,7 @@ export default {
       AuthService.logout().then(response => {
         Ls.remove("authUser");
         this.$store.dispatch("setUserObject", null);
-        this.$router.push({
-          name: "toppage"
-        });
+        this.$router.push("toppage");
       });
     },
     handleProvinceChange(value) {

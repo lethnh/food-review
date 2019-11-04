@@ -30,9 +30,13 @@
             </div>
             <div>
               <p style="font-size:13px;font-weight:800">{{ post_review.user.name }}</p>
-              <p style="font-size:13px">
+              <p style="font-size:13px" v-if="post_review.user.district !== null">
                 <i class="fas fa-map-marker-alt"></i>
                 {{post_review.user.district.name}}, {{post_review.user.city.name}}
+              </p>
+              <p style="font-size:13px" v-else>
+                <i class="fas fa-map-marker-alt"></i>
+                Chưa có
               </p>
               <p style="font-size:13px">Số bài review: {{post_review.user.total_post_review}}</p>
             </div>
@@ -244,7 +248,6 @@ export default {
         response => {
           this.isLoading = false;
           this.post_review = response;
-          console.log($(".post_review_content span"));
           // $(".post_review_content span").forEach(element => {
           //   debugger;
           //   element;

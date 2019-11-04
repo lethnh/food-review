@@ -57,7 +57,7 @@
         <b-card no-body>
           <b-tabs card>
             <b-tab title="Bài viết của tôi" active>
-              <div class="w-100">
+              <div class="w-100" v-if="post_reviews.data.length !== 0">
                 <div
                   class="post-item border-bottom"
                   v-for="(post, index) in post_reviews.data"
@@ -118,13 +118,14 @@
                   </div>
                 </div>
                 <a-pagination
-                  v-show="post_reviews !== null"
+                  v-show="post_reviews.data.length !== 0"
                   class="text-center mt-3"
                   @change="onChange"
                   :pageSize="post_reviews.per_page"
                   :total="post_reviews.total"
                 />
               </div>
+              <div class="w-100" v-else>Không có bài viết nào</div>
             </b-tab>
             <b-tab title="Cập nhập thông tin">
               <ValidationObserver
@@ -173,7 +174,7 @@
               </ValidationObserver>
             </b-tab>
             <b-tab title="Bình luận của tôi">
-              <div class="list-comment">
+              <div class="list-comment" v-if="comments.data.length !== 0">
                 <div class="item_comment" v-for="(comment, index) in comments.data" :key="index">
                   <div class="comment d-flex align-items-start mb-3">
                     <div class="comment_avatar">
@@ -216,34 +217,16 @@
                       </router-link>
                     </div>
                   </div>
-                  <!-- <div v-if="comment.sub_comment">
-                    <div
-                      class="comment_reply"
-                      v-for="(item, index) in comment.sub_comment"
-                      :key="index"
-                    >
-                      <div class="comment_avatar">
-                        <img src="/images/5.jpg" alt class="rounded" />
-                      </div>
-                      <div class="comment_content">
-                        <div class="user_name">{{item.user.name}}</div>
-                        <div class="content">{{item.content}}</div>
-                        <div class="action">
-                          <a href>Thích</a>
-                          <a href>Không thích</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>-->
                 </div>
                 <a-pagination
-                  v-show="comments !== null"
+                  v-show="comments.data.length !== 0"
                   class="text-center mt-3"
                   @change="onChange2"
                   :pageSize="comments.per_page"
                   :total="comments.total"
                 />
               </div>
+              <div class="w-10" v-else>Không có bình luận nào của bạn</div>
             </b-tab>
           </b-tabs>
         </b-card>
@@ -271,8 +254,12 @@ export default {
 
       isLoading: false,
       user: {},
-      post_reviews: {},
-      comments: {},
+      post_reviews: {
+        data: []
+      },
+      comments: {
+        data: []
+      },
       avatar: null
     };
   },
