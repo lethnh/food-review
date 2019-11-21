@@ -113,8 +113,8 @@
                 <router-link to="/review" class="dropdown-item">
                   <i class="fas fa-plus"></i> Viết bài đánh giá
                 </router-link>
-                <router-link to="/review" class="dropdown-item">
-                  <i class="fas fa-plus"></i> Đổi mật khẩu
+                <router-link to="/forgot-password" class="dropdown-item">
+           <i class="fas fa-cog" aria-hidden="true"></i>Đổi mật khẩu
                 </router-link>
                 <div class="dropdown-divider" role="presentation"></div>
                 <a class="dropdown-item" @click="logout()">

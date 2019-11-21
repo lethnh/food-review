@@ -44,14 +44,16 @@ Route::group([
 
     Route::delete('post-review/{id}/delete-image', 'FrontEnd\PostReview\EditPostReviewController@deleteImage');
 
-    //Comment
 
+
+    //Comment
     Route::get('comment/{id}', 'FrontEnd\Comment\CommentController@getCommentByPostReview');
     Route::post('comment', 'FrontEnd\Comment\CommentController@commentPostReview');
     Route::post('comment/reply', 'FrontEnd\PostReviewController@storePostReview');
     Route::post('comment/{comment_id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
     Route::post('comment/{id}/dislike', 'FrontEnd\PostReviewController@storePostReview');
 
+    
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
@@ -70,10 +72,30 @@ Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewContro
 // Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 
+
+
+
+
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 
 
+
+
+
+
 Route::get('search', 'FrontEnd\SearchController@postSearch');
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -96,7 +96,7 @@
                 </router-link>
                 <div>{{ post.money | currency}}</div>
                 <div>
-                  <Rate v-model="post.stars" disable />
+                  <Rate v-model="post.stars" disabled />
                 </div>
                 <div class="action">
                   <!-- <div>
@@ -144,7 +144,7 @@
                 </router-link>
                 <div>{{ post.money | currency}}</div>
                 <div>
-                  <Rate v-model="post.stars" disable />
+                  <Rate v-model="post.stars" disabled />
                 </div>
                 <div class="action">
                   <!-- <div>

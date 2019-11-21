@@ -53,6 +53,11 @@ const router = new VueRouter({
                     component: Register,
                     name: 'register'
                 },
+                {
+                    path: 'forgot-password',
+                    component: ForgotPassword,
+                    name: 'forgotPassword'
+                },
             ]
         },
         {
