@@ -22,6 +22,7 @@ import EditPostReview from './views/pages/reviewer/EditPostReview.vue'
 import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import ResultSearch from './views/pages/ResultSearch.vue'
 import NotFound from './views/pages/errors/NotFound.vue'
+import AboutUs from './views/pages/AboutUs.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -38,6 +39,11 @@ const router = new VueRouter({
                 // component: () => import('./views/pages/TimeLine'),
                 component: TimeLine,
                 name: 'timeline'
+            }, {
+                path: 'about-us',
+                // component: () => import('./views/pages/TimeLine'),
+                component: AboutUs,
+                name: 'aboutUs'
             }]
         },
         {

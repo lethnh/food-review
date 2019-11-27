@@ -73,3 +73,14 @@ window.JQuery = require('jquery')
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+import 'toastr/toastr.js'
+import 'toastr/build/toastr.css'
+let toastrOptions = {
+    "progressBar": true,
+    "closeButton": true,
+}
+
+global.toastr = require('toastr')
+global.toastr.options = toastrOptions

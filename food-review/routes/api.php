@@ -53,15 +53,26 @@ Route::group([
     Route::post('comment/{comment_id}/like', 'FrontEnd\Comment\LikeCommentController@likeComment');
     Route::post('comment/{id}/dislike', 'FrontEnd\PostReviewController@storePostReview');
 
-    
+
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
 
 
+
+
+
+
+
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');
 Route::get('shop/post-review', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
-Route::post('shops', 'FrontEnd\Shop\GetShopController@index');
+Route::get('shop/new', 'FrontEnd\Shop\GetShopController@getShopNew');
+Route::get('shop/{id}/list-post', 'FrontEnd\Shop\GetShopController@getPostReview');
+Route::get('shop/{id}/relate', 'FrontEnd\Shop\GetShopController@getShopRelate');
+Route::get('shop/{id}/comments', 'FrontEnd\Shop\GetShopController@getComments');
+Route::get('shop/{id}/images', 'FrontEnd\Shop\GetShopController@getImages');
+Route::get('shop/{id}', 'FrontEnd\Shop\GetShopController@getShop');
+
 
 Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
 Route::get('post-review/{id}', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewById');
@@ -71,6 +82,7 @@ Route::get('post-review-has-many-comment', 'FrontEnd\PostReview\GetPostReviewCon
 Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopView');
 // Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
+
 
 
 
@@ -104,10 +116,15 @@ Route::group([
 ], function () {
 
     Route::get('admin/user', 'Auth\GetUserController@getUsers');
+    Route::post('admin/user/create', 'BackEnd\User\UserController@store');
+    Route::post('admin/user/block', 'BackEnd\User\UserController@block');
+
 
     Route::get('admin/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
+    Route::post('admin/post-review', 'BackEnd\PostReview\PostReviewController@store');
+    Route::post('admin/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
+
 
     Route::get('admin/shop', 'BackEnd\Shop\ShopController@getShops');
-
-    Route::post('admin/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
+    Route::post('admin/shop/create', 'BackEnd\Shop\ShopController@store');
 });

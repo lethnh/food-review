@@ -15,7 +15,8 @@ class CreatePostReviewShopTagsTable extends Migration
     {
         Schema::create('post_review_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('post_review_id');
+            $table->integer('post_review_id')->nullable();
+            $table->integer('shop_id')->nullable();
             $table->integer('tag_id');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreatePostReviewShopTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post__review__shop__tags');
+        Schema::dropIfExists('post_review_tags');
     }
 }

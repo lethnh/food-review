@@ -30,22 +30,25 @@ class GetPostReviewController extends Controller
     }
     public function getPostReviewLatestNew()
     {
-        $post_reviews = PostReview::with('user:id,name')->orderBy('created_at', 'DESC')->paginate(5);
+        $post_reviews = PostReview::where('is_approve', 1)->with(['user:id,name' => function ($query) {
+            $query->where('status', 1);
+        }])->orderBy('created_at', 'DESC')->paginate(5);
         return response()->json($post_reviews, 200);
-        // $post_review = PostReview::findOrFail($);
-        // $post_review->post_review_images;
-        // return response()->json($post_review, 200);
     }
 
     public function getPostReviewTopView()
     {
-        $post_reviews = PostReview::with('user:id,name')->orderBy('total_view', 'DESC')->take(4)->get();
+        $post_reviews = PostReview::where('is_approve', 1)->with(['user:id,name' => function ($query) {
+            $query->where('status', 1);
+        }])->orderBy('total_view', 'DESC')->take(4)->get();
         return response()->json($post_reviews, 200);
     }
 
     public function getPostReviewTopComment()
     {
-        $post_reviews = PostReview::with('user:id,name')->withCount('comments')
+        $post_reviews = PostReview::where('is_approve', 1)->with(['user:id,name' => function ($query) {
+            $query->where('status', 1);
+        }])->withCount('comments')
             ->orderBy('comments_count', 'DESC')
             ->orderBy('created_at', 'DESC')
             ->take(4)

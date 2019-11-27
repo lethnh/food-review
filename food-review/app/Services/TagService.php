@@ -4,11 +4,12 @@
 namespace App\Services;
 
 use App\Models\Post_Review_Shop_Tag;
+use App\Models\Shop;
 use App\Models\Tag;
 
 class TagService
 {
-    public function storeTag($data, $post_review_id)
+    public function storeTag($data, $post_review_id, $shop_id)
     {
         
         if (!empty($data)) {
@@ -36,6 +37,7 @@ class TagService
                 ]);
                 Post_Review_Shop_Tag::create([
                     'post_review_id' => $post_review_id,
+                    'shop_id' => $shop_id,
                     'tag_id' => $tag->id,
                 ]);
             };

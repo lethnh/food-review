@@ -13,4 +13,9 @@ class ShopController extends Controller
         $shops = Shop::with('city')->paginate(5);
         return response()->json($shops, 200);
     }
+
+    public function store()
+    {
+        # code...
+    }
 }

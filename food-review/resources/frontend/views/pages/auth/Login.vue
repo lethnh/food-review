@@ -8,7 +8,7 @@
           <form class="login100-form validate-form" @submit.prevent="loginSubmit()">
             <span class="login100-form-title p-b-49">
               <!-- Logo -->
-              <router-link to="/">
+              <router-link to="/toppage">
                 <img src="/images/icon/logo2.png" alt="IMG-LOGO" />
               </router-link>
               <!-- End logo -->

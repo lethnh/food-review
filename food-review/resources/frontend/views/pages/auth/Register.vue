@@ -5,7 +5,7 @@
         <ValidationObserver v-slot="{ passes }" ref="registerForm" tag="form">
           <form class="login100-form validate-form" @submit.prevent="registerSubmit()">
             <span class="login100-form-title p-b-49">
-              <router-link to="/">
+              <router-link to="/toppage">
                 <img src="/images/icon/logo2.png" alt="IMG-LOGO" />
               </router-link>
             </span>

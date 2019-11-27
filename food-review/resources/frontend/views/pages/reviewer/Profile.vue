@@ -106,15 +106,9 @@
                         <i class="fas fa-edit text-white mr-1"></i>Chỉnh sửa
                       </span>
                     </router-link>
-                    <router-link
-                      :to="{ name: 'editPostReview', params: { post_id: post.id }}"
-                      class="btn btn-danger"
-                      style="font-size:13px"
-                    >
-                      <span class="ladda-label">
+                      <span class="ladda-label btn btn-danger" @click="deletePostReview(post.id)">
                         <i class="far fa-trash-alt text-white mr-1"></i>Xóa
                       </span>
-                    </router-link>
                   </div>
                 </div>
                 <a-pagination
@@ -351,9 +345,9 @@ export default {
         });
       }
     },
-    deletePostReview() {
+    deletePostReview(id) {
       Swal.fire({
-        title: "Bạn muốn thay đổi ảnh đại diện không ?",
+        title: "Bạn muốn gửi yêu cầu admin xóa bài viết không ?",
         type: "warning",
         showCancelButton: true,
         showConfirmButton: true,
@@ -362,7 +356,7 @@ export default {
         showCloseButton: true
       }).then(result => {
         if (result.value) {
-          PostReviewServices.deletePostReview(data).then(response => {
+          PostReviewServices.deletePostReview(id).then(response => {
             if (response) {
               Swal.fire({
                 type: "success",

@@ -34,110 +34,24 @@ export default {
             console.log("Error", error.message);
         }
     },
-
-    /**
-     * 
-     * @param {*} registerData 
-     */
-    async register(registerData) {
-        try {
-            let response = await axios.post('/api/auth/register', registerData)
-            toastr.success('Đăng ký thành công');
-            console.log(response.error);
-            return response;
-        } catch (error) {
-            debugger
-            console.log(error.response);
-            if (error.response.data.error.email) {
-                toastr.error(error.response.data.error.email);
-            }
-            return error;
-        }
-    },
-
-    /**
-     * 
-     */
-    async logout() {
-        try {
-            let response = await axios.post('/api/auth/logout')
-            return response;
-        } catch (error) {
-            toastr.error('Error')
-        }
-    },
-
-    /**
-     * 
-     * @param {*} forgotData 
-     */
-    async forgotPassword(forgotData) {
-        try {
-            let response = await axios.post('/api/auth/forgotpassword', forgotData)
-            return response.data;
-        } catch (error) {
-            toastr.error('Error');
-        }
-    },
-
     /**
      * 
      * @param {*} forgotData 
      */
     async checkLogin() {
         let authUser = JSON.parse(Ls.get('authUser'));
+        
         return authUser;
     },
 
-
-    /**
-     * 
-     * @param {*} forgotData 
-     */
-    async getUser() {
+    async createUser(data) {
         try {
-            let response = await axios.get('/api/auth/user')
+            let response = await axios.post("/api/admin/user/create", data);
+            toastr.success("Tạo thành công");
             return response.data;
         } catch (error) {
-            toastr.error('Error');
+            toastr.error("Tạo thất bại");
         }
     },
-
-    async getMyPostReview(page) {
-        try {
-            let response = await axios.get(`/api/auth/post-review?page=${page}`)
-            return response.data;
-        } catch (error) {
-            toastr.error('Error');
-        }
-    },
-
-    async getMyComment(page) {
-        try {
-            let response = await axios.get(`/api/auth/comment?page=${page}`)
-            return response.data;
-        } catch (error) {
-            toastr.error('Error');
-        }
-    },
-
-    async uploadAvatar(data) {
-        try {
-            let response = await axios.post('/api/auth/avatar', data)
-            return response.data;
-        } catch (error) {
-            toastr.error('Error');
-        }
-    },
-
-    async editUser(data) {
-        try {
-            let response = await axios.post('/api/auth/edit', data)
-            toastr.success('Cập nhập thành công');
-            return response.data;
-        } catch (error) {
-            toastr.error('Error');
-        }
-    }
 
 }

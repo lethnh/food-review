@@ -33,11 +33,11 @@
                   <div class="table__actions">
                     <a class="btn btn-primary btn-sm text-white" @click="deleteDomain(row.id)">
                       <i class="icon-fa icon-fa-trash" />
-                      Chỉnh sửa
+                      Xem chi tiết
                     </a>
                     <a class="btn btn-danger btn-sm text-white" @click="deleteDomain(row.id)">
                       <i class="icon-fa icon-fa-trash" />
-                      Xóa
+                      Khóa 
                     </a>
                   </div>
                 </template>

@@ -5,7 +5,7 @@
         <!-- Example Panel With Heading -->
         <div class="panel panel-bordered">
           <div class="panel-heading">
-            <h3 class="panel-title">Quản lý bài viết</h3>
+            <h3 class="panel-title">Quản lý cửa hàng</h3>
           </div>
           <div class="panel-body">
             <!-- <h4>Body Heading</h4> -->
