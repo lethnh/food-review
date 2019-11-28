@@ -112,7 +112,7 @@
                   </div>
                 </div>
                 <a-pagination
-                  v-show="post_reviews.data.length !== 0"
+                  v-show="post_reviews.total >=2"
                   class="text-center mt-3"
                   @change="onChange"
                   :pageSize="post_reviews.per_page"
@@ -162,6 +162,17 @@
                   <div class="form-group col-6">
                     <label for>Thành phố</label>
                     <input type="text" v-model="user.city_id" class="form-control" />
+                       <!-- <a-select
+        style="width: 200px"
+        class="mr-2"
+        :defaultValue="defaulValue"
+        @change="handleProvinceChange"
+      >
+        <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
+      </a-select>
+      <a-select style="width: 200px" :v-model="">
+        <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
+      </a-select> -->
                   </div>
                 </div>
                 <button class="btn btn-primary">Cập nhập</button>
@@ -213,7 +224,7 @@
                   </div>
                 </div>
                 <a-pagination
-                  v-show="comments.data.length !== 0"
+                  v-show="comments.total >= 2"
                   class="text-center mt-3"
                   @change="onChange2"
                   :pageSize="comments.per_page"
@@ -234,6 +245,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import AuthServices from "../../../js/services/Auth";
 import PostReviewServices from "../../../js/services/PostReview";
+import CityService from "../../../js/services/City";
 export default {
   data() {
     return {
@@ -254,15 +266,34 @@ export default {
       comments: {
         data: []
       },
-      avatar: null
+      avatar: null,
+      cities: {},
+      districts: {},
+         citiesData: {},
+      districtsData: {},
     };
   },
   mounted() {
     this.getUser();
     this.getMyPostReview();
     this.getMyComment();
+    this.getCities();
   },
   methods: {
+      getCities() {
+      CityService.getCities().then(response => {
+        let cities = [];
+        let districts = [];
+        response.forEach(element => {
+          if (element["districts"]) {
+            districts.push(element["districts"]);
+          }
+          cities.push(element);
+        });
+        this.citiesData = cities;
+        this.districtsData = districts;
+      });
+    },
     async getUser() {
       this.isLoading = true;
       AuthServices.getUser().then(response => {
@@ -377,6 +408,10 @@ export default {
     },
     onChange2(current) {
       this.getMyComment(current);
+    },
+      handleProvinceChange(value) {
+      this.districts = this.districtsData[value - 1];
+      // this.defaulValue2 = this.districtsData[value - 1][0];
     }
   },
   computed: mapState(["userStore"])

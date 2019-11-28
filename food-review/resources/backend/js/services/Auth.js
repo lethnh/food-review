@@ -39,9 +39,8 @@ export default {
      * @param {*} forgotData 
      */
     async checkLogin() {
-        let authUser = JSON.parse(Ls.get('authUser'));
-        
-        return authUser;
+        let response = await axios.get('/api/admin/auth/check')
+        return !!response.data.authenticated
     },
 
     async createUser(data) {

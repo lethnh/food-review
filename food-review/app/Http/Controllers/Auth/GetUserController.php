@@ -31,9 +31,10 @@ class GetUserController extends Controller
     public function getUsers()
     {
         $users = DB::table('users')->join('cities', 'users.city_id', '=', 'cities.id')
-        ->select('users.*', 'cities.name as city_name')
-        ->paginate(5);
-        // $users = User::with('city')->paginate(5);
+            ->select('users.*', 'cities.name as city_name')
+            ->where('role_id', 2)
+            ->where('status', 0)
+            ->paginate(5);
         return response()->json($users, 200);
     }
 }

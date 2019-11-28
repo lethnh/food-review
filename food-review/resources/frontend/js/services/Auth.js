@@ -70,8 +70,8 @@ export default {
      * @param {*} forgotData 
      */
     async checkLogin() {
-        let authUser = JSON.parse(Ls.get('authUser'));
-        return authUser;
+        let response = await axios.get('/api/auth/check')
+        return !!response.data.authenticated
     },
 
 

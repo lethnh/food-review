@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:5|max:255',
+            'password' => 'required',
         ];
     }
 
@@ -37,8 +37,6 @@ class UserRequest extends FormRequest
             'email.unique' => 'Email already exists',
 
             'password.required' => 'Please enter a password',
-            'password.min' => 'Password needs to be greater than: min characters',
-            'password.max' => 'Password needs to be smaller: max characters',
         ];
     }
 }

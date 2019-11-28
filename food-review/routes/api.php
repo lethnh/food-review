@@ -99,32 +99,23 @@ Route::get('search', 'FrontEnd\SearchController@postSearch');
 
 
 
+Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::get('/admin/auth/check', 'Auth\AuthController@checkAdmin');
+    Route::get('/auth/check', 'Auth\AuthController@checkUser');
+
+    Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+        Route::get('/user', 'Auth\GetUserController@getUsers');
+        Route::post('/user/create', 'BackEnd\User\UserController@store');
+        Route::post('/user/block', 'BackEnd\User\UserController@block');
 
 
+        Route::get('/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
+        Route::post('/post-review', 'BackEnd\PostReview\PostReviewController@store');
+        Route::post('/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
 
 
-
-
-
-
-
-
-
-
-Route::group([
-    'middleware' => 'auth:api'
-], function () {
-
-    Route::get('admin/user', 'Auth\GetUserController@getUsers');
-    Route::post('admin/user/create', 'BackEnd\User\UserController@store');
-    Route::post('admin/user/block', 'BackEnd\User\UserController@block');
-
-
-    Route::get('admin/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
-    Route::post('admin/post-review', 'BackEnd\PostReview\PostReviewController@store');
-    Route::post('admin/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
-
-
-    Route::get('admin/shop', 'BackEnd\Shop\ShopController@getShops');
-    Route::post('admin/shop/create', 'BackEnd\Shop\ShopController@store');
+        Route::get('/shop', 'BackEnd\Shop\ShopController@getShops');
+        Route::post('/shop/create', 'BackEnd\Shop\ShopController@store');
+    });
 });

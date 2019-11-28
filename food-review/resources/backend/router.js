@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 // import layout
 import BasicLayout from './views/layouts/BasicLayout.vue'
+import LayoutLogin from './views/layouts/LayoutLogin.vue'
 
 import User from './views/pages/User.vue'
 import PostReview from './views/pages/PostReview.vue'
@@ -13,6 +14,8 @@ import CreateShop from './views/pages/CreateShop.vue'
 import CreateUser from './views/pages/CreateUser.vue'
 import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import ShopDetail from './views/pages/ShopDetail.vue'
+import Login from './views/pages/Login.vue'
+import NotFound from './views/pages/NotFound.vue'
 
 
 const router = new VueRouter({
@@ -60,9 +63,18 @@ const router = new VueRouter({
             ]
         },
         {
+            path: '/dashboard',
+            component: LayoutLogin,
+            children: [{
+                path: 'login',
+                component: Login,
+                name: 'adminLogin'
+            }, ]
+        },
+        {
             path: '*',
-            // component: Demo
-        }
+            component: NotFound
+        },
     ],
 });
 
@@ -72,7 +84,7 @@ router.beforeEach((to, from, next) => {
         return AuthService.checkLogin().then(authenticated => {
             if (!authenticated) {
                 return next({
-                    path: '/login'
+                    path: '/dashboard/login'
                 })
             }
             return next()

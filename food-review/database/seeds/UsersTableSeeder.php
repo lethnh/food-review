@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123456'),
             'address' => "Thanh Hóa",
             'city_id' => 11,
-            'role_id' => 2,
+            'role_id' => 1,
             'district_id' => 148,
         ]);
     }

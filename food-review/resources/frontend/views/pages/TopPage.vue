@@ -33,13 +33,11 @@
             <div class="col-3" v-for="(shop, index) in shop_post_review" :key="index">
               <b-card
                 v-if="shop.feature_image !== null"
-                img-alt="Image"
-                img-top
                 tag="article"
                 class="shadow h-100"
               >
                 <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
-                  <img src="shop.feature_image" alt="" class="img-fluid mb-2">
+                  <img :src="shop.feature_image" alt="" class="img-fluid mb-2">
                   <h6 class="card-title">{{ shop.name }}</h6>
                 </router-link>
                 <div class="d-flex align-items-center">
@@ -69,8 +67,6 @@
               </b-card>
               <b-card
                 v-else
-                img-alt="Image"
-                img-top
                 tag="article"
                 class="shadow h-100"
               >
@@ -119,14 +115,12 @@
           <div class="col-3" v-for="(shop, index) in shop_new" :key="index">
                 <b-card
                 v-if="shop.shop.feature_image !== null"
-                img-alt="Image"
-                img-top
                 tag="article"
                 class="shadow h-100"
               >
                 <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.shop.id }}">
-                  <img src="shop.feature_image" alt="" class="img-fluid mb-2">
-                  <h6 class="card-title">{{ shop.shop..name }}</h6>
+                  <img :src="shop.shop.feature_image" alt="" class="img-fluid mb-2">
+                  <h6 class="card-title">{{ shop.shop.name }}</h6>
                 </router-link>
                 <div class="d-flex align-items-center">
                   <div class="shop-rate">
@@ -216,8 +210,6 @@ export default {
       districtsData: {},
       cities: {},
       districts: {},
-      // cities: cityData[provinceData[0]],
-      // secondCity: districtsData[provinceData[0]][0],
       defaulValue: "An Giang",
       defaulValue2: "",
       shops: {},
