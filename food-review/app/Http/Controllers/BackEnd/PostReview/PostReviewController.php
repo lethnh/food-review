@@ -21,4 +21,14 @@ class PostReviewController extends Controller
         $post_review->save();
         return response()->json($post_review, 200);
     }
+
+    public function getListBlock(){
+        $post_reviews = PostReview::with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
+        return response()->json($post_reviews, 200);
+    }
+
+    public function getListWaiting(){
+        $post_reviews = PostReview::with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
+        return response()->json($post_reviews, 200);
+    }
 }

@@ -40,10 +40,10 @@ if (token) {
 window.axios.interceptors.request.use(
     (config) => {
         // Do something before request is sent
-        const data = JSON.parse(localStorage.getItem('authUser'));
+        const data = JSON.parse(localStorage.getItem('token'));
 
         if (data) {
-            let token = data.access_token;
+            let token = data;
             config.headers.common['Authorization'] = `Bearer ${token}`
         }
 

@@ -114,11 +114,11 @@
                   <i class="fas fa-plus"></i> Viết bài đánh giá
                 </router-link>
                 <router-link to="/forgot-password" class="dropdown-item">
-           <i class="fas fa-cog" aria-hidden="true"></i>Đổi mật khẩu
+                  <i class="fas fa-cog" aria-hidden="true"></i>Đổi mật khẩu
                 </router-link>
                 <div class="dropdown-divider" role="presentation"></div>
                 <a class="dropdown-item" @click="logout()">
-                  <i class="fas fa-power-off"></i> Đăng xuất
+                  <i class="fas fa-sign-out-alt"></i> Đăng xuất
                 </a>
               </div>
             </li>

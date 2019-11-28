@@ -13,10 +13,11 @@ class CommentController extends Controller
     {
         try {
             //code...
-            $data_comment = $request->only('content', 'post_review_id', 'parent_id');
+            $data_comment = $request->only('content', 'post_review_id', 'parent_id','content2');
+            $content =  $data_comment['content'] === "" ||  $data_comment['content'] === null  ?  $data_comment['content2'] : $data_comment['content'];
             $user_id = Auth::id();
             $comment = Comment::create([
-                'content' => $data_comment['content'],
+                'content' => $content,
                 'user_id' => $user_id,
                 'post_review_id' => $data_comment['post_review_id'],
                 'parent_id' => $data_comment['parent_id'],

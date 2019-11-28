@@ -10,12 +10,12 @@ class ShopController extends Controller
 {
     public function getShops()
     {
-        $shops = Shop::with('city')->paginate(5);
+        $shops = Shop::with('city', 'district')->paginate(5);
         return response()->json($shops, 200);
     }
 
     public function store()
-    {
-        # code...
-    }
+    { }
+    public function deleteShop()
+    { }
 }

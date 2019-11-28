@@ -30,7 +30,7 @@ const router = new VueRouter({
             children: [{
                     path: 'users',
                     component: User,
-                    name: 'user'
+                    name: 'adminUser'
                 }, {
                     path: 'post-review',
                     component: PostReview,
@@ -63,13 +63,13 @@ const router = new VueRouter({
             ]
         },
         {
-            path: '/dashboard',
+            path: '/admin',
             component: LayoutLogin,
             children: [{
                 path: 'login',
                 component: Login,
                 name: 'adminLogin'
-            }, ]
+            }]
         },
         {
             path: '*',
@@ -84,7 +84,7 @@ router.beforeEach((to, from, next) => {
         return AuthService.checkLogin().then(authenticated => {
             if (!authenticated) {
                 return next({
-                    path: '/dashboard/login'
+                    path: '/admin/login'
                 })
             }
             return next()

@@ -10,7 +10,7 @@
           <div class="panel-body">
             <!-- <h4>Body Heading</h4> -->
             <table-component
-              :data="getPostReviews"
+              :data="getShops"
               sort-by="name"
               sort-order="asc"
               ref="table"
@@ -30,37 +30,20 @@
                   <img v-else src="/images/noimage.png" style="width:60px" alt />
                 </template>
               </table-column>
-              <table-column
-                style="with:300px"
-                show="title"
-                :formatter="formatter"
-                :label="'Tiêu đề'"
-              />
               <!-- <table-column show="city_name" :label="'Tỉnh'" /> -->
-              <table-column show="shop.name" :label="'Cửa hàng'" />
+              <table-column show="name" :label="'Cửa hàng'" />
               <table-column show="user.name" :label="'Người tạo'" />
               <table-column :sortable="false" :filterable="false" :label="'Hành động'">
                 <template slot-scope="row">
                   <div class="table__actions">
-                    <a
-                      class="btn btn-primary btn-sm text-white"
-                      @click="apporove(row.id,1, 'phê duyệt')"
-                    >
-                      <i class="icon-fa icon-fa-trash" />
-                      Phê duyệt
-                    </a>
                     <a class="btn btn-danger btn-sm text-white" @click="apporove(row.id,0,'chặn')">
                       <i class="icon-fa icon-fa-trash" />
-                      Chặn
+                      Xóa
                     </a>
                     <a class="btn btn-primary btn-sm text-white" @click="deleteDomain(row.id)">
                       <i class="icon-fa icon-fa-trash" />
                       Chi tiết
                     </a>
-                    <!-- <a class="btn btn-danger btn-sm text-white" @click="deleteDomain(row.id)">
-                      <i class="icon-fa icon-fa-trash" />
-                      Xóa
-                    </a>-->
                   </div>
                 </template>
               </table-column>
@@ -74,17 +57,17 @@
 <script>
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
-import PostReviewService from "../../js/services/PostReview";
+import ShopService from "../../js/services/Shop";
 export default {
   data() {
     return {
-      users: {}
+      shops: {}
     };
   },
   methods: {
-    async getPostReviews({ page, filter, sort }) {
+    async getShops({ page, filter, sort }) {
       try {
-        const response = await PostReviewService.getPostReviews({
+        const response = await ShopService.getLisShops({
           page: page,
           domain: filter,
           order_by: sort.fieldName,
@@ -138,10 +121,6 @@ export default {
         }
       });
     },
-    formatter(value, rowProperties) {
-      let stringLimit = value.substring(0, 50);
-      return stringLimit;
-    }
   }
 };
 </script>

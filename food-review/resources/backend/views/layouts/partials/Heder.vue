@@ -30,7 +30,6 @@
                     src="/images/icon/logo2.png"
                     title="Remark"
                 />
-                <!-- <span class="navbar-brand-text hidden-xs-down">Remark</span> -->
             </div>
             <button
                 type="button"
@@ -88,12 +87,19 @@
                             data-animation="scale-up"
                             role="button"
                         >
-                            <span class="avatar avatar-online">
-                                <img src="/images/5.jpg" alt="..." />
+                            <span
+                                class="avatar avatar-online"
+                                v-if="user.avatar != null"
+                            >
+                                <img :src="user.avatar" alt="" />
+                                <i></i>
+                            </span>
+                            <span class="avatar avatar-online" v-else>
+                                <img src="/images/5.jpg" alt="" />
                                 <i></i>
                             </span>
                             <span>
-                                Admin
+                                {{ user.name }}
                             </span>
                         </a>
                         <div class="dropdown-menu" role="menu">
@@ -106,10 +112,10 @@
                             </a>
                             <a
                                 class="dropdown-item"
-                                href="javascript:void(0)"
                                 role="menuitem"
+                                @click="logout()"
                             >
-                                <i class="fas fa-cog"></i> Đăng xuất
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
                             </a>
                         </div>
                     </li>
@@ -356,5 +362,29 @@
     </nav>
 </template>
 <script>
-export default {};
+import AuthService from "../../../js/services/Auth";
+export default {
+    data() {
+        return {
+            user: {}
+        };
+    },
+    mounted() {
+        this.getInfo();
+    },
+    methods: {
+        async getInfo() {
+            AuthService.getInfo().then(response => {
+                this.user = response;
+            });
+        },
+        logout() {
+            AuthService.logout().then(response => {
+                this.$router.push({
+                    name: "adminLogin"
+                });
+            });
+        }
+    }
+};
 </script>

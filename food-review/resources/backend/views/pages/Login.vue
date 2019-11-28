@@ -120,10 +120,9 @@ export default {
       if (isValid) {
         AuthService.login(this.loginData).then(response => {
           if (response.status === 200) {
-            Ls.set("authUser", JSON.stringify(response.data));
-            this.$store.dispatch("setUserObject", response.data);
+               Ls.set("token", JSON.stringify(response.data.access_token));
             this.$router.push({
-              name: ""
+              name: "adminUser"
             });
           }
         });

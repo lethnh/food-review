@@ -53,7 +53,7 @@
                     <a
                       v-else
                       class="btn btn-danger btn-sm text-white"
-                      @click="apporove(row.id,0,'chặn')"
+                      @click="apporove(row.id,-1,'chặn')"
                     >
                       <i class="icon-fa icon-fa-trash" />
                       Chặn

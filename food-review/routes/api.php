@@ -98,13 +98,15 @@ Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 Route::get('search', 'FrontEnd\SearchController@postSearch');
 
 
+Route::post('admin/auth/login', 'Auth\AuthController@loginAdmin');
 
 Route::group(['middleware' => ['auth:api']], function () {
-
+    
     Route::get('/admin/auth/check', 'Auth\AuthController@checkAdmin');
     Route::get('/auth/check', 'Auth\AuthController@checkUser');
 
     Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+        Route::get('/info', 'Auth\AuthController@getAdmin');
         Route::get('/user', 'Auth\GetUserController@getUsers');
         Route::post('/user/create', 'BackEnd\User\UserController@store');
         Route::post('/user/block', 'BackEnd\User\UserController@block');

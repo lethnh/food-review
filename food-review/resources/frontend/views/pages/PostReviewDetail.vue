@@ -25,8 +25,11 @@
       <div class="col-3 bg-white">
         <div class="content pt-2">
           <div class="user_info">
-            <div class="rounded">
-              <img :src="post_review.user.avatar" alt="..." class="rounded" />
+            <div class="rounded" v-if="post_review.user.avatar != null">
+              <img :src="post_review.user.avatar" alt="" class="rounded" />
+            </div>
+            <div class="rounded" v-else>
+              <img src="/images/5.jpg" alt="" class="rounded" />
             </div>
             <div>
               <p style="font-size:13px;font-weight:800">{{ post_review.user.name }}</p>
@@ -90,9 +93,16 @@
         <div class="post_review_comment bg-white p-2">
           <div class="item_comment" v-for="(comment, index) in comments" :key="index">
             <div class="comment">
-              <div class="comment_avatar">
+              <div class="comment_avatar" v-if="comment.user.avatar != null">
                 <img :src="comment.user.avatar" alt class="rounded" />
               </div>
+              <div class="comment_avatar" v-else>
+              <img
+                src="/images/5.jpg"
+                alt
+                class="rounded"
+              />
+                </div>
               <div class="comment_content">
                 <div class="user_name ml-0">{{comment.user.name}}</div>
                 <div class="content">{{comment.content}}</div>
@@ -117,8 +127,15 @@
             </div>
             <div v-if="comment.sub_comment">
               <div class="comment_reply" v-for="(item, index) in comment.sub_comment" :key="index">
-                <div class="comment_avatar">
+                <div class="comment_avatar" v-if="item.user.avatar != null">
                   <img :src="item.user.avatar" alt class="rounded" />
+                </div>
+                  <div class="comment_avatar" v-else>
+              <img
+                src="/images/5.jpg"
+                alt
+                class="rounded"
+              />
                 </div>
                 <div class="comment_content">
                   <div class="user_name ml-0">{{item.user.name}}</div>
@@ -142,14 +159,23 @@
                 </div>
               </div>
               <div class="d-flex" style="margin:12px 12px 0px 0px;padding:0px 0px 0px 70px">
-                <div class="rounded mr-2">
-                  <img
-                    :src="userStore.authUser.user_info.avatar"
-                    alt
-                    class="rounded"
-                    style="height:32px;width:32px"
-                  />
-                </div>
+                     <div class="rounded mr-2" v-if="userStore.authUser.user_info.avatar != null">
+              <img
+                :src="userStore.authUser.user_info.avatar"
+                alt
+                class="rounded"
+                style="height:32px;width:32px"
+              />
+     
+            </div>
+            <div class="rounded mr-2" v-else>
+             <img
+                src="/images/5.jpg"
+                alt
+                class="rounded"
+                style="height:32px;width:32px"
+              />
+            </div>
                 <form
                   class="form-group w-100"
                   @submit.prevent="commetPostReview(comment.id,$event)"
@@ -164,14 +190,24 @@
             </div>
           </div>
           <div class="d-flex" style="margin:12px">
-            <div class="rounded mr-2">
+            <div class="rounded mr-2" v-if="userStore.authUser.user_info.avatar != null">
               <img
                 :src="userStore.authUser.user_info.avatar"
                 alt
                 class="rounded"
                 style="height:48px;width:48px"
               />
+     
             </div>
+            <div class="rounded mr-2" v-else>
+             <img
+                src="/images/5.jpg"
+                alt
+                class="rounded"
+                style="height:48px;width:48px"
+              />
+            </div>
+
             <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)">
               <input
                 type="text"
@@ -224,6 +260,7 @@ export default {
       comments: {},
       commentData: {
         content: "",
+        content2: "", 
         post_review_id: this.$route.params.post_id,
         parent_id: 0
       },
@@ -272,10 +309,12 @@ export default {
     },
     commetPostReview(comment_id, $event) {
       if ($event !== null) {
-        this.commentData.content = $($event.target[0]).val();
+        this.commentData.content2 = $($event.target[0]).val();
+        $($event.target[0]).val("");
       }
       this.commentData.parent_id = comment_id;
       CommentServices.commetPostReview(this.commentData).then(response => {
+        this.commentData.content2 = "";
         this.commentData.content = "";
         this.getComment();
       });
