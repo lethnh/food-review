@@ -74,8 +74,6 @@
             <div class="form-group">-->
             <div class="form-group">
               <TimePicker format="HH:mm" @change="onChangeBeginTime"></TimePicker>
-              <!-- v-model="post_review.begin_time" -->
-              <!-- v-model="post_review.close_time" -->
               <TimePicker format="HH:mm" @change="onChangeCloseTime"></TimePicker>
             </div>
             <!-- </div> -->

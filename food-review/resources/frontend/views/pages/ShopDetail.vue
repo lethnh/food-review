@@ -13,9 +13,12 @@
             <div class="section-content">
                 <div class="panel">
                     <div class="row mb-3 p-2">
-                        <div class="col-6">
+                        <div
+                            class="col-6"
+                            style="height:300px;overflow: hidden;"
+                        >
                             <img
-                                src="https://picsum.photos/500/500"
+                                :src="shop_info.feature_image"
                                 class="img-fluid"
                                 alt
                             />
@@ -45,6 +48,15 @@
                                     <span> {{ shop_info.address }}</span>
                                 </a>
                             </div>
+                            <div>
+                                Số bài đánh giá :
+                                <i class="fas fa-newspaper"></i>
+                                <span>{{ shop_info.post_reviews_count }}</span>
+                            </div>
+                            <div>
+                                Tag :
+                                <span>{{ shop_info.post_reviews_count }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,37 +64,21 @@
         </section>
         <section>
             <div class="section-title bg-white">
-                <h5 class="p-2">Ảnh về cửa hàng</h5>
+                <h5 class="p-2">Ảnh về cửa hàng ({{ images.length }})</h5>
             </div>
             <div class="section-content m-t-20">
                 <div class="list-shops panel">
-                    <div class="row p-2">
-                        <div class="col-md-3">
+                    <div class="owl-carousel 1 owl-theme">
+                        <div
+                            class="item"
+                            v-for="(item, index) in images"
+                            :key="index"
+                        >
                             <img
-                                src="https://picsum.photos/600/500"
+                                :src="item.link"
                                 class="img-fluid"
                                 alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
+                                style="height:200px"
                             />
                         </div>
                     </div>
@@ -91,38 +87,72 @@
         </section>
         <section>
             <div class="section-title bg-white">
-                <h5 class="p-2">Bài viết về cửa hàng</h5>
+                <h5 class="p-2">
+                    Bài viết về cửa hàng ({{ shop_info.post_reviews_count }})
+                </h5>
             </div>
             <div class="section-content m-t-20">
-                <div class="list-post panel">
-                    <div class="row p-2">
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
+                <div class="list-post-review-top-view">
+                    <div class="owl-carousel 3 owl-theme">
+                        <div
+                            class="post-item item bg-white"
+                            v-for="(post, index) in post_reviews"
+                            :key="index"
+                        >
+                            <router-link
+                                v-if="post.feature_image !== null"
+                                :to="{
+                                    name: 'postReviewDetail',
+                                    params: { post_id: post.id }
+                                }"
+                            >
+                                <img
+                                    :src="post.feature_image"
+                                    class="img-fluid"
+                                    alt="..."
+                                />
+                            </router-link>
+                            <router-link
+                                v-else
+                                :to="{
+                                    name: 'postReviewDetail',
+                                    params: { post_id: post.id }
+                                }"
+                            >
+                                <img
+                                    src="/images/noimage.png"
+                                    class="img-fluid"
+                                    alt="..."
+                                />
+                            </router-link>
+                            <div class="post-body p-1">
+                                <router-link
+                                    :to="{
+                                        name: 'postReviewDetail',
+                                        params: { post_id: post.id }
+                                    }"
+                                >
+                                    <h5>{{ post.title }}</h5>
+                                </router-link>
+
+                                <div>{{ post.money | currency }}</div>
+                                <div>
+                                    <Rate v-model="post.stars" disabled />
+                                </div>
+                                <div class="action">
+                                    <!-- <div>
+                  <i class="fas fa-thumbs-up"></i>
+                </div>
+                <div>
+                  <i class="fas fa-thumbs-down"></i>
+                  </div>-->
+                                    <div>
+                                        <i class="fas fa-comment-dots"></i>
+                                        {{ post.totalComment }}
+                                    </div>
+                                </div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,80 +160,58 @@
         </section>
         <section>
             <div class="section-title bg-white">
-                <h5 class="p-2">Bình luận về cửa hàng</h5>
-            </div>
-            <div class="section-content m-t-20">
-                <div class="list-comment panel">
-                    <div class="row p-2">
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="section-title bg-white">
-                <h5 class="p-2">Cửa hàng liên quan</h5>
+                <h5 class="p-2">
+                    Bình luận về cửa hàng ({{ comments.length }})
+                </h5>
             </div>
             <div class="section-content m-t-20">
                 <div class="list-comment panel">
-                    <div class="row p-2">
-                        <div class="col-md-3">
+                    <div class="owl-carousel 2 owl-theme">
+                        <div
+                            class="item text-center"
+                            v-for="(item, index) in comments"
+                            :key="index"
+                        >
                             <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
+                                :src="item.avatar"
+                                alt=""
+                                class="mx-auto mt-3 mb-2"
+                                style="height:48px;width:48px"
+                                v-if="item.avatar != null"
                             />
-                        </div>
-                        <div class="col-md-3">
                             <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
+                                src="/images/5.jpg"
+                                alt=""
+                                class="mx-auto mt-3 mb-2"
+                                style="height:48px;width:48px"
+                                v-else
                             />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
-                        </div>
-                        <div class="col-md-3">
-                            <img
-                                src="https://picsum.photos/600/500"
-                                class="img-fluid"
-                                alt
-                            />
+                            <div>
+                                <p
+                                    class="text-dark pb-0"
+                                    style="font-size:13px"
+                                >
+                                    {{ item.name }}
+                                </p>
+                                <p class="pb-0">{{ item.content }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section>
+            <div class="section-title bg-white">
+                <h5 class="p-2">
+                    Cửa hàng liên quan ({{ shop_relate.length }})
+                </h5>
+            </div>
+            <div class="section-content m-t-20">
+                <div
+                    class="list-comment panel"
+                    v-if="shop_relate.length != 0"
+                ></div>
+                <div class="list-comment panel" v-else></div>
             </div>
         </section>
     </div>
@@ -242,33 +250,87 @@ export default {
         url(address) {
             return `http://maps.google.com/?q=${address}`;
         },
-        // async getShopImages() {
-        //     ShopService.getShopImages(this.shop_id).then(response => {
-        //         this.images = response.data;
-        //     });
-        // },
-        // async getShopComments() {
-        //     ShopService.getShopComments(this.shop_id).then(response => {
-        //         this.comments = response.data;
-        //     });
-        // },
-        // async getShopRelate() {
-        //     ShopService.getShopRelate(this.shop_id).then(response => {
-        //         this.shop_relate = response.data;
-        //     });
-        // },
+        async getShopImages() {
+            ShopService.getShopImages(this.shop_id).then(response => {
+                this.images = response.data;
+                $(document).ready(function() {
+                    $(".owl-carousel.1").owlCarousel({
+                        margin: 10,
+                        lazyLoad: true,
+                        dots: true,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            600: {
+                                items: 3
+                            },
+                            1000: {
+                                items: 5
+                            }
+                        }
+                    });
+                });
+            });
+        },
+        async getShopComments() {
+            ShopService.getShopComments(this.shop_id).then(response => {
+                this.comments = response.data;
+                $(document).ready(function() {
+                    $(".owl-carousel.2").owlCarousel({
+                        margin: 10,
+                        lazyLoad: true,
+                        dots: true,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            600: {
+                                items: 3
+                            },
+                            1000: {
+                                items: 6
+                            }
+                        }
+                    });
+                });
+            });
+        },
+        async getShopRelate() {
+            ShopService.getShopRelate(this.shop_id).then(response => {
+                this.shop_relate = response.data;
+            });
+        },
         async getShop() {
             this.isLoading = true;
             ShopService.getShop(this.shop_id).then(response => {
                 this.isLoading = false;
                 this.shop_info = response.data;
             });
+        },
+        async getShopListPost() {
+            ShopService.getShopListPost(this.shop_id).then(response => {
+                this.post_reviews = response.data;
+                $(document).ready(function() {
+                    $(".owl-carousel.3").owlCarousel({
+                        margin: 10,
+                        lazyLoad: true,
+                        dots: true,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            600: {
+                                items: 3
+                            },
+                            1000: {
+                                items: 6
+                            }
+                        }
+                    });
+                });
+            });
         }
-        // async getShopListPost() {
-        //     ShopService.getShopListPost(this.shop_id).then(response => {
-        //         this.post_reviews = response.data;
-        //     });
-        // }
     }
 };
 </script>

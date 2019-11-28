@@ -75,12 +75,12 @@
                   <h6 class="card-title">{{ shop.name }}</h6>
                 </router-link>
                 <div class="d-flex align-items-center">
-                  <div class="shop-rate">
+                  <div class="shop-rate mb-2">
                     <Rate disabled v-model="shop.stars" allowHalf />
                     <span>{{ shop.stars }}</span>
                   </div>
                   <div class="ml-3 shop-comment ml-auto">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-newspaper"></i>
                     <span>{{ shop.post_reviews_count }}</span>
                   </div>
                 </div>

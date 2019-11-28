@@ -20,6 +20,8 @@
 
         <!-- Styles -->
         <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
+        <link href="/js/owl.carousel.min.css" rel="stylesheet">
+        <link href="/js/owl.theme.default.min.css" rel="stylesheet">
         @yield('styles')
     </head>
 
@@ -30,6 +32,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('frontend/js/app.js') }}"></script>
+        <script src="/js/owl.carousel.min.js"></script>
         <script src="{{ asset('/js/animsition.min.js') }}"></script>
         <script src="{{ asset('frontend/js/main.js') }}"></script>
         @yield('scripts')

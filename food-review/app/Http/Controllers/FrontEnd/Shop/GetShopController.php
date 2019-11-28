@@ -38,9 +38,9 @@ class GetShopController extends Controller
     public function getPostReview($id)
     {
         $post_reviews =  PostReview::join('users', 'users.id', '=', 'post_reviews.user_id')
-            ->where('user.status', 1)
-            ->where('is_approve', 1)
-            ->where('shop_id', $id)->paginate(5);
+            ->where('users.status', 1)
+            ->where('post_reviews.is_approve', 1)
+            ->where('post_reviews.shop_id', $id)->get();
         return response()->json($post_reviews, 200);
     }
 
@@ -51,14 +51,17 @@ class GetShopController extends Controller
             'post_review_images.post_review_id',
         )->join('users', 'users.id', '=', 'post_reviews.user_id')
             ->join('post_review_images', 'post_review_images.post_review_id', '=', 'post_reviews.id')
-            ->where('user.status', 1)
-            ->where('is_approve', 1)
-            ->where('shop_id', $id)->get();
+            ->where('users.status', 1)
+            ->where('post_reviews.is_approve', 1)
+            ->where('post_reviews.shop_id', $id)->get();
         return response()->json($images, 200);
     }
 
     public function getShopRelate($id)
-    { }
+    {
+        $shop = Shop::findOrFail($id);
+        $list_post = Shop::where('city_id', $shop->city_id)->where('district_id', $shop->district_id)->get();
+     }
 
     public function getComments($id)
     {
@@ -66,18 +69,19 @@ class GetShopController extends Controller
             'comments.content',
             'users.name',
             'post_reviews.title',
-            'post_reviews.id'
+            'post_reviews.id',
+            'users.avatar',
         )->join('users', 'users.id', '=', 'post_reviews.user_id')
             ->join('comments', 'comments.post_review_id', '=', 'post_reviews.id')
-            // ->where('user.status', 1)
-            // ->where('is_approve', 1)
-            ->where('shop_id', $id)->get();
+            ->where('users.status', 1)
+            ->where('post_reviews.is_approve', 1)
+            ->where('post_reviews.shop_id', $id)->get();
         return response()->json($comments, 200);
     }
 
     public function getShop($id)
     {
-        $shop = Shop::where('id', $id)->with('city', 'district')->first();
+        $shop = Shop::where('id', $id)->with('city', 'district')->withCount('postReviews')->first();
         return response()->json($shop, 200);
     }
 }

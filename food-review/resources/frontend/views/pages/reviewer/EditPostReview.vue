@@ -64,34 +64,23 @@
         ></b-form-radio-group>
       </div>
       <!--  -->
-      <div v-if="isShow">
+      <div v-if="isShow === true">
         <div class="form-group">
           <label>Tên nhà hàng</label>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="post_review.shop.name" />
         </div>
-        <!--  -->
-        <div class="form-group">
-          <label>Tag</label>
-          <vue-tags-input
-            style="max-width:100%"
-            @tags-changed="newTags => tags = newTags"
-            v-model="tag"
-            :tags="tags"
-          />
-        </div>
-        <!--  -->
         <!--  -->
         <ValidationProvider name="begintime" rules="required">
           <div slot-scope="{ errors }">
             <div class="form-group">
-              <TimePicker format="HH:mm" v-model="post_review.begin_time" @change="onChange"></TimePicker>
-              <TimePicker format="HH:mm" v-model="post_review.close_time" @change="onChange"></TimePicker>
+              <TimePicker format="HH:mm"  :defaultValue="moment(post_review.shop.begin_time, 'HH:mm')"  @change="onChangeBeginTime"></TimePicker>
+              <TimePicker format="HH:mm"  :defaultValue="moment(post_review.shop.close_time, 'HH:mm')" @change="onChangeCloseTime"></TimePicker>
             </div>
           </div>
         </ValidationProvider>
         <!--  -->
       </div>
-      <div v-else>
+     <div v-else>
         <!--  -->
         <ValidationProvider name="content" rules="required">
           <div slot-scope="{ errors }">
@@ -156,7 +145,7 @@
       </ValidationProvider>
       <!--  -->
 
-      <button class="btn btn-success">Tạo bài</button>
+      <button class="btn btn-success">Cập nhập bài viết</button>
     </ValidationObserver>
   </ValidationProvider>
 </template>
@@ -175,12 +164,15 @@ export default {
   data() {
     return {
       shops: [],
-      post_review: { user: {}, images: [] },
+      post_review: { user: {}, images: [],shop:{
+        begin_time: '',
+        close_time: '',
+      } },
       isShow: false,
       selected: 0,
       options: [
         { text: "Chọn cửa hàng có sắn", value: 0 },
-        { text: "Tạo mới nhà hàng", value: 1 }
+        { text: "Chỉnh sửa cửa hàng", value: 1 }
       ],
       cities: [],
       tag: "",
@@ -211,6 +203,7 @@ export default {
     this.getPostReview();
   },
   methods: {
+    moment,
     getShops() {
       ShopService.getShops().then(response => {
         this.shops = response;
@@ -220,14 +213,16 @@ export default {
       PostReviewService.getPostReview(this.$route.params.post_id).then(
         response => {
           this.post_review = response;
+          this.post_review.shop.begin_time = this.post_review.shop.be
           this.post_review.images = [];
         }
       );
     },
-    onChange(time) {
-      console.log(time);
-      console.log(moment(time).format("HH:mm"));
-      // this.value = moment(time).format("HH:mm");
+    onChangeBeginTime(time, timeString) {
+      this.post_review.shop.begin_time = timeString;
+    },
+    onChangeCloseTime(time, timeString) {
+      this.post_review.shop.close_time = timeString;
     },
     onShow(checked) {
       checked === 1 ? (this.isShow = true) : (this.isShow = false);
@@ -239,8 +234,7 @@ export default {
       }
     },
     showError(file, message, xhr) {
-      // console.log(message);
-      // window.toastr["error"](message, "Error");
+  
     },
     removeAllFiles() {
       this.$refs.dropzone.removeAllFiles();
@@ -270,13 +264,12 @@ export default {
           this.$route.params.post_id,
           this.post_review
         ).then(response => {
-          if (response.status === 200) {
-            console.log(response.data);
+          // if (response.status === 200) {
             this.$router.push({
               name: "postReviewDetail",
               params: { post_id: response.data.id }
             });
-          }
+          // }
         });
       }
     }

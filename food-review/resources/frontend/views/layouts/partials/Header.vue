@@ -26,10 +26,10 @@
                   <router-link to="/timeline">Bài viết</router-link>
                 </li>
                 <li>
-                  <a href="contact.html">Về chúng tôi</a>
+                  <router-link to="/about-us">Về chúng tôi</router-link>
                 </li>
                 <li>
-                  <a href="contact.html">Liên hệ</a>
+                  <router-link to="/contact-us">Liên hệ với chúng tôi</router-link>
                 </li>
               </ul>
             </nav>
@@ -63,30 +63,7 @@
                 aria-label="Search"
               />
               <i class="fas fa-search text-custom" aria-hidden="true"></i>
-              <!-- <a-select
-                style="width: 150px"
-                class="mr-2"
-                placeholder="Chọn tỉnh thành"
-                @change="handleProvinceChange"
-              >
-                <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
-              </a-select>-->
             </form>
-            <!-- <button class="text-custom">
-              <i class="fas fa-search text-white" style="font-size:15px"></i>
-            </button>-->
-            <!-- <form class="form-inline md-form form-sm active-cyan-2 mt-2">
-              <input
-                v-if="isShow"
-                class="form-control form-control-sm mr-3 w-75"
-                type="text"
-                placeholder="Search"
-                aria-label="Search"
-                style="border: none;
-    border-bottom: 1px solid #ced4da;"
-              />
-              <i class="fas fa-search text-custom text-white" @click="show" aria-hidden="true"></i>
-            </form>-->
             <li class="nav-item dropdown">
               <a
                 class="nav-link navbar-avatar d-flex align-items-center"

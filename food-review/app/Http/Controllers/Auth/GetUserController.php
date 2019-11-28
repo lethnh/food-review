@@ -15,6 +15,7 @@ class GetUserController extends Controller
     {
         try {
             $user = Auth::user();
+            $user->city;
             return response()->json($user, 200);
         } catch (\Throwable $th) {
             //throw $th;

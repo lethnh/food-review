@@ -25,16 +25,6 @@ class Shop extends Model
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
-    public function getStarsAttribute()
-    {
-        $stars = PostReview::where('shop_id', $this->id)->sum('stars');
-        if ($this->post_reviews_count !== null && $this->post_reviews_count !== 0) {
-            $avg = round(($stars /  $this->post_reviews_count), 2);
-        } else {
-            $avg = 0;
-        }
-        return $avg;
-    }
 
     public function getMoneyAttribute()
     {
@@ -56,5 +46,16 @@ class Shop extends Model
             }
         }
         return $tags;
+    }
+    public function getStarsAttribute()
+    {
+        $stars = PostReview::where('shop_id', $this->id)->sum('stars');
+        $count = PostReview::where('shop_id', $this->id)->count();
+        if ($count !== 0) {
+            $avg = round(($stars /  $count), 2);
+        } else {
+            $avg = 0;
+        }
+        return $avg;
     }
 }

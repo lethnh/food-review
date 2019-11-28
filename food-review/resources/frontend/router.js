@@ -23,6 +23,7 @@ import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import ResultSearch from './views/pages/ResultSearch.vue'
 import NotFound from './views/pages/errors/NotFound.vue'
 import AboutUs from './views/pages/AboutUs.vue'
+import ContactUs from './views/pages/ContactUs.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -42,7 +43,11 @@ const router = new VueRouter({
                 path: 'about-us',
                 component: AboutUs,
                 name: 'aboutUs'
-            }]
+            }, {
+                path: 'contact-us',
+                component: ContactUs,
+                name: 'contactUs'
+            }, ]
         },
         {
             path: '/',

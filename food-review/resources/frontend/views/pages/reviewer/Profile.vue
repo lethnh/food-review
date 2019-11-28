@@ -20,7 +20,7 @@
                 alt
                 style="height:100px;width:100px"
               />
-              <img v-else src="/images/5.jpg" class="rounded-circle" alt="..." />
+              <img v-else src="/images/5.jpg" class="rounded-circle" alt="..."  style="height:100px"/>
             </a>
             <h4 class="profile-user">{{userStore.authUser.user_info.name}}</h4>
             <!-- <p class="profile-job">Art director</p> -->
@@ -55,7 +55,7 @@
     <section class="col-9">
       <div class="panel">
         <b-card no-body>
-          <b-tabs card>
+          <b-tabs card lazy>
             <b-tab title="Bài viết của tôi" active>
               <div class="w-100" v-if="post_reviews.data.length !== 0">
                 <div
@@ -113,12 +113,9 @@
                         <i class="fas fa-edit text-white mr-1"></i>Chỉnh sửa
                       </span>
                     </router-link>
-                      <span class="ladda-label btn btn-danger" @click="deletePostReview(post.id)">
+                      <span class="ladda-label btn btn-danger" style="font-size:13px" @click="deletePostReview(post.id)">
                         <i class="far fa-trash-alt text-white mr-1"></i>Xóa
                       </span>
-                      <!-- <span class="ladda-label btn btn-danger" v-if="post.is_approve == -1" @click="deletePostReview(post.id)">
-                        <i class="far fa-trash-alt text-white mr-1"></i>Yêu cầu phê duyệt
-                      </span> -->
                   </div>
                 </div>
                 <a-pagination
@@ -131,7 +128,7 @@
               </div>
               <div class="w-100" v-else>Không có bài viết nào</div>
             </b-tab>
-            <b-tab title="Cập nhập thông tin">
+            <b-tab title="Cập nhập thông tin" lazy>
               <ValidationObserver
                 class="panel p-3 mb-0"
                 v-slot="{ passes }"
@@ -171,24 +168,15 @@
                   </div>
                   <div class="form-group col-6">
                     <label for>Thành phố</label>
-                    <input type="text" v-model="user.city_id" class="form-control" />
-                       <!-- <a-select
-        style="width: 200px"
-        class="mr-2"
-        :defaultValue="defaulValue"
-        @change="handleProvinceChange"
-      >
-        <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
-      </a-select>
-      <a-select style="width: 200px" :v-model="">
-        <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
-      </a-select> -->
+                    <a-select :v-model="user.city.name"  class="w-100">
+                      <a-select-option v-for="city in citiesData" :key="city.id">{{city.name}}</a-select-option>
+                    </a-select>
                   </div>
                 </div>
                 <button class="btn btn-primary">Cập nhập</button>
               </ValidationObserver>
             </b-tab>
-            <b-tab title="Bình luận của tôi">
+            <b-tab title="Bình luận của tôi" lazy>
               <div class="list-comment" v-if="comments.data.length !== 0">
                 <div class="item_comment" v-for="(comment, index) in comments.data" :key="index">
                   <div class="comment d-flex align-items-start mb-3">
@@ -269,7 +257,9 @@ export default {
       loader: "spinner",
 
       isLoading: false,
-      user: {},
+      user: {
+        city:{}
+      },
       post_reviews: {
         data: []
       },
@@ -278,9 +268,7 @@ export default {
       },
       avatar: null,
       cities: {},
-      districts: {},
-         citiesData: {},
-      districtsData: {},
+      citiesData: {},
     };
   },
   mounted() {
@@ -293,15 +281,10 @@ export default {
       getCities() {
       CityService.getCities().then(response => {
         let cities = [];
-        let districts = [];
         response.forEach(element => {
-          if (element["districts"]) {
-            districts.push(element["districts"]);
-          }
           cities.push(element);
         });
         this.citiesData = cities;
-        this.districtsData = districts;
       });
     },
     async getUser() {
@@ -419,10 +402,6 @@ export default {
     onChange2(current) {
       this.getMyComment(current);
     },
-      handleProvinceChange(value) {
-      this.districts = this.districtsData[value - 1];
-      // this.defaulValue2 = this.districtsData[value - 1][0];
-    }
   },
   computed: mapState(["userStore"])
 };
