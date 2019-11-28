@@ -323,8 +323,7 @@ export default {
           if (response.status === 200) {
             console.log(response.data);
             this.$router.push({
-              name: "postReviewDetail",
-              params: { post_id: response.data.id }
+              name: "profile",
             });
           }
         });

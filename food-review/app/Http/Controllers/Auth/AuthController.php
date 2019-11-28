@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function checkUser()
     {
-        if (Auth::user() &&  Auth::user()->role_id == 2) {
+        if (Auth::user()) {
             return response(['authenticated' => true]);
         }
         return response(['authenticated' => false]);

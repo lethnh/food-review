@@ -60,7 +60,7 @@
               </div>
             </div>
             <a-pagination
-              v-show="post_reviews.total >=2"
+              v-show="post_reviews.last_page >=2"
               class="text-center mt-3"
               @change="onChange"
               :pageSize="post_reviews.per_page"

@@ -28,7 +28,6 @@ class CreatePostReviewController extends Controller
     public function storePostReview(Request $request)
     {
         try {
-            
             DB::beginTransaction();
             $data_post_review = $request->only(['images', 'content', 'money', 'stars', 'shop_id', 'title', 'tags']);
             if (empty($data_post_review['shop_id'])) {
@@ -65,9 +64,9 @@ class CreatePostReviewController extends Controller
             ]);
 
 
-
+            $shop_id = isset($shop) ? $shop->id : $data_post_review['shop_id'];
             $this->uploadImageService->uploadImage($data_post_review['images'], $post_review);
-            $this->tagService->storeTag($data_post_review['tags'], $post_review->id, $shop->id);
+            $this->tagService->storeTag($data_post_review['tags'], $post_review->id, $shop_id);
 
             DB::commit();
             return response()->json($post_review, 200);

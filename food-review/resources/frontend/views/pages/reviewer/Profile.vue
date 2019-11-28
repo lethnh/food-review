@@ -64,18 +64,25 @@
                   :key="index"
                 >
                   <router-link
-                    v-if="post.feature_image !== null"
+                    v-if="post.feature_image !== null" class="position-relative"
                     :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
                   >
+                      <span class="badge badge-warning" v-if="post.is_approve == 0">Chờ phê duyệt</span>
+                      <span class="badge badge-success" v-if="post.is_approve == 1">Được phê duyệt</span>
+                      <span class="badge badge-danger" v-if="post.is_approve == -1">Từ chối phê duyệt</span>
                     <img :src="post.feature_image" class="img-fluid" alt="..." />
                   </router-link>
                   <router-link
                     v-else
                     :to="{ name: 'postReviewDetail', params: { post_id: post.id }}"
+                     class="position-relative"
                   >
+                      <span class="badge badge-warning" v-if="post.is_approve == 0">Chờ phê duyệt</span>
+                      <span class="badge badge-success" v-if="post.is_approve == 1">Được phê duyệt</span>
+                      <span class="badge badge-danger" v-if="post.is_approve == -1">Từ chối phê duyệt</span>
                     <img src="/images/noimage.png" class="img-fluid" alt="..." />
                   </router-link>
-                  <div class="post-body col-7">
+                  <div class="post-body col-6">
                     <router-link :to="{ name: 'postReviewDetail', params: { post_id: post.id }}">
                       <h5 class="text-justify">{{ post.title }}</h5>
                     </router-link>
@@ -109,10 +116,13 @@
                       <span class="ladda-label btn btn-danger" @click="deletePostReview(post.id)">
                         <i class="far fa-trash-alt text-white mr-1"></i>Xóa
                       </span>
+                      <!-- <span class="ladda-label btn btn-danger" v-if="post.is_approve == -1" @click="deletePostReview(post.id)">
+                        <i class="far fa-trash-alt text-white mr-1"></i>Yêu cầu phê duyệt
+                      </span> -->
                   </div>
                 </div>
                 <a-pagination
-                  v-show="post_reviews.total >=2"
+                  v-show="post_reviews.last_page >=2"
                   class="text-center mt-3"
                   @change="onChange"
                   :pageSize="post_reviews.per_page"
@@ -224,7 +234,7 @@
                   </div>
                 </div>
                 <a-pagination
-                  v-show="comments.total >= 2"
+                  v-show="comments.last_page >= 2"
                   class="text-center mt-3"
                   @change="onChange2"
                   :pageSize="comments.per_page"
@@ -418,6 +428,15 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.badge{
+    position: absolute;
+    top: -7px;
+    left: -18px;
+}
+.badge-warning {
+    color: #fff  !important;
+    background-color: #eb6709  !important;
+}
 .panel {
   position: relative;
   margin-bottom: 2.143rem;

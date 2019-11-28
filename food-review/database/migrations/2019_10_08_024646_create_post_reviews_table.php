@@ -22,7 +22,7 @@ class CreatePostReviewsTable extends Migration
             $table->integer('user_id');
             $table->double('money');
             $table->integer('stars');
-            $table->boolean('is_approve')->default(0);
+            $table->enum('is_approve', [-1, 0, 1])->default(0);
             $table->integer('like')->default(0)->nullable();
             $table->integer('unlike')->default(0)->nullable();
             $table->integer('total_view')->default(0)->nullable();

@@ -6,7 +6,7 @@ export default {
     async storePostReview(postReviewData) {
         try {
             let response = await axios.post('/api/post-review', postReviewData)
-            toastr.success("Tạo bài viết thành công");
+            toastr.success("Tạo bài viết thành công, Bài viết đang đợi admin phê duyệt");
             return response;
         } catch (error) {
             console.log(error);
