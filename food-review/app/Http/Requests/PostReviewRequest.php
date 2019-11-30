@@ -30,10 +30,9 @@ class PostReviewRequest extends FormRequest
         return [
             'content'                 => 'required',
             'stars'              => 'required|min:1|max:5',
-            'money' => 'required|min:1',
-            'user_id' => '',
-            'shop_id' => '',
-            
+            'money' =>              'required|min:1',
+            'user_id' =>            'required',
+            'shop_id' =>            'required',
         ];
     }
     public  function messages()

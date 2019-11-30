@@ -9,113 +9,145 @@
                     </div>
                     <div class="panel-body">
                         <ValidationProvider>
-                            <ValidationProvider name="images" rules="required">
-                                <div slot-scope="{ errors }">
-                                    <div class="form-group">
-                                        <label>Ảnh ( tối đa năm ảnh )</label>
-                                        <span
-                                            :class="{ 'is-danger': errors[0] }"
-                                            >{{ errors[0] }}</span
-                                        >
-                                        <vue-dropzone
-                                            ref="dropzone"
-                                            id="dropzone"
-                                            v-model="images"
-                                            :options="dropzoneOptions"
-                                            @vdropzone-error="showError"
-                                            @vdropzone-removed-file="removeFile"
-                                            @vdropzone-complete="
-                                                afterCompleteImagePost
-                                            "
-                                        ></vue-dropzone>
-                                        <button
-                                            class="btn mt-2"
-                                            @click.prevent="removeAllFiles"
-                                        >
-                                            Remove All Files
-                                        </button>
+                            <ValidationObserver
+                                class="panel p-3 mb-0"
+                                v-slot="{ passes }"
+                                ref="shopForm"
+                                tag="form"
+                                @submit.prevent="createShop()"
+                            >
+                                <ValidationProvider
+                                    name="images"
+                                    rules="required"
+                                >
+                                    <div slot-scope="{ errors }">
+                                        <div class="form-group">
+                                            <label
+                                                >Ảnh ( tối đa năm ảnh )</label
+                                            >
+                                            <span
+                                                :class="{
+                                                    'is-danger': errors[0]
+                                                }"
+                                                >{{ errors[0] }}</span
+                                            >
+                                            <vue-dropzone
+                                                ref="dropzone"
+                                                id="dropzone"
+                                                v-model="images"
+                                                :options="dropzoneOptions"
+                                                @vdropzone-error="showError"
+                                                @vdropzone-removed-file="
+                                                    removeFile
+                                                "
+                                                @vdropzone-complete="
+                                                    afterCompleteImagePost
+                                                "
+                                            ></vue-dropzone>
+                                            <button
+                                                class="btn mt-2"
+                                                @click.prevent="removeAllFiles"
+                                            >
+                                                Remove All Files
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </ValidationProvider>
-                            <div class="form-group">
-                                <label>Tên nhà hàng</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    v-model="post_review.shop_name"
-                                />
-                            </div>
-                            <!--  -->
-                            <!--  -->
-                            <!-- <ValidationProvider name="begintime" rules="required">
+                                </ValidationProvider>
+                                <ValidationProvider
+                                    name="name"
+                                    rules="required"
+                                >
+                                    <div slot-scope="{ errors }">
+                                        <div class="form-group">
+                                            <label>Tên nhà hàng</label>
+                                            <span
+                                                :class="{
+                                                    'is-danger': errors[0]
+                                                }"
+                                                >{{ errors[0] }}</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                v-model="shop.shop_name"
+                                            />
+                                        </div>
+                                    </div>
+                                </ValidationProvider>
+                                <!--  -->
+                                <!--  -->
+                                <!-- <ValidationProvider name="begintime" rules="required">
               <div slot-scope="{ errors }">
             <div class="form-group">-->
-                            <div class="form-group">
-                                <TimePicker
-                                    format="HH:mm"
-                                    @change="onChangeBeginTime"
-                                ></TimePicker>
-                                <!-- v-model="post_review.begin_time" -->
-                                <!-- v-model="post_review.close_time" -->
-                                <TimePicker
-                                    format="HH:mm"
-                                    @change="onChangeCloseTime"
-                                ></TimePicker>
-                            </div>
-                            <!-- </div> -->
-                            <!-- </div> -->
-                            <!-- </ValidationProvider> -->
-                            <div class="form-group">
-                                <gmap-autocomplete
-                                    class="form-control"
-                                    placeholder="Chọn địa điểm quán ăn"
-                                    @place_changed="setPlace"
-                                    style="min-width:250px"
-                                ></gmap-autocomplete>
-                                <!-- <button @click="usePlace">Add</button> -->
-                                <br />
+                                <div class="form-group">
+                                    <TimePicker
+                                        format="HH:mm"
+                                        @change="onChangeBeginTime"
+                                    ></TimePicker>
+                                    <!-- v-model="shop.begin_time" -->
+                                    <!-- v-model="shop.close_time" -->
+                                    <TimePicker
+                                        format="HH:mm"
+                                        @change="onChangeCloseTime"
+                                    ></TimePicker>
+                                </div>
+                                <!-- </div> -->
+                                <!-- </div> -->
+                                <!-- </ValidationProvider> -->
+                                <div class="form-group">
+                                    <gmap-autocomplete
+                                        class="form-control"
+                                        placeholder="Chọn địa điểm quán ăn"
+                                        @place_changed="setPlace"
+                                        style="min-width:250px"
+                                    ></gmap-autocomplete>
+                                    <!-- <button @click="usePlace">Add</button> -->
+                                    <br />
 
-                                <Gmap-Map
-                                    style="min-width: 600px; height: 500px;"
-                                    :zoom="zoom"
-                                    :center="{
-                                        lat:
-                                            place === null
-                                                ? 14.058324
-                                                : place.geometry.location.lat(),
-                                        lng:
-                                            place === null
-                                                ? 108.277199
-                                                : place.geometry.location.lng()
-                                    }"
-                                >
-                                    <gmap-info-window
-                                        :options="infoOptions"
-                                        :position="infoWindowPos"
-                                        :opened="infoWinOpen"
-                                    ></gmap-info-window>
-                                    <Gmap-Marker
-                                        v-if="place === null ? false : true"
+                                    <Gmap-Map
+                                        style="min-width: 600px; height: 500px;"
                                         :zoom="zoom"
-                                        :clickable="true"
-                                        @click="toggleInfoWindow(marker)"
-                                        :position="{
-                                            lat: place.geometry.location.lat(),
-                                            lng: place.geometry.location.lng()
+                                        :center="{
+                                            lat:
+                                                place === null
+                                                    ? 14.058324
+                                                    : place.geometry.location.lat(),
+                                            lng:
+                                                place === null
+                                                    ? 108.277199
+                                                    : place.geometry.location.lng()
                                         }"
-                                    ></Gmap-Marker>
-                                </Gmap-Map>
-                            </div>
-                            <div class="form-group">
-                                <label>Tag</label>
-                                <vue-tags-input
-                                    style="max-width:100%"
-                                    @tags-changed="newTags => (tags = newTags)"
-                                    v-model="tag"
-                                    :tags="tags"
-                                />
-                            </div>
-                            <button class="btn btn-primary"> Tạo</button>
+                                    >
+                                        <gmap-info-window
+                                            :options="infoOptions"
+                                            :position="infoWindowPos"
+                                            :opened="infoWinOpen"
+                                        ></gmap-info-window>
+                                        <Gmap-Marker
+                                            v-if="place === null ? false : true"
+                                            :zoom="zoom"
+                                            :clickable="true"
+                                            @click="toggleInfoWindow(marker)"
+                                            :position="{
+                                                lat: place.geometry.location.lat(),
+                                                lng: place.geometry.location.lng()
+                                            }"
+                                        ></Gmap-Marker>
+                                    </Gmap-Map>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tag</label>
+                                    <vue-tags-input
+                                        style="max-width:100%"
+                                        @tags-changed="
+                                            newTags => (tags = newTags)
+                                        "
+                                        v-model="tag"
+                                        :tags="tags"
+                                    />
+                                </div>
+                                <button class="btn btn-primary">Tạo</button>
+                            </ValidationObserver>
                         </ValidationProvider>
                     </div>
                 </div>
@@ -127,6 +159,7 @@
 import vue2Dropzone from "vue2-dropzone";
 import VueTagsInput from "@johmun/vue-tags-input";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import ShopService from "../../js/services/Shop";
 import moment from "moment";
 export default {
     components: {
@@ -166,7 +199,7 @@ export default {
             zoom: 5,
             place: null,
             shops: [],
-            post_review: {
+            shop: {
                 shop_name: "",
                 shop_image: null,
                 shop_lat: null,
@@ -179,12 +212,8 @@ export default {
                 shop_type: null,
                 title: "",
                 images: [],
-                content: "",
                 begin_time: null,
                 close_time: null,
-                money: null,
-                shop_id: "",
-                stars: 0,
                 tags: {}
             },
             isShow: false,
@@ -217,20 +246,13 @@ export default {
             }
         };
     },
-    mounted() {
-        this.getShops();
-    },
+    mounted() {},
     methods: {
-        getShops() {
-            ShopService.getShops().then(response => {
-                this.shops = response;
-            });
-        },
         handleChange(value) {
             console.log(`selected ${value}`);
         },
-        async postReview() {
-            const isValid = await this.$refs.postReviewForm.validate();
+        async createShop() {
+            const isValid = await this.$refs.shopForm.validate();
             if (!isValid) {
                 window.scroll({
                     top: 10,
@@ -238,37 +260,30 @@ export default {
                 });
                 event.preventDefault();
             } else {
-                this.post_review.tags = this.tags;
+                this.shop.tags = this.tags;
                 this.isLoading = true;
-                PostReviewService.storePostReview(this.post_review).then(
-                    response => {
-                        this.isLoading = false;
-                        if (response.status === 200) {
-                            console.log(response.data);
-                            this.$router.push({
-                                name: "postReviewDetail",
-                                params: { post_id: response.data.id }
-                            });
-                        }
+                ShopService.createShop(this.shop).then(response => {
+                    this.isLoading = false;
+                    if (response.status === 200) {
+                        console.log(response.data);
+                        this.$router.push({
+                            name: "postReviewDetail",
+                            params: { post_id: response.data.id }
+                        });
                     }
-                );
+                });
             }
         },
-
-        // onChange(time) {
-        //   return moment(time).format("HH:mm"));
-        //   // this.value = moment(time).format("HH:mm");
-        // },
         onChangeBeginTime(time, timeString) {
-            this.post_review.begin_time = timeString;
+            this.shop.begin_time = timeString;
         },
         onChangeCloseTime(time, timeString) {
-            this.post_review.close_time = timeString;
+            this.shop.close_time = timeString;
         },
 
         onShow(checked) {
             if (checked === 1) {
-                this.post_review.shop_id = "";
+                this.shop.shop_id = "";
             }
             checked === 1 ? (this.isShow = true) : (this.isShow = false);
         },
@@ -280,25 +295,21 @@ export default {
 
         afterCompleteImagePost(file) {
             if (file.dataURL) {
-                this.post_review.images.push(file.dataURL);
+                this.shop.images.push(file.dataURL);
                 this.images.push(file.dataURL);
             }
         },
 
         removeAllFiles() {
-            (this.post_review.images = []),
+            (this.shop.images = []),
                 (this.images = []),
                 this.$refs.dropzone.removeAllFiles();
         },
 
         removeFile(file, error, xhr) {
-            for (
-                let index = 0;
-                index < this.post_review.images.length;
-                index++
-            ) {
-                if (this.post_review.images[index] === file.dataURL) {
-                    this.post_review.images.splice(index, 1);
+            for (let index = 0; index < this.shop.images.length; index++) {
+                if (this.shop.images[index] === file.dataURL) {
+                    this.shop.images.splice(index, 1);
                 }
             }
         },
@@ -309,21 +320,21 @@ export default {
             this.marker.position.lat = place.geometry.location.lat();
             this.marker.position.lng = place.geometry.location.lng();
             this.marker.infoText = place.adr_address;
-            this.post_review.shop_name = place.name;
-            this.post_review.shop_lat = place.geometry.location.lat();
-            this.post_review.shop_lng = place.geometry.location.lng();
-            this.post_review.shop_address = place.formatted_address;
-            this.post_review.shop_google_map_id = place.id;
-            this.post_review.shop_type = place.types[0];
-            this.post_review.shop_image = place.photos
+            this.shop.shop_name = place.name;
+            this.shop.shop_lat = place.geometry.location.lat();
+            this.shop.shop_lng = place.geometry.location.lng();
+            this.shop.shop_address = place.formatted_address;
+            this.shop.shop_google_map_id = place.id;
+            this.shop.shop_type = place.types[0];
+            this.shop.shop_image = place.photos
                 ? place.photos[0].getUrl()
                 : null;
             place.address_components.forEach(element => {
                 if (element.types[0] === "administrative_area_level_1") {
-                    this.post_review.shop_city = element.long_name;
+                    this.shop.shop_city = element.long_name;
                 }
                 if (element.types[0] === "administrative_area_level_2") {
-                    this.post_review.shop_district = element.long_name;
+                    this.shop.shop_district = element.long_name;
                 }
             });
         },

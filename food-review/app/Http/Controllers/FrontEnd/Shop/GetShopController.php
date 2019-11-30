@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\FrontEnd\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post_Review_Shop_Tag;
 use App\Models\PostReview;
 use App\Models\Shop;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -61,7 +63,7 @@ class GetShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
         $list_post = Shop::where('city_id', $shop->city_id)->where('district_id', $shop->district_id)->get();
-     }
+    }
 
     public function getComments($id)
     {
@@ -83,5 +85,14 @@ class GetShopController extends Controller
     {
         $shop = Shop::where('id', $id)->with('city', 'district')->withCount('postReviews')->first();
         return response()->json($shop, 200);
+    }
+    public function getShopTags($id)
+    {
+        $tags = Post_Review_Shop_Tag::select([
+            'tags.name'
+        ])->join('tags', 'tags.id', '=', 'post_review_tags.tag_id')
+            ->join('post_reviews', 'post_reviews.id', '=', 'post_review_tags.post_review_id')
+            ->where('post_review_tags.shop_id', $id)->where('post_reviews.is_approve', 1)->get();
+        return response()->json($tags, 200);
     }
 }

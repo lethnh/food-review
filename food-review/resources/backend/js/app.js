@@ -14,9 +14,16 @@ import {
 window.Vue = require('vue');
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
+import "ant-design-vue/lib/carousel/style/css";
 import TimePicker from "ant-design-vue/lib/time-picker";
 import "ant-design-vue/lib/time-picker/style/css";
+import "ant-design-vue/lib/rate/style/css";
+import VueCurrencyFilter from 'vue-currency-filter'
+import Rate from "ant-design-vue/lib/rate";
 import VueLoading from 'vue-loading-overlay';
+import Carousel from 'ant-design-vue/lib/carousel';
+import Icon from 'ant-design-vue/lib/icon';
 
 Vue.component('table-component', TableComponent);
 Vue.component('table-column', TableColumn);
@@ -41,6 +48,18 @@ Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('TimePicker', TimePicker);
 
 Vue.component('loading', VueLoading);
+Vue.use(Carousel);
+Vue.use(Icon);
+Vue.component('Rate', Rate);
+Vue.use(VueCurrencyFilter, {
+    symbol: 'VNĐ',
+    thousandsSeparator: '.',
+    fractionCount: 0,
+    fractionSeparator: ',',
+    symbolPosition: 'front',
+    symbolSpacing: true
+})
+
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 

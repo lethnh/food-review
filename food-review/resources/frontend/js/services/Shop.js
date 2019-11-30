@@ -30,7 +30,7 @@ export default {
     async getShopHasManyPostReview() {
         try {
             let response = await axios.get('/api/shop/post-review')
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -41,7 +41,7 @@ export default {
     async getShopNew() {
         try {
             let response = await axios.get('/api/shop/new')
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -51,7 +51,7 @@ export default {
     async getShopImages(id) {
         try {
             let response = await axios.get(`/api/shop/${id}/images`)
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -61,7 +61,7 @@ export default {
     async getShopComments(id) {
         try {
             let response = await axios.get(`/api/shop/${id}/comments`)
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -71,7 +71,7 @@ export default {
     async getShopRelate(id) {
         try {
             let response = await axios.get(`/api/shop/${id}/relate`)
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -81,7 +81,7 @@ export default {
     async getShopListPost(id) {
         try {
             let response = await axios.get(`/api/shop/${id}/list-post`)
-            console.log(response.data);
+
             return response;
         } catch (error) {
             console.log(error);
@@ -91,7 +91,16 @@ export default {
     async getShop(id) {
         try {
             let response = await axios.get(`/api/shop/${id}`)
-            console.log(response.data);
+
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
+    },
+    async getShopTag(id) {
+        try {
+            let response = await axios.get(`/api/shop/${id}/tags`)
             return response;
         } catch (error) {
             console.log(error);

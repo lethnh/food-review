@@ -58,10 +58,11 @@
                       <i class="icon-fa icon-fa-trash" />
                       Chặn
                     </a>
-                    <a class="btn btn-success btn-sm text-white" @click="deleteDomain(row.id)">
-                      <i class="icon-fa icon-fa-trash" />
+                  <router-link :to="{ name: 'postReviewDetail', params: { post_review_id: row.id }}"  class="btn btn-success btn-sm text-white">   <i class="icon-fa icon-fa-trash" />
                       Chi tiết
-                    </a>
+                  </router-link>
+                    
+              
                     <!-- <a class="btn btn-danger btn-sm text-white" @click="deleteDomain(row.id)">
                       <i class="icon-fa icon-fa-trash" />
                       Xóa

@@ -72,6 +72,7 @@ Route::get('shop/{id}/relate', 'FrontEnd\Shop\GetShopController@getShopRelate');
 Route::get('shop/{id}/comments', 'FrontEnd\Shop\GetShopController@getComments');
 Route::get('shop/{id}/images', 'FrontEnd\Shop\GetShopController@getImages');
 Route::get('shop/{id}', 'FrontEnd\Shop\GetShopController@getShop');
+Route::get('shop/{id}/tags', 'FrontEnd\Shop\GetShopController@getShopTags');
 
 
 Route::get('post-review', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewByUser');
@@ -80,18 +81,7 @@ Route::get('post-review', 'FrontEnd\PostReview\CreatePostReviewController@getLis
 Route::get('post-review-latest-new', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewLatestNew');
 Route::get('post-review-has-many-comment', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopComment');
 Route::get('post-review-has-many-view', 'FrontEnd\PostReview\GetPostReviewController@getPostReviewTopView');
-// Route::get('shops', 'FrontEnd\Shop\GetShopController@getShopHasManyPostReview');
 Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
-
-
-
-
-
-
-Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
-
-
-
 
 
 
@@ -113,11 +103,14 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 
         Route::get('/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
+        Route::get('/post/{id}', 'BackEnd\PostReview\PostReviewController@getPostReview');
         Route::post('/post-review', 'BackEnd\PostReview\PostReviewController@store');
         Route::post('/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
 
 
         Route::get('/shop', 'BackEnd\Shop\ShopController@getShops');
+        Route::get('/shop/{id}', 'BackEnd\Shop\ShopController@store');
         Route::post('/shop/create', 'BackEnd\Shop\ShopController@store');
+        Route::post('/shop/{id}/delete', 'BackEnd\Shop\ShopController@delete');
     });
 });

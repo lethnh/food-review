@@ -27,7 +27,7 @@
                             <h5>
                                 {{ shop_info.name }}
                             </h5>
-                            <div class="shop-rate">
+                            <div class="shop-rate mb-3">
                                 <Rate
                                     disabled
                                     v-model="shop_info.stars"
@@ -35,12 +35,15 @@
                                 />
                                 <span>{{ shop_info.stars }}</span>
                             </div>
-                            <div>
+                            <div class="mb-3">
                                 Giá tiền : <i class="fas fa-money-bill"></i>
                                 <span>{{ shop_info.money | currency }}</span>
                             </div>
-                            <div>
-                                Địa chỉ : <i class="fas fa-map-marker-alt"></i>
+                            <div class="mb-3">
+                                <strong>
+                                    Địa chỉ
+                                </strong>
+                                : <i class="fas fa-map-marker-alt"></i>
                                 <a
                                     v-bind:href="url(shop_info.address)"
                                     target="_blank"
@@ -48,14 +51,24 @@
                                     <span> {{ shop_info.address }}</span>
                                 </a>
                             </div>
-                            <div>
-                                Số bài đánh giá :
+                            <div class="mb-3">
+                                <strong>
+                                    Số bài đánh giá :
+                                </strong>
                                 <i class="fas fa-newspaper"></i>
                                 <span>{{ shop_info.post_reviews_count }}</span>
                             </div>
-                            <div>
-                                Tag :
-                                <span>{{ shop_info.post_reviews_count }}</span>
+                            <div class="d-flex">
+                                <strong>
+                                    Tag :
+                                </strong>
+                                <div
+                                    class="btn border ml-2"
+                                    v-for="(item, index) in shop_tags"
+                                    :key="index"
+                                >
+                                    {{ item.name }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,11 +77,18 @@
         </section>
         <section>
             <div class="section-title bg-white">
-                <h5 class="p-2">Ảnh về cửa hàng ({{ images.length }})</h5>
+                <h5 class="p-2">
+                    Ảnh về cửa hàng ({{
+                        images.length != 0 ? images.length : 0
+                    }})
+                </h5>
             </div>
             <div class="section-content m-t-20">
                 <div class="list-shops panel">
-                    <div class="owl-carousel 1 owl-theme">
+                    <div
+                        class="owl-carousel 1 owl-theme"
+                        v-if="images.length != 0"
+                    >
                         <div
                             class="item"
                             v-for="(item, index) in images"
@@ -82,18 +102,26 @@
                             />
                         </div>
                     </div>
+                    <div v-else>không có ảnh</div>
                 </div>
             </div>
         </section>
         <section>
             <div class="section-title bg-white">
                 <h5 class="p-2">
-                    Bài viết về cửa hàng ({{ shop_info.post_reviews_count }})
+                    Bài viết về cửa hàng ({{
+                        shop_info.post_reviews_count != 0
+                            ? shop_info.post_reviews_count
+                            : 0
+                    }})
                 </h5>
             </div>
             <div class="section-content m-t-20">
                 <div class="list-post-review-top-view">
-                    <div class="owl-carousel 3 owl-theme">
+                    <div
+                        class="owl-carousel 3 owl-theme"
+                        v-if="shop_info.post_reviews_count != 0"
+                    >
                         <div
                             class="post-item item bg-white"
                             v-for="(post, index) in post_reviews"
@@ -155,18 +183,24 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else>Không có bài viết</div>
                 </div>
             </div>
         </section>
         <section>
             <div class="section-title bg-white">
                 <h5 class="p-2">
-                    Bình luận về cửa hàng ({{ comments.length }})
+                    Bình luận về cửa hàng ({{
+                        comments.length != 0 ? comments.length : 0
+                    }})
                 </h5>
             </div>
             <div class="section-content m-t-20">
                 <div class="list-comment panel">
-                    <div class="owl-carousel 2 owl-theme">
+                    <div
+                        class="owl-carousel 2 owl-theme"
+                        v-if="comments.length != 0"
+                    >
                         <div
                             class="item text-center"
                             v-for="(item, index) in comments"
@@ -197,13 +231,16 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else>Không có bình luận</div>
                 </div>
             </div>
         </section>
         <section>
             <div class="section-title bg-white">
                 <h5 class="p-2">
-                    Cửa hàng liên quan ({{ shop_relate.length }})
+                    Cửa hàng liên quan ({{
+                        shop_relate.length != 0 ? shop_relate.length : 0
+                    }})
                 </h5>
             </div>
             <div class="section-content m-t-20">
@@ -211,7 +248,9 @@
                     class="list-comment panel"
                     v-if="shop_relate.length != 0"
                 ></div>
-                <div class="list-comment panel" v-else></div>
+                <div class="list-comment panel" v-else>
+                    Không có cửa hàng liên quan
+                </div>
             </div>
         </section>
     </div>
@@ -235,6 +274,7 @@ export default {
             shop_relate: {},
             post_reviews: {},
             comments: {},
+            shop_tags: {},
             images: {},
             shop_id: this.$route.params.shop_id
         };
@@ -245,6 +285,7 @@ export default {
         this.getShopComments();
         this.getShopListPost();
         this.getShopRelate();
+        this.getShopTags();
     },
     methods: {
         url(address) {
@@ -306,6 +347,11 @@ export default {
             ShopService.getShop(this.shop_id).then(response => {
                 this.isLoading = false;
                 this.shop_info = response.data;
+            });
+        },
+        async getShopTags() {
+            ShopService.getShopTag(this.shop_id).then(response => {
+                this.shop_tags = response.data;
             });
         },
         async getShopListPost() {

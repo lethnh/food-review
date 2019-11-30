@@ -8,7 +8,18 @@ export default {
             let response = await axios.get('/api/admin/post-review', {
                 params: params
             })
-            console.log(response);
+      
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
+    },
+
+    async getPostReview(id) {
+        try {
+            let response = await axios.get(`/api/admin/post/${id}`)
+      
             return response.data;
         } catch (error) {
             console.log(error);
@@ -21,7 +32,7 @@ export default {
             let response = await axios.post(`/api/admin/post-review/${id}/approve`, {
                 status: params
             })
-            console.log(response);
+      
             return response.data;
         } catch (error) {
             console.log(error);
