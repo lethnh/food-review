@@ -110,8 +110,8 @@
             <div class="section-title bg-white">
                 <h5 class="p-2">
                     Bài viết về cửa hàng ({{
-                        shop_info.post_reviews_count != 0
-                            ? shop_info.post_reviews_count
+                        post_reviews.length != 0
+                            ? post_reviews.length
                             : 0
                     }})
                 </h5>

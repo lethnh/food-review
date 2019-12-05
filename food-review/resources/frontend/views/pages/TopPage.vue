@@ -1,210 +1,310 @@
 <template>
-  <div>
-    <loading
-      :active.sync="isLoading"
-      :color="color"
-      :width="width"
-      :height="height"
-      :isFullPage="isFullPage"
-      :backgroundColor="backgroundColor"
-      :opactiy="opacity"
-    ></loading>
-    <div class="panel p-2">
-      <div class="">
-        <div class="mr-2">Tỉnh Thành Phố: </div>
-        <a-select
-          style="width: 200px"
-          class="mr-2"
-          :defaultValue="defaulValue"
-          @change="handleProvinceChange"
-        >
-          <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
-        </a-select>
-        <a-select style="width: 200px" :defaultValue="defaulValue2">
-          <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
-        </a-select>
-      </div>
-        <div class="pt-2">
-          <div class="mr-2">Số sao: </div>
-          <Rate v-model="searchData.stars" :min="1"  @change="onChangeSlider" /> <span>{{searchData.stars}} sao</span>
-      </div>
-          <div class="pt-2 w-100">
-          <div class="">Số tiền trung bình: </div>
-          <a-slider class="w-100"
-          :step="10000"
-          v-model="searchData.money"
-          :min="10000" :max="1000000"
-          @change="onChangeSlider"
-        />
-        <span class="btn btn-primary">{{searchData.money}} VNĐ</span>
-      </div>
+    <div>
+        <loading
+            :active.sync="isLoading"
+            :color="color"
+            :width="width"
+            :height="height"
+            :isFullPage="isFullPage"
+            :backgroundColor="backgroundColor"
+            :opactiy="opacity"
+        ></loading>
+        <div class="panel p-2">
+            <div class="">
+                <div class="mr-2">Tỉnh Thành Phố:</div>
+                <a-select
+                    style="width: 200px"
+                    class="mr-2"
+                    :defaultValue="defaulValue"
+                    @change="handleProvinceChange"
+                >
+                    <a-select-option
+                        v-for="province in citiesData"
+                        :key="province.id"
+                        >{{ province.name }}</a-select-option
+                    >
+                </a-select>
+                <a-select style="width: 200px" :defaultValue="defaulValue2" @change="handleDistrictChange">
+                    <a-select-option
+                        v-for="district in districts"
+                        :key="district.id"
+                        >{{ district.name }}</a-select-option
+                    >
+                </a-select>
+            </div>
+            <div class="pt-2">
+                <div class="mr-2">Số sao:</div>
+                <Rate
+                    v-model="searchData.stars"
+                    :min="1"
+                    @change="onChangeSlider"
+                />
+                <span>{{ searchData.stars }} sao</span>
+            </div>
+            <div class="pt-2 w-100">
+                <div class="">Số tiền trung bình:</div>
+                <a-slider
+                    class="w-100"
+                    :step="10000"
+                    v-model="searchData.money"
+                    :min="10000"
+                    :max="1000000"
+                    @afterChange="onChangeSlider"
+                />
+                <span class="btn btn-primary">{{ searchData.money }} VNĐ</span>
+            </div>
+        </div>
+        <section>
+            <div class="section-title bg-white">
+                <h5 class="p-2" style>Cửa hàng review nhiều nhất</h5>
+            </div>
+            <div class="section-content m-t-20">
+                <div
+                    class="list-shops panel"
+                    v-if="shop_post_review.length !== 0"
+                >
+                    <div class="row">
+                        <div
+                            class="col-3"
+                            v-for="(shop, index) in shop_post_review"
+                            :key="index"
+                        >
+                            <b-card
+                                v-if="shop.feature_image !== null"
+                                tag="article"
+                                class="shadow h-100"
+                            >
+                                <router-link
+                                    :to="{
+                                        name: 'shopDetail',
+                                        params: { shop_id: shop.id }
+                                    }"
+                                >
+                                    <img
+                                        :src="shop.feature_image"
+                                        alt=""
+                                        class="img-fluid mb-2"
+                                    />
+                                    <h6 class="card-title">{{ shop.name }}</h6>
+                                </router-link>
+                                <div class="d-flex align-items-center">
+                                    <div class="shop-rate">
+                                        <Rate
+                                            disabled
+                                            v-model="shop.stars"
+                                            allowHalf
+                                        />
+                                        <span>{{ shop.stars }}</span>
+                                    </div>
+                                    <div class="ml-3 shop-comment ml-auto">
+                                        <i class="fas fa-edit"></i>
+                                        <span>{{
+                                            shop.post_reviews_count
+                                        }}</span>
+                                    </div>
+                                </div>
+                                <div class="shop-money">
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>{{ shop.money | currency }}</span>
+                                </div>
+                                <div class="shop-address">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ shop.district.name }},
+                                        {{ shop.city.name }}
+                                    </small>
+                                </div>
+                                <b-card-text></b-card-text>
+                                <template v-slot:footer>
+                                    <a href class="shop-tag rounded"
+                                        >cửa hàng</a
+                                    >
+                                </template>
+                            </b-card>
+                            <b-card v-else tag="article" class="shadow h-100">
+                                <router-link
+                                    :to="{
+                                        name: 'shopDetail',
+                                        params: { shop_id: shop.id }
+                                    }"
+                                >
+                                    <img
+                                        src="https://picsum.photos/600/600/?image=25"
+                                        alt=""
+                                        class="img-fluid mb-2"
+                                    />
+                                    <h6 class="card-title">{{ shop.name }}</h6>
+                                </router-link>
+                                <div class="d-flex align-items-center">
+                                    <div class="shop-rate mb-2">
+                                        <Rate
+                                            disabled
+                                            v-model="shop.stars"
+                                            allowHalf
+                                        />
+                                        <span>{{ shop.stars }}</span>
+                                    </div>
+                                    <div class="ml-3 shop-comment ml-auto">
+                                        <i class="fas fa-newspaper"></i>
+                                        <span>{{
+                                            shop.post_reviews_count
+                                        }}</span>
+                                    </div>
+                                </div>
+                                <div class="shop-money">
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>{{ shop.money | currency }}</span>
+                                </div>
+                                <div class="shop-address">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ shop.district.name }},
+                                        {{ shop.city.name }}
+                                    </small>
+                                </div>
+                                <b-card-text></b-card-text>
+                                <template v-slot:footer>
+                                    <a href class="shop-tag rounded"
+                                        >cửa hàng</a
+                                    >
+                                </template>
+                            </b-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-shops panel p-5" v-else>
+                    Không có cửa hàng nào phù hợp
+                </div>
+            </div>
+        </section>
+        <hr class="my-5" />
+        <section>
+            <div class="section-title bg-white">
+                <h5 class="p-2">Cửa hàng review gần đây</h5>
+            </div>
+            <div class="section-content m-t-20">
+                <div class="list-shops panel" v-if="shop_new.length !== 0">
+                    <div class="row">
+                        <div
+                            class="col-3"
+                            v-for="(shop, index) in shop_new"
+                            :key="index"
+                        >
+                            <b-card
+                                v-if="shop.feature_image !== null"
+                                tag="article"
+                                class="shadow h-100"
+                            >
+                                <router-link
+                                    :to="{
+                                        name: 'shopDetail',
+                                        params: { shop_id: shop.id }
+                                    }"
+                                >
+                                    <img
+                                        :src="shop.feature_image"
+                                        alt=""
+                                        class="img-fluid mb-2"
+                                    />
+                                    <h6 class="card-title">{{ shop.name }}</h6>
+                                </router-link>
+                                <div class="d-flex align-items-center">
+                                    <div class="shop-rate">
+                                        <Rate
+                                            disabled
+                                            v-model="shop.stars"
+                                            allowHalf
+                                        />
+                                        <span>{{ shop.stars }}</span>
+                                    </div>
+                                    <div class="ml-3 shop-comment ml-auto">
+                                        <i class="fas fa-edit"></i>
+                                        <span>{{
+                                            shop.post_reviews_count
+                                        }}</span>
+                                    </div>
+                                </div>
+                                <div class="shop-money">
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>{{ shop.money | currency }}</span>
+                                </div>
+                                <div class="shop-address">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ shop.district.name }},
+                                        {{ shop.city.name }}
+                                    </small>
+                                </div>
+                                <b-card-text></b-card-text>
+                                <template v-slot:footer>
+                                    <a href class="shop-tag rounded"
+                                        >cửa hàng</a
+                                    >
+                                </template>
+                            </b-card>
+                            <b-card
+                                v-else
+                                img-alt="Image"
+                                img-top
+                                tag="article"
+                                class="shadow h-100"
+                            >
+                                <router-link
+                                    :to="{
+                                        name: 'shopDetail',
+                                        params: { shop_id: shop.id }
+                                    }"
+                                >
+                                    <img
+                                        src="https://picsum.photos/600/600/?image=25"
+                                        alt=""
+                                        class="img-fluid mb-2"
+                                    />
+                                    <h6 class="card-title">{{ shop.name }}</h6>
+                                </router-link>
+                                <div class="d-flex align-items-center">
+                                    <div class="shop-rate">
+                                        <Rate
+                                            disabled
+                                            v-model="shop.stars"
+                                            allowHalf
+                                        />
+                                        <span>{{ shop.stars }}</span>
+                                    </div>
+                                    <div class="ml-3 shop-comment ml-auto">
+                                        <i class="fas fa-edit"></i>
+                                        <span>{{
+                                            shop.post_reviews_count
+                                        }}</span>
+                                    </div>
+                                </div>
+                                <div class="shop-money">
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>{{ shop.money | currency }}</span>
+                                </div>
+                                <div class="shop-address">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ shop.district.name }},
+                                        {{ shop.city.name }}
+                                    </small>
+                                </div>
+                                <b-card-text></b-card-text>
+                                <template v-slot:footer>
+                                    <a href class="shop-tag rounded"
+                                        >cửa hàng</a
+                                    >
+                                </template>
+                            </b-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-shops panel p-5" v-else>
+                    Không có cửa hàng nào phù hợp
+                </div>
+            </div>
+        </section>
     </div>
-    <section>
-      <div class="section-title bg-white">
-        <h5 class="p-2" style>Cửa hàng review nhiều nhất</h5>
-      </div>
-      <div class="section-content m-t-20">
-        <div class="list-shops panel">
-          <div class="row">
-            <div class="col-3" v-for="(shop, index) in shop_post_review" :key="index">
-              <b-card
-                v-if="shop.feature_image !== null"
-                tag="article"
-                class="shadow h-100"
-              >
-                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
-                  <img :src="shop.feature_image" alt="" class="img-fluid mb-2">
-                  <h6 class="card-title">{{ shop.name }}</h6>
-                </router-link>
-                <div class="d-flex align-items-center">
-                  <div class="shop-rate">
-                    <Rate disabled v-model="shop.stars" allowHalf />
-                    <span>{{ shop.stars }}</span>
-                  </div>
-                  <div class="ml-3 shop-comment ml-auto">
-                    <i class="fas fa-edit"></i>
-                    <span>{{ shop.post_reviews_count }}</span>
-                  </div>
-                </div>
-                <div class="shop-money">
-                  <i class="fas fa-money-bill"></i>
-                  <span>{{ shop.money | currency}}</span>
-                </div>
-                <div class="shop-address">
-                  <small class="text-muted">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{shop.district.name}}, {{ shop.city.name }}
-                  </small>
-                </div>
-                <b-card-text></b-card-text>
-                <template v-slot:footer>
-                  <a href class="shop-tag rounded">cửa hàng</a>
-                </template>
-              </b-card>
-              <b-card
-                v-else
-                tag="article"
-                class="shadow h-100"
-              >
-                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.id }}">
-                  <img src="https://picsum.photos/600/600/?image=25" alt="" class="img-fluid mb-2">
-                  <h6 class="card-title">{{ shop.name }}</h6>
-                </router-link>
-                <div class="d-flex align-items-center">
-                  <div class="shop-rate mb-2">
-                    <Rate disabled v-model="shop.stars" allowHalf />
-                    <span>{{ shop.stars }}</span>
-                  </div>
-                  <div class="ml-3 shop-comment ml-auto">
-                    <i class="fas fa-newspaper"></i>
-                    <span>{{ shop.post_reviews_count }}</span>
-                  </div>
-                </div>
-                <div class="shop-money">
-                  <i class="fas fa-money-bill"></i>
-                  <span>{{ shop.money | currency}}</span>
-                </div>
-                <div class="shop-address">
-                  <small class="text-muted">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{shop.district.name}}, {{ shop.city.name }}
-                  </small>
-                </div>
-                <b-card-text></b-card-text>
-                <template v-slot:footer>
-                  <a href class="shop-tag rounded">cửa hàng</a>
-                </template>
-              </b-card>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <hr class="my-5" />
-    <!-- <section>
-      <div class="section-title bg-white">
-        <h5 class="p-2">Cửa hàng review gần đây</h5>
-      </div>
-      <div class="section-content m-t-20">
-        <div class="list-shops panel">
-          <div class="row">
-          <div class="col-3" v-for="(shop, index) in shop_new" :key="index">
-                <b-card
-                v-if="shop.shop.feature_image !== null"
-                tag="article"
-                class="shadow h-100"
-              >
-                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.shop.id }}">
-                  <img :src="shop.shop.feature_image" alt="" class="img-fluid mb-2">
-                  <h6 class="card-title">{{ shop.shop.name }}</h6>
-                </router-link>
-                <div class="d-flex align-items-center">
-                  <div class="shop-rate">
-                    <Rate disabled v-model="shop.shop.stars" allowHalf />
-                    <span>{{ shop.shop.stars }}</span>
-                  </div>
-                  <div class="ml-3 shop-comment ml-auto">
-                    <i class="fas fa-edit"></i>
-                    <span>{{ shop.shop.post_reviews_count }}</span>
-                  </div>
-                </div>
-                <div class="shop-money">
-                  <i class="fas fa-money-bill"></i>
-                  <span>{{ shop.shop.money | currency}}</span>
-                </div>
-                <div class="shop-address">
-                  <small class="text-muted">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{shop.shop.district.name}}, {{ shop.shop.city.name }}
-                  </small>
-                </div>
-                <b-card-text></b-card-text>
-                <template v-slot:footer>
-                  <a href class="shop-tag rounded">cửa hàng</a>
-                </template>
-              </b-card>
-              <b-card
-                v-else
-                img-alt="Image"
-                img-top
-                tag="article"
-                class="shadow h-100"
-              >
-                <router-link :to="{ name: 'shopDetail', params: { shop_id: shop.shop.id }}">
-                  <img src="https://picsum.photos/600/600/?image=25" alt="" class="img-fluid mb-2">
-                  <h6 class="card-title">{{ shop.shop.name }}</h6>
-                </router-link>
-                <div class="d-flex align-items-center">
-                  <div class="shop-rate">
-                    <Rate disabled v-model="shop.shop.stars" allowHalf />
-                    <span>{{ shop.shop.stars }}</span>
-                  </div>
-                  <div class="ml-3 shop-comment ml-auto">
-                    <i class="fas fa-edit"></i>
-                    <span>{{ shop.shop.post_reviews_count }}</span>
-                  </div>
-                </div>
-                <div class="shop-money">
-                  <i class="fas fa-money-bill"></i>
-                  <span>{{ shop.shop.money | currency}}</span>
-                </div>
-                <div class="shop-address">
-                  <small class="text-muted">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{shop.shop.district.name}}, {{ shop.shop.city.name }}
-                  </small>
-                </div>
-                <b-card-text></b-card-text>
-                <template v-slot:footer>
-                  <a href class="shop-tag rounded">cửa hàng</a>
-                </template>
-              </b-card>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-  </div>
 </template>
 <script>
 import ShopService from "../../js/services/Shop";
@@ -230,16 +330,14 @@ export default {
       defaulValue2: "",
       shops: {},
       shop_post_review: {},
-      shop_new: {
-        shop:{}
-      },
+      shop_new: {},
       searchData: {
         money: 0,
         stars: 1,
         city_id: '',
         district_id: '',
       }
-      
+
     };
   },
   mounted() {
@@ -290,14 +388,22 @@ export default {
     },
     handleProvinceChange(value) {
       this.districts = this.districtsData[value - 1];
-      this.defaulValue2 = this.districtsData[value - 1][0];
+      // this.defaulValue2 = this.districtsData[value - 1][0];
+      this.searchData.city_id = value;
+      this.searchShop(this.searchData);
+    },
+
+    handleDistrictChange(value){
+      debugger
+      this.searchData.district_id = value;
       this.searchShop(this.searchData);
     },
     searchShop(value) {
         ShopService.searchShop(value).then(response => {
         this.isLoading = false;
         if (response.status === 200) {
-          this.shop_post_review = response.data;
+          this.shop_post_review = response.data['shop_post_review'];
+          this.shop_new = response.data['shop_new'];
         }
       });
     },
@@ -310,13 +416,13 @@ export default {
 <style lang="css" scoped>
 .card-body,
 .card-footer {
-  padding: 0.75rem;
+    padding: 0.75rem;
 }
 .card-footer {
-  background-color: #fff;
+    background-color: #fff;
 }
 .section-title {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 </style>

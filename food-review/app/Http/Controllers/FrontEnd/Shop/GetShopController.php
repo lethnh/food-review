@@ -20,20 +20,34 @@ class GetShopController extends Controller
 
     public function getShopHasManyPostReview()
     {
-        $shop_post_review = Shop::with('city:id,name', 'district:id,name,city_id')->withCount('postReviews')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
+        $shop_post_review = Shop::with('city:id,name', 'district:id,name,city_id')->withCount(['postReviews' => function ($query) {
+            $query->where('is_approve', 1);
+        }])->orderBy('post_reviews_count', 'DESC')->take(4)->get();
+        foreach ($shop_post_review as $key => $value) {
+            if ($value['post_reviews_count'] == 0) {
+                unset($shop_post_review[$key]);
+            }
+        }
         return response()->json($shop_post_review, 200);
     }
 
     public function getShopHasPostReviewInDay()
     {
-        $shop_post_review = Shop::with('city:id,name', 'district:id,name,city_id')->withCount('postReviews')->orderBy('post_reviews_count', 'DESC')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
+        $shop_post_review = Shop::with('city:id,name', 'district:id,name,city_id')->withCount(['postReviews' => function ($query) {
+            $query->where('is_approve', 1);
+        }])->orderBy('post_reviews_count', 'DESC')->orderBy('post_reviews_count', 'DESC')->take(4)->get();
         return response()->json($shop_post_review, 200);
     }
 
     public function getShopNew()
     {
-        $post =  PostReview::where('created_at', '>=', Carbon::now()->subDays(7))->with('shop')->get();
-        $shop = $post;
+        $posts =  PostReview::where('is_approve', 1)->where('created_at', '>=', Carbon::now()->subDays(7))->with(['shop' => function ($query) {
+            $query->with('city:id,name', 'district:id,name,city_id');
+        }])->get();
+        $shop = [];
+        foreach ($posts as $key => $value) {
+            array_push($shop, $value['shop']);
+        }
         return response()->json($shop);
     }
 

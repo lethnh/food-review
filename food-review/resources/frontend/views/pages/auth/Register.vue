@@ -159,7 +159,9 @@ export default {
         AuthService.register(this.registerData).then(response => {
           debugger
           if (response.status === 200) {
-            this.$route.push("login");
+            this.$router.push({
+              name: "login"
+            });
           }
         });
       }
