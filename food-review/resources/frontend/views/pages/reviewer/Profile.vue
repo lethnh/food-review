@@ -168,8 +168,8 @@
                   </div>
                   <div class="form-group col-6">
                     <label for>Thành phố</label>
-                    <a-select :v-model="user.city.name"  class="w-100">
-                      <a-select-option v-for="city in citiesData" :key="city.id">{{city.name}}</a-select-option>
+                    <a-select  :defaultValue="user.city.name"  class="w-100"  @change="handleChange">
+                      <a-select-option v-for="city in citiesData" :key="city.id" :value="city.id">{{city.name}}</a-select-option>
                     </a-select>
                   </div>
                 </div>
@@ -365,7 +365,7 @@ export default {
           userObj.user_info.name = response.name;
           localStorage.setItem("authUser", JSON.stringify(userObj));
           this.$store.dispatch("setUserObject", userObj);
-          this.user = response;
+          this.getUser();
         });
       }
     },
@@ -402,6 +402,9 @@ export default {
     onChange2(current) {
       this.getMyComment(current);
     },
+    handleChange(value){
+      this.user.city_id = value;
+    }
   },
   computed: mapState(["userStore"])
 };

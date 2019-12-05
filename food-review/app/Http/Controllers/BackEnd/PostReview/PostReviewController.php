@@ -24,13 +24,13 @@ class PostReviewController extends Controller
 
     public function getListBlock()
     {
-        $post_reviews = PostReview::with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
+        $post_reviews = PostReview::where('is_approve', -1)->with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
         return response()->json($post_reviews, 200);
     }
 
     public function getListWaiting()
     {
-        $post_reviews = PostReview::with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
+        $post_reviews = PostReview::where('is_approve', 0)->with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
         return response()->json($post_reviews, 200);
     }
 
@@ -40,7 +40,14 @@ class PostReviewController extends Controller
         $post_review->post_review_images;
         $post_review->user->city;
         $post_review->shop;
+        
         $post_review->user->district;
         return response()->json($post_review, 200);
+    }
+
+    public function getListRequestDelete()
+    {
+        $post_reviews = PostReview::where('is_approve', -2)->with('user:id,name', 'shop:id,name')->orderBy('created_at')->paginate(5);
+        return response()->json($post_reviews, 200);
     }
 }

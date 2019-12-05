@@ -1,6 +1,6 @@
 <template>
   <div class="template-container">
-    <div class="page">
+    <div class="page m-0">
         <router-view></router-view>
     </div>
   </div>

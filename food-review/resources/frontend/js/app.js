@@ -19,6 +19,7 @@ import Icon from 'ant-design-vue/lib/icon';
 import Rate from "ant-design-vue/lib/rate";
 import Select from 'ant-design-vue/lib/select';
 import Carousel from 'ant-design-vue/lib/carousel';
+import Slider from 'ant-design-vue/lib/slider';
 import VueLoading from 'vue-loading-overlay';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -26,6 +27,7 @@ import Pagination from 'ant-design-vue/lib/pagination';
 import "ant-design-vue/lib/pagination/style/css";
 
 import "ant-design-vue/lib/carousel/style/css";
+import "ant-design-vue/lib/slider/style/css";
 import "ant-design-vue/lib/select/style/css";
 import "ant-design-vue/lib/time-picker/style/css";
 import "ant-design-vue/lib/rate/style/css";
@@ -105,6 +107,7 @@ Vue.use(Select);
 Vue.use(Carousel);
 Vue.use(Pagination);
 Vue.use(Icon);
+Vue.use(Slider);
 
 /**
  * Add global router function

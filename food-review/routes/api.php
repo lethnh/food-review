@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,11 +10,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('auth/user', function (Request $request) {
-    return $request->user();
-});
-
 
 /**
  * Auth Route
@@ -86,6 +79,7 @@ Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 
 
 Route::get('search', 'FrontEnd\SearchController@postSearch');
+Route::get('search/filter', 'FrontEnd\SearchController@postSearchFilTer');
 
 
 Route::post('admin/auth/login', 'Auth\AuthController@loginAdmin');

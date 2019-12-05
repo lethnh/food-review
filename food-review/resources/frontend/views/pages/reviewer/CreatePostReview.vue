@@ -317,7 +317,7 @@ export default {
         this.post_review.tags = this.tags;
         this.isLoading = true;
         PostReviewService.storePostReview(this.post_review).then(response => {
-              this.isLoading = false;
+          this.isLoading = false;
           if (response.status === 200) {
             console.log(response.data);
             this.$router.push({

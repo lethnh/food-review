@@ -9,19 +9,35 @@
       :backgroundColor="backgroundColor"
       :opactiy="opacity"
     ></loading>
-    <div class="d-flex p-2 align-items-center panel">
-      <div class="mr-2">Lọc:</div>
-      <a-select
-        style="width: 200px"
-        class="mr-2"
-        :defaultValue="defaulValue"
-        @change="handleProvinceChange"
-      >
-        <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
-      </a-select>
-      <a-select style="width: 200px" :defaultValue="defaulValue2">
-        <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
-      </a-select>
+    <div class="panel p-2">
+      <div class="">
+        <div class="mr-2">Tỉnh Thành Phố: </div>
+        <a-select
+          style="width: 200px"
+          class="mr-2"
+          :defaultValue="defaulValue"
+          @change="handleProvinceChange"
+        >
+          <a-select-option v-for="province in citiesData" :key="province.id">{{province.name}}</a-select-option>
+        </a-select>
+        <a-select style="width: 200px" :defaultValue="defaulValue2">
+          <a-select-option v-for="district in districts" :key="district.id">{{district.name}}</a-select-option>
+        </a-select>
+      </div>
+        <div class="pt-2">
+          <div class="mr-2">Số sao: </div>
+          <Rate v-model="searchData.stars" :min="1"  @change="onChangeSlider" /> <span>{{searchData.stars}} sao</span>
+      </div>
+          <div class="pt-2 w-100">
+          <div class="">Số tiền trung bình: </div>
+          <a-slider class="w-100"
+          :step="10000"
+          v-model="searchData.money"
+          :min="10000" :max="1000000"
+          @change="onChangeSlider"
+        />
+        <span class="btn btn-primary">{{searchData.money}} VNĐ</span>
+      </div>
     </div>
     <section>
       <div class="section-title bg-white">
@@ -216,7 +232,14 @@ export default {
       shop_post_review: {},
       shop_new: {
         shop:{}
+      },
+      searchData: {
+        money: 0,
+        stars: 1,
+        city_id: '',
+        district_id: '',
       }
+      
     };
   },
   mounted() {
@@ -268,6 +291,18 @@ export default {
     handleProvinceChange(value) {
       this.districts = this.districtsData[value - 1];
       this.defaulValue2 = this.districtsData[value - 1][0];
+      this.searchShop(this.searchData);
+    },
+    searchShop(value) {
+        ShopService.searchShop(value).then(response => {
+        this.isLoading = false;
+        if (response.status === 200) {
+          this.shop_post_review = response.data;
+        }
+      });
+    },
+    onChangeSlider(){
+      this.searchShop(this.searchData);
     }
   }
 };

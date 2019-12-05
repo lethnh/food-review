@@ -13,6 +13,9 @@ use App\Services\UploadImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Storage;
+
 
 class CreatePostReviewController extends Controller
 {
@@ -38,7 +41,13 @@ class CreatePostReviewController extends Controller
                 ]);
                 $city = City::where('name', 'like', '%' . $data_shop['shop_city'] . '%')->first();
                 $district = District::where('name', 'like', '%' . $data_shop['shop_district'] . '%')->first();
-                $data_shop['shop_image'] = $data_shop['shop_image'] !== null ? $data_shop['shop_image'] : null;
+                $data_shop['shop_image'] = $data_shop['shop_image'] !== null ? $data_shop['shop_image'] : null;              
+                if($data_shop['shop_image'] !== null){
+                    $contents = file_get_contents($data_shop['shop_image']);
+                    $safeName = Str::random(10) . '.' . 'png';
+                    $path = Storage::disk('public')->put('shop/' . $safeName, $contents);
+                    $shop_image = Storage::disk('public')->url('shop/' .  $safeName);
+                }
                 $shop = Shop::create([
                     'begin_time' => $data_shop['begin_time'],
                     'close_time' => $data_shop['close_time'],
@@ -47,7 +56,7 @@ class CreatePostReviewController extends Controller
                     'lng' => $data_shop['shop_lng'],
                     'address' => $data_shop['shop_address'],
                     'type' => $data_shop['shop_type'],
-                    'feature_image' => $data_shop['shop_image'],
+                    'feature_image' => $shop_image,
                     'name' => $data_shop['shop_name'],
                     'city_id' => $city->id,
                     'district_id' => $district->id,
@@ -71,6 +80,7 @@ class CreatePostReviewController extends Controller
             DB::commit();
             return response()->json($post_review, 200);
         } catch (\Throwable $th) {
+            return response()->json($th,500);
             DB::rollBack();
         }
     }

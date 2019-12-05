@@ -106,6 +106,15 @@ export default {
             console.log(error);
             toastr.error('error')
         }
+    },
+    async searchShop(params) {
+        try {
+            let response = await axios.get(`/api/search/filter?rating=${params.stars}&money=${params.money}&city=${params.city_id}&district=${params.district_id}`)
+            return response;
+        } catch (error) {
+            console.log(error);
+            toastr.error('error')
+        }
     }
 
 }

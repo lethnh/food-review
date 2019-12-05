@@ -17,7 +17,7 @@ export default {
         }
     },
 
-      /**
+    /**
      * 
      */
     async logout() {
@@ -48,8 +48,12 @@ export default {
      * @param {*} forgotData 
      */
     async checkLogin() {
-        let response = await axios.get('/api/admin/auth/check')
-        return !!response.data.authenticated
+        try {
+            let response = await axios.get('/api/admin/auth/check')
+            return !!response.data.authenticated
+        } catch (error) {
+            return false;
+        }
     },
 
     async createUser(data) {

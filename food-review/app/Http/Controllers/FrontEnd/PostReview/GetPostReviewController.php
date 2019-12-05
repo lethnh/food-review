@@ -30,25 +30,25 @@ class GetPostReviewController extends Controller
     }
     public function getPostReviewLatestNew()
     {
-        $post_reviews = PostReview::where('is_approve', 1)->with(['user' => function ($query) {
-            $query->select('id','name')->where('status', 1);
-        }])->orderBy('created_at', 'DESC')->paginate(5);
+        $post_reviews = PostReview::where('is_approve', 1)->whereHas('user', function ($query) {
+            $query->where('status', 1);
+        })->with('user:id,name')->orderBy('created_at', 'DESC')->paginate(5);
         return response()->json($post_reviews, 200);
     }
 
     public function getPostReviewTopView()
     {
-        $post_reviews = PostReview::where('is_approve', 1)->with(['user' => function ($query) {
-            $query->select('id','name')->where('status', 1);
-        }])->orderBy('total_view', 'DESC')->take(4)->get();
+        $post_reviews = PostReview::where('is_approve', 1)->whereHas('user', function ($query) {
+            $query->where('status', 1);
+        })->with('user:id,name')->orderBy('total_view', 'DESC')->take(4)->get();
         return response()->json($post_reviews, 200);
     }
 
     public function getPostReviewTopComment()
     {
-        $post_reviews = PostReview::where('is_approve', 1)->with(['user' => function ($query) {
-            $query->select('id','name')->where('status', 1);
-        }])->withCount('comments')
+        $post_reviews = PostReview::where('is_approve', 1)->whereHas('user', function ($query) {
+            $query->where('status', 1);
+        })->with('user:id,name')->withCount('comments')
             ->orderBy('comments_count', 'DESC')
             ->orderBy('created_at', 'DESC')
             ->take(4)
