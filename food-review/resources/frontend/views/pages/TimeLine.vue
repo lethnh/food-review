@@ -15,7 +15,52 @@
           <div class="bg-white mb-2 section-title">
             <h5 class="p-2">Dòng thời gian</h5>
           </div>
-          <div class="bg-white p-2">
+            <div class="panel p-2">
+            <div class="">
+                <div class="mr-2">Tỉnh Thành Phố:</div>
+                <a-select
+                    style="width: 200px"
+                    class="mr-2"
+                    :defaultValue="defaulValue"
+                    @change="handleProvinceChange"
+                >
+                    <a-select-option
+                        v-for="province in citiesData"
+                        :key="province.id"
+                        >{{ province.name }}</a-select-option
+                    >
+                </a-select>
+                <a-select style="width: 200px" :defaultValue="defaulValue2" @change="handleDistrictChange">
+                    <a-select-option
+                        v-for="district in districts"
+                        :key="district.id"
+                        >{{ district.name }}</a-select-option
+                    >
+                </a-select>
+            </div>
+            <div class="pt-2">
+                <div class="mr-2">Số sao:</div>
+                <Rate
+                    v-model="searchData.stars"
+                    :min="1"
+                    @change="onChangeSlider"
+                />
+                <span>{{ searchData.stars }} sao</span>
+            </div>
+            <div class="pt-2 w-100">
+                <div class="">Số tiền trung bình:</div>
+                <a-slider
+                    class="w-100"
+                    :step="10000"
+                    v-model="searchData.money"
+                    :min="10000"
+                    :max="1000000"
+                    @afterChange="onChangeSlider"
+                />
+                <span class="btn btn-primary">{{ searchData.money }} VNĐ</span>
+            </div>
+        </div>
+          <div class="bg-white p-2"  v-if="post_reviews.data != 0">
             <div
               class="post-item border-bottom"
               v-for="(post, index) in post_reviews.data"
@@ -66,6 +111,9 @@
               :pageSize="post_reviews.per_page"
               :total="post_reviews.total"
             />
+          </div>
+          <div class="bg-white py-5" v-else>
+            Không có bài viết nào phù hợp
           </div>
         </div>
       </div>
@@ -169,6 +217,7 @@
 </template>
 <script>
 import PostReviewService from "../../js/services/PostReview.js";
+import CityService from "../../js/services/City";
 export default {
   data() {
     return {
@@ -186,15 +235,42 @@ export default {
         data: {}
       },
       post_review_comment: {},
-      post_review_view: {}
+      post_review_view: {},
+          citiesData: {},
+      districtsData: {},
+      cities: {},
+      districts: {},
+      defaulValue: "An Giang",
+      defaulValue2: "",
+      searchData: {
+        money: 0,
+        stars: 1,
+        city_id: '',
+        district_id: '',
+      }
     };
   },
   mounted() {
     this.getPostReviewLatestNew();
     this.getPostReviewHasManyComment();
     this.getPostReviewHasManyView();
+     this.getCities();
   },
   methods: {
+     getCities() {
+      CityService.getCities().then(response => {
+        let cities = [];
+        let districts = [];
+        response.forEach(element => {
+          if (element["districts"]) {
+            districts.push(element["districts"]);
+          }
+          cities.push(element);
+        });
+        this.citiesData = cities;
+        this.districtsData = districts;
+      });
+    },
     sliceContent(content) {
       let index = content.indexOf("</p>");
       return content.slice(0, index);
@@ -214,7 +290,7 @@ export default {
     async getPostReviewHasManyComment() {
       this.isLoading = true;
       PostReviewService.getPostReviewHasManyComment().then(response => {
-        console.log(response);
+        
         if (response.status === 200) {
           this.isLoading = false;
           this.post_review_comment = response.data;
@@ -224,12 +300,34 @@ export default {
     async getPostReviewHasManyView() {
       this.isLoading = true;
       PostReviewService.getPostReviewHasManyView().then(response => {
-        console.log(response);
+        
         if (response.status === 200) {
           this.isLoading = false;
           this.post_review_view = response.data;
         }
       });
+    },
+     handleProvinceChange(value) {
+      this.districts = this.districtsData[value - 1];
+      // this.defaulValue2 = this.districtsData[value - 1][0];
+      this.searchData.city_id = value;
+      this.searchPostReview(this.searchData);
+    },
+
+    handleDistrictChange(value){
+      debugger
+      this.searchData.district_id = value;
+      this.searchPostReview(this.searchData);
+    },
+     searchPostReview(data) {
+      PostReviewService.searchPostReviews(data).then(response => {
+        // if (response.status === 200) {
+          this.post_reviews = response;
+        // }
+      });
+    },
+    onChangeSlider(){
+      this.searchPostReview(this.searchData);
     }
   }
 };

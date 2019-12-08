@@ -27,7 +27,7 @@ export default {
     async register(registerData) {
         try {
             let response = await axios.post('/api/auth/register', registerData)
-            toastr.success('Đăng ký thành công');
+            toastr.success('Đăng ký thành công, vui lòng check mail của bạn để biết thêm thông tin');
             console.log(response.error);
             return response;
         } catch (error) {
@@ -56,9 +56,26 @@ export default {
      * 
      * @param {*} forgotData 
      */
-    async forgotPassword(forgotData) {
+    async forgotPassword(params) {
         try {
-            let response = await axios.post('/api/auth/forgotpassword', forgotData)
+            let response = await axios.post('/api/auth/forgotpassword', {
+                email: params
+            })
+            return response.data;
+        } catch (error) {
+            toastr.error('Error');
+        }
+    },
+
+    async resetPassword(data) {
+        try {
+            debugger
+            let response = await axios.post('/api/auth/change-password', {
+                password: data.password,
+                password_confirmation: data.password_confirmation,
+                token: data.token
+            })
+            toastr.success('Thay đổi mật khẩu thành công');
             return response.data;
         } catch (error) {
             toastr.error('Error');

@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'activation_token',
+        'password', 'remember_token', 'token_reset',
     ];
     protected $appends = ['total_post_review'];
 

@@ -16,7 +16,8 @@
  */
 Route::post('auth/login', 'Auth\LoginController@login');
 Route::post('auth/register', 'Auth\RegisterController@store');
-Route::post('auth/forgotpassword', 'Auth\LoginController@login');
+Route::post('auth/forgotpassword', 'Auth\ForgotPasswordController@forgotPassword');
+Route::post('auth/change-password', 'Auth\ForgotPasswordController@changePassword');
 
 
 Route::group([
@@ -80,6 +81,8 @@ Route::get('cities', 'FrontEnd\City_District_Controller@getCities');
 
 Route::get('search', 'FrontEnd\SearchController@postSearch');
 Route::get('search/filter', 'FrontEnd\SearchController@postSearchFilTer');
+Route::get('search/post_review/filter', 'FrontEnd\SearchController@postReviewSearchFilTer');
+
 
 
 Route::post('admin/auth/login', 'Auth\AuthController@loginAdmin');

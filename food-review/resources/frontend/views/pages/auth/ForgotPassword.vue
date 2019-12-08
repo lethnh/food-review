@@ -38,7 +38,7 @@
             <div class="container-login100-form-btn">
               <div class="wrap-login100-form-btn">
                 <div class="login100-form-bgbtn"></div>
-                <button class="login100-form-btn">Đặt lại mật khẩu</button>
+                <button class="login100-form-btn">Gửi yêu cầu</button>
               </div>
             </div>
             <!-- End Button đăng nhập -->
@@ -71,7 +71,7 @@ export default {
     async forgotSubmit() {
       const isValid = await this.$refs.forgotForm.validate();
       if (isValid) {
-        AuthService.forgotPassword().then();
+        AuthService.forgotPassword(this.email).then();
       }
     }
   }

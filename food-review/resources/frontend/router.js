@@ -16,6 +16,7 @@ import ShopDetail from './views/pages/ShopDetail.vue'
 import Login from './views/pages/auth/Login.vue'
 import Register from './views/pages/auth/Register.vue'
 import ForgotPassword from './views/pages/auth/ForgotPassword.vue'
+import ResetPassword from './views/pages/auth/ResetPassword.vue'
 import Profile from './views/pages/reviewer/Profile.vue'
 import CreatePostReview from './views/pages/reviewer/CreatePostReview.vue'
 import EditPostReview from './views/pages/reviewer/EditPostReview.vue'
@@ -66,6 +67,11 @@ const router = new VueRouter({
                     path: 'forgot-password',
                     component: ForgotPassword,
                     name: 'forgotPassword'
+                },
+                {
+                    path: 'reset-password',
+                    component: ResetPassword,
+                    name: 'resetPassword'
                 },
             ]
         },

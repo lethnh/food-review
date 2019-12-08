@@ -88,4 +88,15 @@ export default {
             console.log("Error", error.message);
         }
     },
+
+    async searchPostReviews(params) {
+        try {
+            let response = await axios.get(`/api/search/post_review/filter?rating=${params.stars}&money=${params.money}&city=${params.city_id}&district=${params.district_id}`);
+            return response.data;
+        } catch (error) {
+            console.log("Error", error.message);
+        }
+    },
+
+
 }
