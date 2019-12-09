@@ -1,0 +1,187 @@
+.content {
+    .user_info {
+        display: flex;
+
+        p {
+            margin-bottom: 0px;
+        }
+
+        img {
+            height: 100px;
+            margin-right: 10px;
+        }
+    }
+
+    .shop_info {}
+}
+
+.post_review_content {
+    img {
+        max-width: 100%;
+    }
+}
+
+
+.post_review_comment {
+    .item_comment {
+        margin-bottom: 10px;
+
+        .comment {
+            margin: 12px;
+            display: flex;
+
+            .comment_avatar {
+                img {
+                    height: 48px;
+                    width: 48px;
+                }
+            }
+
+            .comment_content {
+                padding: 10px 10px 0px 10px;
+                margin-left: 10px;
+                background-color: #f2f3f5;
+                border-radius: 5px;
+                box-sizing: border-box;
+                color: #1c1e21;
+                display: inline-block;
+                line-height: 16px;
+                max-width: 100%;
+                word-wrap: break-word;
+                position: relative;
+                white-space: normal;
+                word-break: break-word;
+
+                .user_name {
+                    font-weight: 600;
+                    color: #385898;
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+
+                .content {
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+
+                .action {
+                    margin-top: 5px;
+
+                    a {
+                        font-size: 13px;
+                        margin-right: 5px;
+                        font-weight: 400;
+                        color: #385898;
+                    }
+                }
+            }
+        }
+
+        .comment_reply {
+            margin-bottom: 12px;
+            padding: 0px 10px 0 70px;
+            display: flex;
+
+            .comment_avatar {
+                img {
+                    height: 32px;
+                    width: 32px;
+                }
+            }
+
+            .comment_content {
+                padding: 10px 10px 0px 10px;
+                margin-left: 10px;
+                background-color: #f2f3f5;
+                border-radius: 5px;
+                box-sizing: border-box;
+                color: #1c1e21;
+                display: inline-block;
+                line-height: 16px;
+                max-width: 100%;
+                word-wrap: break-word;
+                position: relative;
+                white-space: normal;
+                word-break: break-word;
+
+                .user_name {
+                    font-weight: 600;
+                    color: #385898;
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+
+                .content {
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+
+                .action {
+                    margin-top: 5px;
+
+                    a {
+                        font-size: 13px;
+                        margin-right: 5px;
+                        font-weight: 400;
+                        color: #385898;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+.list-post-review-top-view {
+    .post-item {
+        flex-direction: column;
+        img{
+            width: 100%;
+            border: none;
+        }
+        .post-body{
+            h5{
+                margin-top: 10px;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.post-item {
+    display: flex;
+    margin-bottom: 15px;
+
+    img {
+        // border-right: 10px solid #f6f5f1;
+        height: 150px;
+        width: 160px;
+        object-fit: cover;
+    }
+
+    .post-body {
+        display: flex;
+        flex-direction: column;
+
+        .action {
+            margin-top: auto;
+            padding-bottom: 10px;
+            display: flex;
+
+            div {}
+
+            .fa-thumbs-up {
+                color: rgb(32, 120, 244);
+                margin-right: 10px;
+            }
+
+            .fa-thumbs-down {
+                color: rgb(233, 113, 15);
+                margin-right: 10px;
+            }
+        }
+    }
+}
