@@ -10,13 +10,9 @@ export default {
         try {
             let response = await axios.post('/api/auth/login', loginData)
             toastr.success("Đăng nhập thành công");
-            // Ls.set('access_token', response.data.access_token);
-            // Ls.set('expires_at', response.data.expires_at);
-            // Ls.set('token_type', response.data.token_type);
             return response;
         } catch (error) {
-            console.log(error);
-            toastr.error('error')
+            toastr.error(error.response.data.errors[Object.keys(error.response.data.errors)[0]])
         }
     },
 
@@ -28,13 +24,10 @@ export default {
         try {
             let response = await axios.post('/api/auth/register', registerData)
             toastr.success('Đăng ký thành công, vui lòng check mail của bạn để biết thêm thông tin');
-            console.log(response.error);
             return response;
         } catch (error) {
-            debugger
-            console.log(error.response);
-            if (error.response.data.error.email) {
-                toastr.error(error.response.data.error.email);
+            if (error.response.data.errors.email) {
+                toastr.error(error.response.data.errors.email);
             }
             return error;
         }
@@ -61,9 +54,10 @@ export default {
             let response = await axios.post('/api/auth/forgotpassword', {
                 email: params
             })
+            toastr.success('Vui lòng kiểm tra email để đặt lại mật khẩu');
             return response.data;
         } catch (error) {
-            toastr.error('Error');
+            toastr.error(error.response.data.message);
         }
     },
 

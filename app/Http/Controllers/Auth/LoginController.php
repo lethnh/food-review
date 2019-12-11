@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -42,59 +44,44 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
+    public function login(UserRequest $request)
     {
         $this->validateLogin($request);
-
         $credentials = $request->only('email', 'password');
-
-
         if (
             method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)
         ) {
             $this->fireLockoutEvent($request);
-
-            // return response()->json('');
-            // throw new HttpResponseException()(response()->json(
-            //     [
-            //         'error' => 'Tài khoản của bạn bị khóa',
-            //         'status_code' => 422,
-            //     ],
-            //     JsonResponse::HTTP_UNPROCESSABLE_ENTITY
-            // ));
         }
-
         $this->incrementLoginAttempts($request);
-
+        $user = User::where('email', $request->email)->first();
+        if ($user == null) {
+            return response()->json(['errors' => ['email' => ['Email không tồn tại']]], 500);
+        }
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            // if ($user->clients->count() !== 0) {
-            //     $user->clients->expried_at
-            //     return response()->json(['message' => 'Đăng nhập hết hạn'],401);
-            // }
             $tokenResult = $user->createToken('Personal Access Token');
             $access_token = $tokenResult->accessToken;
             $token = $tokenResult->token;
             if ($request->remember_me) {
                 $token->expires_at = Carbon::now()->addWeeks(1);
             } else {
-                $token->expires_at = Carbon::now()->addMinutes(1);
+                $token->expires_at = Carbon::now()->addDays(1);
             }
             $token->save();
             $expiration = $tokenResult->token->expires_at->diffInSeconds(Carbon::now());
+            unset($user->post_reviews);
 
             return response()->json([
                 'user_info' => $user,
                 'access_token' => $access_token,
                 'token_type' => 'Bearer',
-                'expires_at' => Carbon::parse(
-                    $tokenResult->token->expires_at
-                )->toDateTimeString(),
+                'expires_at' => $expiration,
                 // 'info' => 
             ]);
         } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return response()->json(['errors' => ['password' => ['Password nhập vào không đúng']]], 500);
         }
     }
 }

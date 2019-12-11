@@ -24,7 +24,7 @@
           <div slot-scope="{ errors }">
             <div class="form-group">
               <label>Tiêu đề</label>
-              <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
+              <span :class="{'is-danger ml-2': errors[0]}">{{ errors[0] }}</span>
               <input type="text" class="form-control" v-model="post_review.title" />
             </div>
           </div>
@@ -131,7 +131,7 @@
         <!--  -->
         <div class="row">
           <!--  -->
-          <ValidationProvider name="money" rules="required|min_value:1" class="col-6">
+          <ValidationProvider name="money" rules="required|min_value:10000" class="col-6">
             <div slot-scope="{ errors }">
               <div class="form-group">
                 <label>Giá tiền trung bình / một người</label>
@@ -150,18 +150,15 @@
           <!--  -->
 
           <!--  -->
-          <ValidationProvider name="stars" rules="required|min_value:1" class="col-6">
-            <div slot-scope="{ errors }">
+          <div class="col-6">
               <div class="form-group">
                 <label>Đánh giá sao</label>
                 <div>
                   <Rate :allowClear="false" v-model="post_review.stars"></Rate>
                   {{post_review.stars}} sao
                 </div>
-                <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
               </div>
-            </div>
-          </ValidationProvider>
+          </div>
           <!--  -->
         </div>
         <!--  -->
@@ -177,7 +174,7 @@
         </div>
 
         <!--  -->
-        <ValidationProvider name="content" rules="required">
+        <ValidationProvider name="content" rules="required|min_value:255">
           <div slot-scope="{ errors }">
             <div class="form-group">
               <label>Nội dung</label>
@@ -260,7 +257,7 @@ export default {
         close_time: null,
         money: null,
         shop_id: "",
-        stars: 0,
+        stars: 1,
         tags: {}
       },
       isShow: false,
@@ -322,7 +319,7 @@ export default {
             console.log(response.data);
             this.$router.push({
               name: "profile",
-            });
+            }).catch(err => {});
           }
         });
       }

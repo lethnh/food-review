@@ -17,14 +17,16 @@ class ForgotPasswordController extends Controller
     public function forgotPassword(Request $request)
     {
         try {
-            //code...
             $email = $request->input('email');
             $user = User::where('email', $email)->first();
+            if (empty($user)) {
+                return response()->json(['message' => 'Email không tồn tại'], 500);
+            }
             $user->token_reset = Hash::make(Str::random(60));
             $user->save();
             event(new Reset_Password_Event($user));
+            return response()->json(['message' => 'Gửi Mail Thành Công'], 200);
         } catch (\Throwable $th) {
-            //throw $th;
             return response()->json($th, 500);
         }
     }

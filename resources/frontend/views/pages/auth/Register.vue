@@ -58,7 +58,7 @@
             <!-- Password -->
             <div class="m-b-23">
               <label class="label-input100">Mật khẩu</label>
-              <ValidationProvider name="password" rules="required|min:3" vid="confirmation">
+              <ValidationProvider name="password" rules="required|min:3|max:10" vid="confirmation">
                 <div slot-scope="{ errors }">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -141,6 +141,45 @@
 </template>
 <script>
 import AuthService from "../../../js/services/Auth";
+import { Validator } from 'vee-validate';
+const dict = {
+  custom: {
+    email: {
+      required: 'Email không được để trống',
+      email: 'Email không đúng định dạng'
+    },
+    name: {
+      required: () => 'Tên không được để trống',
+    },
+     password: {
+      required: () => 'Mật khẩu không được để trống',
+      min: () => `Mật khẩu không được để nhỏ hơn 3`,
+      max: () => `Mật khẩu không được để nhỏ hơn 10`,
+    },
+     password_confirmation: {
+      required: () => 'Nhập lại mật khẩu không được để trống',
+      confirmed: () => 'Mật khẩu không trùng khớp',
+    },
+  content: {
+      required: () => 'Nội dung không được để trống',
+      min_value: () => 'Nội dung phải lớn hơn 255 ký tự',
+    },
+     title: {
+      required: () => 'Tiêu đề bài viết không được để trống',
+      min_value: () => 'Nội dung phải lớn hơn 255 ký tự',
+    },
+    images: {
+      required: () => 'Phải chọn ít nhất một ảnh'
+    },
+    money: {
+      required: () => 'Giá tiền trung bình không được để trống',
+      min_value: () => 'Giá tiền trung bình phải lớn hơn 10.000 VNĐ'
+    }
+    
+  }
+};
+
+Validator.localize('en', dict);
 export default {
   data() {
     return {
@@ -157,11 +196,8 @@ export default {
       const isValid = await this.$refs.registerForm.validate();
       if (isValid) {
         AuthService.register(this.registerData).then(response => {
-          debugger
           if (response.status === 200) {
-            this.$router.push({
-              name: "login"
-            });
+            this.$router.push('/login').catch(err => {});
           }
         });
       }

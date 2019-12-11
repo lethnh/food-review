@@ -132,7 +132,7 @@ export default {
                         );
                         this.$router.push({
                             name: "adminUser"
-                        });
+                        }).catch(err => {});
                     }
                 });
             }

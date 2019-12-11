@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AuthService from './js/services/Auth'
+import Ls from './js/services/Ls'
 
 Vue.use(VueRouter)
 
@@ -132,6 +133,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(m => m.meta.requiresAuth)) {
         return AuthService.checkLogin().then(authenticated => {
             if (!authenticated) {
+                Ls.remove("authUser");
                 return next({
                     path: '/login'
                 })

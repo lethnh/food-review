@@ -130,7 +130,7 @@ export default {
             const isValid = await this.$refs.resetForm.validate();
             if (isValid) {
                 AuthService.resetPassword(this.data).then(response => {
-                    this.$router.push({ path: "login" });
+                    this.$router.push({ path: "login" }).catch(err => {});
                 });
             }
         }

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
+use App\Models\OauthAccessToken;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Laravel\Passport\Passport;
 
 class AuthController extends Controller
 {
@@ -14,6 +17,7 @@ class AuthController extends Controller
 
     public function checkAdmin()
     {
+
         if (Auth::user() &&  Auth::user()->role_id == 1) {
             return response(['authenticated' => true]);
         }
@@ -22,9 +26,14 @@ class AuthController extends Controller
 
     public function checkUser()
     {
-        if (Auth::user()) {
+        $now = Carbon::now();
+        $user = DB::table('oauth_access_tokens')->where('user_id', '=', Auth::id())->get();
+        $time =  Carbon::parse($user['0']->expires_at);
+
+        if (Auth::user() && $now < $time) {
             return response(['authenticated' => true]);
         }
+        DB::table('oauth_access_tokens')->where('user_id', '=', Auth::id())->delete();
         return response(['authenticated' => false]);
     }
 
@@ -46,15 +55,6 @@ class AuthController extends Controller
             $this->hasTooManyLoginAttempts($request)
         ) {
             $this->fireLockoutEvent($request);
-
-            // return response()->json('');
-            // throw new HttpResponseException()(response()->json(
-            //     [
-            //         'error' => 'Tài khoản của bạn bị khóa',
-            //         'status_code' => 422,
-            //     ],
-            //     JsonResponse::HTTP_UNPROCESSABLE_ENTITY
-            // ));
         }
 
         $this->incrementLoginAttempts($request);
@@ -62,11 +62,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if ($user->role_id === 1) {
-
-                // if ($user->clients->count() !== 0) {
-                //     $user->clients->expried_at
-                //     return response()->json(['message' => 'Đăng nhập hết hạn'],401);
-                // }
                 $tokenResult = $user->createToken('Personal Access Token');
                 $access_token = $tokenResult->accessToken;
                 $token = $tokenResult->token;
@@ -82,9 +77,7 @@ class AuthController extends Controller
                     'user_info' => $user,
                     'access_token' => $access_token,
                     'token_type' => 'Bearer',
-                    'expires_at' => Carbon::parse(
-                        $tokenResult->token->expires_at
-                    )->toDateTimeString(),
+                    'expires_at' => $expiration,
                     // 'info' => 
                 ]);
             } else {

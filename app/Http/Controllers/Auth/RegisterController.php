@@ -19,7 +19,6 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'check_code' => '',
-                // 'activation_token' => str_random(60)
             ]);
             $user->save();
             event(new RegisterEvent($user));

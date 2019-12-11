@@ -24,19 +24,19 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'email'                 => 'required|email',
+            'password' => 'required|min:3|max:10',
         ];
     }
 
     public  function messages()
     {
         return [
-            'email.required' => 'Please enter email',
-            'email.email' => 'Enter the correct email format',
-            'email.unique' => 'Email already exists',
-
-            'password.required' => 'Please enter a password',
+            'password.required'                 => 'Vui lòng nhập mật khẩu',
+            'password.min'                      => 'Mật khẩu cần lớn hơn :min kí tự',
+            'password.max'                      => 'Mật khẩu cần nhỏ hơn :max kí tự',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email không đúng định dạng',
         ];
     }
 }

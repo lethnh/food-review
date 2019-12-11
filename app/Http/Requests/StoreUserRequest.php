@@ -29,8 +29,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'email'                 => 'required|email|unique:users,email',
-            'password'              => 'required|min:6|max:255',
-            'password_confirmation' => 'required|min:6|max:255|same:password',
+            'password'              => 'required|min:3|max:10',
+            'password_confirmation' => 'required|same:password',
         ];
     }
     public  function messages()
@@ -43,20 +43,7 @@ class StoreUserRequest extends FormRequest
             'email.email' => 'Email không đúng định dạng',
             'email.unique' => 'Email đã tồn tại',
             'password_confirmation.required' => 'Vui lòng nhập lại mật khẩu',
+            'password_confirmation.same' => 'Nhập lại mật khẩu không trùng khớp'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-
-        $errors = (new ValidationException($validator))->errors();
-        // throw new \Exception($errors);
-        throw new HttpResponseException(response()->json(
-            [
-                'error' => $errors,
-                'status_code' => 422,
-            ],
-            JsonResponse::HTTP_UNPROCESSABLE_ENTITY
-        ));
     }
 }

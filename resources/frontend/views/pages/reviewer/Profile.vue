@@ -88,7 +88,7 @@
                     </router-link>
                     <div>{{ post.money | currency}}</div>
                     <div>
-                      <Rate :defaultValue="post.stars" allowHalf />
+                      <Rate :defaultValue="post.stars" allowHalf disabled />
                       <span>{{ post.stars }} sao</span>
                     </div>
                     <div class="action mt-2">

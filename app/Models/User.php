@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->postReviews->count();
     }
+
+    public function accessTokens()
+    {
+        return $this->hasMany(OauthAccessToken::class);
+    }
 }

@@ -145,7 +145,7 @@ export default {
             AuthService.logout().then(response => {
                 this.$router.push({
                     name: "adminLogin"
-                });
+                }).catch(err => {});
             });
         }
     }

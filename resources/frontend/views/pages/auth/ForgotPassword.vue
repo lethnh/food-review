@@ -71,7 +71,13 @@ export default {
     async forgotSubmit() {
       const isValid = await this.$refs.forgotForm.validate();
       if (isValid) {
-        AuthService.forgotPassword(this.email).then();
+        AuthService.forgotPassword(this.email).then(response => {
+          debugger
+          if(response){
+            this.$router.push("/login").catch(err => {});
+            this.email = ''
+          }
+        });
       }
     }
   }

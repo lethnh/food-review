@@ -138,18 +138,12 @@ export default {
           city_id: this.city_id !== null ? this.city_id : "null"
         }
       });
-      // this.location.reload();
-      // Post.listPost({ city_id: this.city_id, title: this.title }).then(
-      //   response => {
-      //     this.posts = response;
-      // }
-      // );
     },
     logout() {
       AuthService.logout().then(response => {
         Ls.remove("authUser");
         this.$store.dispatch("setUserObject", null);
-        this.$router.push("toppage");
+        this.$router.push("/login").catch(err => {});
       });
     },
     handleProvinceChange(value) {

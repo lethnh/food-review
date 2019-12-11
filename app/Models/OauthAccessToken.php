@@ -8,5 +8,5 @@ class OauthAccessToken extends Model
 {
     protected $table = 'oauth_access_tokens';
 
-    protected $fillable = [];
+    protected $fillable = ['user_id', 'expires_at'];
 }

@@ -268,7 +268,7 @@ export default {
             this.$router.push({
               name: "postReviewDetail",
               params: { post_id: response.data.id }
-            });
+            }).catch(err => {});
           // }
         });
       }
