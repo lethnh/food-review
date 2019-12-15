@@ -112,7 +112,7 @@
                     v-bind:class="styleLike(comment.likes,userStore.authUser.user_info.id)"
                     @click.prevent="likeComment(comment.id,1)"
                   >
-                    <a-icon type="like" style="vertical-align: 0.125em;" />Thích
+                    <a-icon type="heart" style="vertical-align: 0.125em;" />Thích
                   </a>
                   <!-- :class="{'text-blue': auth_id =  }" -->
                   {{comment.total_dislikes}}
@@ -146,7 +146,7 @@
                       v-bind:class="styleLike(item.likes,userStore.authUser.user_info.id)"
                       @click.prevent="likeComment(item.id,1)"
                     >
-                      <a-icon type="like" style="vertical-align: 0.125em;" />Thích
+                      <a-icon type="heart" style="vertical-align: 0.125em;" />Thích
                     </a>
                     {{item.total_dislikes}}
                     <a
@@ -176,7 +176,7 @@
                 style="height:32px;width:32px"
               />
             </div>
-                <form
+                <form v-if="userStore.authUser != null"
                   class="form-group w-100"
                   @submit.prevent="commetPostReview(comment.id,$event)"
                 >
@@ -186,6 +186,7 @@
                 class="form-text text-muted"
                   >We'll never share your email with anyone else.</small>-->
                 </form>
+                <div v-else></div>
               </div>
             </div>
           </div>
@@ -208,7 +209,7 @@
               />
             </div>
 
-            <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)">
+            <form class="form-group w-100" @submit.prevent="commetPostReview(0,null)"  v-if="userStore.authUser != null">
               <input
                 type="text"
                 class="form-control"
@@ -220,6 +221,7 @@
                 class="form-text text-muted"
               >We'll never share your email with anyone else.</small>-->
             </form>
+            <div v-else></div>
           </div>
         </div>
       </div>

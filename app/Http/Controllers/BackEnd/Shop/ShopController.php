@@ -9,14 +9,18 @@ use App\Models\Post_Review_Shop_Tag;
 use App\Models\PostReview;
 use App\Models\PostReviewImage;
 use App\Models\Shop;
-use Egulias\EmailValidator\Warning\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
-    public function getShops()
+    public function getShops(Request $request)
     {
-        $shops = Shop::with('city', 'district')->paginate(5);
+        $shops = Shop::with('city', 'district');
+        if (!empty($request->get('text'))) {
+            $shops =  $shops->where('name', 'LIKE', '%' . $request->get('text') . '%');
+        };
+        $shops = $shops->paginate(5);
         return response()->json($shops, 200);
     }
 
@@ -25,7 +29,7 @@ class ShopController extends Controller
         $data_shop = $request->only([
             'begin_time', 'close_time', 'shop_lat', 'shop_lng',
             'shop_name', 'shop_image', 'shop_google_map_id', 'shop_city',
-            'shop_district', 'shop_address', 'shop_type'
+            'shop_district', 'shop_address', 'shop_type', 'images'
         ]);
         $city = City::where('name', 'like', '%' . $data_shop['shop_city'] . '%')->first();
         $district = District::where('name', 'like', '%' . $data_shop['shop_district'] . '%')->first();
@@ -38,7 +42,7 @@ class ShopController extends Controller
             'lng' => $data_shop['shop_lng'],
             'address' => $data_shop['shop_address'],
             'type' => $data_shop['shop_type'],
-            'feature_image' => $data_shop['shop_image'],
+            'feature_image' => $data_shop['images'][0],
             'name' => $data_shop['shop_name'],
             'city_id' => $city->id,
             'district_id' => $district->id,

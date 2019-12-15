@@ -30,15 +30,15 @@ export default {
                             title: "Danh sách bài viết"
                         },
                         {
-                            href: "/admin/product/create",
-                            title: "Tạo sản phẩm"
-                        },
-                        {
-                            href: "/admin/product/create",
+                            href: "/admin/post-review/list-waiting",
                             title: "Bài viết đợi phê duyệt"
                         },
                         {
-                            href: "/admin/product/create",
+                            href: "/admin/post-review/list-block",
+                            title: "Danh sách bài viết bị block"
+                        },
+                        {
+                            href: "/admin/post-review/list-delete",
                             title: "Bài viết yêu cầu xóa"
                         }
                     ]

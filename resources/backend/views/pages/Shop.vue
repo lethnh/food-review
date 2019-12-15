@@ -59,13 +59,9 @@
                                             <i class="icon-fa icon-fa-trash" />
                                             Xóa
                                         </a>
-                                        <a
-                                            class="btn btn-primary btn-sm text-white"
-                                            @click="deleteShop(row.id)"
-                                        >
-                                            <i class="icon-fa icon-fa-trash" />
-                                            Chi tiết
-                                        </a>
+                                                   <router-link :to="{ name: 'shopDetail', params: { shop_id: row.id }}"  class="btn btn-info btn-sm text-white">   <i class="icon-fa icon-fa-trash" />
+                      Chi tiết
+                  </router-link>
                                     </div>
                                 </template>
                             </table-column>
@@ -91,7 +87,7 @@ export default {
             try {
                 const response = await ShopService.getLisShops({
                     page: page,
-                    domain: filter,
+                    text: filter,
                     order_by: sort.fieldName,
                     order_type: sort.order
                 });
@@ -111,6 +107,7 @@ export default {
             }
         },
         deleteShop(id, title) {
+            let vm = this;
             Swal.fire({
                 title: `Bạn muốn ${title} cửa hàng này ?`,
                 type: "warning",
@@ -125,20 +122,12 @@ export default {
                         if (response) {
                             Swal.fire({
                                 type: "success",
-                                title: "Your work has been saved",
+                                title: "Thành công",
                                 showConfirmButton: false,
                                 timer: 1500
                             });
                             console.log(response);
-                            let authUser = localStorage.getItem("authUser");
-                            const userObj = JSON.parse(authUser);
-                            userObj.user_info.avatar = response.avatar;
-                            localStorage.setItem(
-                                "authUser",
-                                JSON.stringify(userObj)
-                            );
-                            this.$store.dispatch("setUserObject", userObj);
-                            this.user = response;
+                            vm.$refs.table.refresh();
                         } else {
                             Swal("Xin lỗi", "Cập nhật thất bại", "error");
                         }

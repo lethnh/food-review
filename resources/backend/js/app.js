@@ -21,6 +21,8 @@ import "ant-design-vue/lib/time-picker/style/css";
 import "ant-design-vue/lib/rate/style/css";
 import VueCurrencyFilter from 'vue-currency-filter'
 import Rate from "ant-design-vue/lib/rate";
+import Select from 'ant-design-vue/lib/select';
+import "ant-design-vue/lib/select/style/css";
 import VueLoading from 'vue-loading-overlay';
 import Carousel from 'ant-design-vue/lib/carousel';
 import Icon from 'ant-design-vue/lib/icon';
@@ -59,7 +61,7 @@ Vue.use(VueCurrencyFilter, {
     symbolPosition: 'front',
     symbolSpacing: true
 })
-
+Vue.use(Select);
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 

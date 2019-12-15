@@ -264,12 +264,9 @@ export default {
                 this.isLoading = true;
                 ShopService.createShop(this.shop).then(response => {
                     this.isLoading = false;
-                    if (response.status === 200) {
+                    if (response) {
                         console.log(response.data);
-                        this.$router.push({
-                            name: "postReviewDetail",
-                            params: { post_id: response.data.id }
-                        }).catch(err => {});
+                        this.$router.push('/admin/shops').catch(err => {});
                     }
                 });
             }

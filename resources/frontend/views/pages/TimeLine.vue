@@ -315,7 +315,6 @@ export default {
     },
 
     handleDistrictChange(value){
-      debugger
       this.searchData.district_id = value;
       this.searchPostReview(this.searchData);
     },

@@ -63,7 +63,6 @@ export default {
 
     async resetPassword(data) {
         try {
-            debugger
             let response = await axios.post('/api/auth/change-password', {
                 password: data.password,
                 password_confirmation: data.password_confirmation,

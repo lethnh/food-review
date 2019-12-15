@@ -16,6 +16,10 @@ import PostReviewDetail from './views/pages/PostReviewDetail.vue'
 import ShopDetail from './views/pages/ShopDetail.vue'
 import Login from './views/pages/Login.vue'
 import NotFound from './views/pages/NotFound.vue'
+import PostReviewWaiting from './views/pages/PostReviewWaiting.vue'
+import PostReviewListRequestDelete from './views/pages/PostReviewRequestDelete.vue'
+import PostReviewListBlock from './views/pages/PostReviewBlock.vue'
+import UserDetail from './views/pages/UserDetail.vue'
 
 
 const router = new VueRouter({
@@ -59,6 +63,29 @@ const router = new VueRouter({
                     path: 'user/create',
                     component: CreateUser,
                     name: 'createUser'
+                },
+
+                {
+                    path: 'user/:user_id',
+                    component: UserDetail,
+                    name: 'userDetail'
+                },
+
+                {
+                    path: 'post-review/list-waiting',
+                    component: PostReviewWaiting,
+                    name: 'postReviewWaiting'
+                },
+
+                {
+                    path: 'post-review/list-delete',
+                    component: PostReviewListRequestDelete,
+                    name: 'postReviewListRequestDelete'
+                },
+                {
+                    path: 'post-review/list-block',
+                    component: PostReviewListBlock,
+                    name: 'postReviewListBlock'
                 },
             ]
         },

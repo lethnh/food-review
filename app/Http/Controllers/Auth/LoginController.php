@@ -59,6 +59,9 @@ class LoginController extends Controller
         if ($user == null) {
             return response()->json(['errors' => ['email' => ['Email không tồn tại']]], 500);
         }
+        if ($user->status == 0) {
+            return response()->json(['errors' => ['email' => ['Tài khoản của bạn bị chặn']]], 500);
+        }
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $tokenResult = $user->createToken('Personal Access Token');

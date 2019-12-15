@@ -9,11 +9,12 @@
             :backgroundColor="backgroundColor"
             :opactiy="opacity"
         ></loading>
-        <div class="panel p-2">
+        <div class="row align-items-start">
+        <div class="panel p-2 col-2">
             <div class="">
                 <div class="mr-2">Tỉnh Thành Phố:</div>
                 <a-select
-                    style="width: 200px"
+                    style="width: 100%"
                     class="mr-2"
                     :defaultValue="defaulValue"
                     @change="handleProvinceChange"
@@ -24,7 +25,7 @@
                         >{{ province.name }}</a-select-option
                     >
                 </a-select>
-                <a-select style="width: 200px" :defaultValue="defaulValue2" @change="handleDistrictChange">
+                <a-select style="margin-top: 10px; width: 100%" :defaultValue="defaulValue2" @change="handleDistrictChange">
                     <a-select-option
                         v-for="district in districts"
                         :key="district.id"
@@ -33,7 +34,7 @@
                 </a-select>
             </div>
             <div class="pt-2">
-                <div class="mr-2">Số sao:</div>
+                <div class="mr-2">Đánh giá:</div>
                 <Rate
                     v-model="searchData.stars"
                     :min="1"
@@ -42,7 +43,7 @@
                 <span>{{ searchData.stars }} sao</span>
             </div>
             <div class="pt-2 w-100">
-                <div class="">Số tiền trung bình:</div>
+                <div class="">Tiền:</div>
                 <a-slider
                     class="w-100"
                     :step="10000"
@@ -54,6 +55,7 @@
                 <span class="btn btn-primary">{{ searchData.money }} VNĐ</span>
             </div>
         </div>
+        <div class="col-10">
         <section>
             <div class="section-title bg-white">
                 <h5 class="p-2" style>Cửa hàng review nhiều nhất</h5>
@@ -65,7 +67,7 @@
                 >
                     <div class="row">
                         <div
-                            class="col-3"
+                            class="col-3 mb-2"
                             v-for="(shop, index) in shop_post_review"
                             :key="index"
                         >
@@ -186,7 +188,7 @@
                 <div class="list-shops panel" v-if="shop_new.length !== 0">
                     <div class="row">
                         <div
-                            class="col-3"
+                            class="col-3 mb-2"
                             v-for="(shop, index) in shop_new"
                             :key="index"
                         >
@@ -303,7 +305,9 @@
                     Không có cửa hàng nào phù hợp
                 </div>
             </div>
-        </section>
+        </section>   
+        </div>
+        </div>
     </div>
 </template>
 <script>
@@ -394,7 +398,6 @@ export default {
     },
 
     handleDistrictChange(value){
-      debugger
       this.searchData.district_id = value;
       this.searchShop(this.searchData);
     },

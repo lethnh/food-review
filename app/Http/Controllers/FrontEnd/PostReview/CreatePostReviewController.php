@@ -47,6 +47,8 @@ class CreatePostReviewController extends Controller
                     $safeName = Str::random(10) . '.' . 'png';
                     $path = Storage::disk('public')->put('shop/' . $safeName, $contents);
                     $shop_image = Storage::disk('public')->url('shop/' .  $safeName);
+                }else{
+                    $shop_image = null;
                 }
                 $shop = Shop::create([
                     'begin_time' => $data_shop['begin_time'],
@@ -56,7 +58,7 @@ class CreatePostReviewController extends Controller
                     'lng' => $data_shop['shop_lng'],
                     'address' => $data_shop['shop_address'],
                     'type' => $data_shop['shop_type'],
-                    'feature_image' => $shop_image,
+                    'feature_image' => $shop_image != null ? $shop_image : 'http://food_review.test/images/noimage.png',
                     'name' => $data_shop['shop_name'],
                     'city_id' => $city->id,
                     'district_id' => $district->id,

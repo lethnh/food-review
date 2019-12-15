@@ -165,8 +165,8 @@ export default {
     return {
       shops: [],
       post_review: { user: {}, images: [],shop:{
-        begin_time: '',
-        close_time: '',
+        begin_time: "",
+        close_time: "",
       } },
       isShow: false,
       selected: 0,
@@ -213,7 +213,7 @@ export default {
       PostReviewService.getPostReview(this.$route.params.post_id).then(
         response => {
           this.post_review = response;
-          this.post_review.shop.begin_time = this.post_review.shop.be
+          this.post_review.shop.begin_time = this.post_review.shop.begin_time
           this.post_review.images = [];
         }
       );

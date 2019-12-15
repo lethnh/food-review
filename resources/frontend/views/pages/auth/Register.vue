@@ -162,11 +162,9 @@ const dict = {
     },
   content: {
       required: () => 'Nội dung không được để trống',
-      min_value: () => 'Nội dung phải lớn hơn 255 ký tự',
     },
      title: {
       required: () => 'Tiêu đề bài viết không được để trống',
-      min_value: () => 'Nội dung phải lớn hơn 255 ký tự',
     },
     images: {
       required: () => 'Phải chọn ít nhất một ảnh'

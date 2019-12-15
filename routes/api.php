@@ -37,7 +37,8 @@ Route::group([
     Route::delete('post-review/{id}', 'FrontEnd\PostReviewController@storePostReview');
 
     Route::delete('post-review/{id}/delete-image', 'FrontEnd\PostReview\EditPostReviewController@deleteImage');
-
+    Route::post('post-review/{id}/request-delete', 'FrontEnd\PostReview\EditPostReviewController@requestDelete');
+    
 
 
     //Comment
@@ -51,11 +52,6 @@ Route::group([
     //Profile
     Route::get('profile/post-review', 'FrontEnd\Profile\ProfileController@myPostReview');
 });
-
-
-
-
-
 
 
 Route::get('shops', 'FrontEnd\Shop\GetShopController@index');
@@ -88,7 +84,7 @@ Route::get('search/post_review/filter', 'FrontEnd\SearchController@postReviewSea
 Route::post('admin/auth/login', 'Auth\AuthController@loginAdmin');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    
+
     Route::get('/admin/auth/check', 'Auth\AuthController@checkAdmin');
     Route::get('/auth/check', 'Auth\AuthController@checkUser');
 
@@ -96,13 +92,20 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/info', 'Auth\AuthController@getAdmin');
         Route::get('/user', 'Auth\GetUserController@getUsers');
         Route::post('/user/create', 'BackEnd\User\UserController@store');
-        Route::post('/user/block', 'BackEnd\User\UserController@block');
+        Route::post('/user/block/{id}', 'BackEnd\User\UserController@block');
+        Route::post('/user/unBlock/{id}', 'BackEnd\User\UserController@unBlock');
+        
 
 
         Route::get('/post-review', 'BackEnd\PostReview\PostReviewController@getListPostReview');
+        Route::get('/post-review/list-waiting', 'BackEnd\PostReview\PostReviewController@getListWaiting');
+        Route::get('/post-review/list-approve', 'BackEnd\PostReview\PostReviewController@getListWaiting');
+        Route::get('/post-review/list-delete', 'BackEnd\PostReview\PostReviewController@getListRequestDelete');
+        Route::get('/post-review/list-block', 'BackEnd\PostReview\PostReviewController@getListBlock');
         Route::get('/post/{id}', 'BackEnd\PostReview\PostReviewController@getPostReview');
         Route::post('/post-review', 'BackEnd\PostReview\PostReviewController@store');
         Route::post('/post-review/{id}/approve', 'BackEnd\PostReview\PostReviewController@approve');
+        Route::post('/post-review/{id}/delete', 'BackEnd\PostReview\PostReviewController@delete');
 
 
         Route::get('/shop', 'BackEnd\Shop\ShopController@getShops');

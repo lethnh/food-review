@@ -43,7 +43,7 @@
                 <template slot-scope="row">
                   <div class="table__actions">
                     <a
-                      class="btn btn-primary btn-sm text-white"
+                      class="btn btn-success btn-sm text-white"
                       v-if="row.is_approve === 0"
                       @click="apporove(row.id,1, 'phê duyệt')"
                     >
@@ -58,7 +58,7 @@
                       <i class="icon-fa icon-fa-trash" />
                       Chặn
                     </a>
-                  <router-link :to="{ name: 'postReviewDetail', params: { post_review_id: row.id }}"  class="btn btn-success btn-sm text-white">   <i class="icon-fa icon-fa-trash" />
+                  <router-link :to="{ name: 'postReviewDetail', params: { post_review_id: row.id }}"  class="btn btn-info btn-sm text-white">   <i class="icon-fa icon-fa-trash" />
                       Chi tiết
                   </router-link>
                     
@@ -92,7 +92,7 @@ export default {
       try {
         const response = await PostReviewService.getPostReviews({
           page: page,
-          domain: filter,
+          text: filter,
           order_by: sort.fieldName,
           order_type: sort.order
         });
@@ -127,7 +127,7 @@ export default {
             if (response) {
               Swal.fire({
                 type: "success",
-                title: "Your work has been saved",
+                title: "Thành công",
                 showConfirmButton: false,
                 timer: 1500
               });

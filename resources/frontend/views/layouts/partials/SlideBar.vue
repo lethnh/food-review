@@ -42,10 +42,6 @@
 					<img src="images/photo-gallery-thumb-05.jpg" alt="GALLERY">
 				</a>
 
-				<a class="item-gallery-sidebar wrap-pic-w" href="images/photo-gallery-06.jpg" data-lightbox="gallery-footer">
-					<img src="images/photo-gallery-thumb-06.jpg" alt="GALLERY">
-				</a>
-
 				<a class="item-gallery-sidebar wrap-pic-w" href="images/photo-gallery-07.jpg" data-lightbox="gallery-footer">
 					<img src="images/photo-gallery-thumb-07.jpg" alt="GALLERY">
 				</a>

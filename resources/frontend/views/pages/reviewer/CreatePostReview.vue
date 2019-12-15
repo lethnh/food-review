@@ -17,13 +17,14 @@
         tag="form"
         @submit.prevent="postReview()"
       >
-        <h4>Tạo bài viết</h4>
+        <h4>Viết cảm nhận của bạn</h4>
         <hr />
         <!--  -->
         <ValidationProvider name="title" rules="required">
           <div slot-scope="{ errors }">
             <div class="form-group">
-              <label>Tiêu đề</label>
+              <label class="font-weight-bold">Tiêu đề</label>
+               <span class="text-required">*</span>
               <span :class="{'is-danger ml-2': errors[0]}">{{ errors[0] }}</span>
               <input type="text" class="form-control" v-model="post_review.title" />
             </div>
@@ -33,7 +34,8 @@
         <ValidationProvider name="images" rules="required">
           <div slot-scope="{ errors }">
             <div class="form-group">
-              <label>Ảnh ( tối đa năm ảnh )</label>
+           <label class="font-weight-bold">Ảnh ( tối đa năm ảnh )</label>
+              <span class="text-required">*</span>
               <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
               <vue-dropzone
                 ref="dropzone"
@@ -44,7 +46,7 @@
                 @vdropzone-removed-file="removeFile"
                 @vdropzone-complete="afterCompleteImagePost"
               ></vue-dropzone>
-              <button class="btn mt-2" @click.prevent="removeAllFiles">Remove All Files</button>
+              <button class="btn mt-2 btn-danger" @click.prevent="removeAllFiles">Remove All Files</button>
             </div>
           </div>
         </ValidationProvider>
@@ -52,7 +54,7 @@
 
         <!--  -->
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Địa chỉ quán ăn, nhà hàng</label>
+         <label class="font-weight-bold">Địa chỉ quán ăn, nhà hàng</label>
           <b-form-radio-group
             v-model="selected"
             :options="options"
@@ -134,7 +136,8 @@
           <ValidationProvider name="money" rules="required|min_value:10000" class="col-6">
             <div slot-scope="{ errors }">
               <div class="form-group">
-                <label>Giá tiền trung bình / một người</label>
+               <label class="font-weight-bold">Giá tiền trung bình / một người</label>
+                <span class="text-required">*</span>
                 <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
                 <currency-input
                   class="form-control border"
@@ -152,7 +155,8 @@
           <!--  -->
           <div class="col-6">
               <div class="form-group">
-                <label>Đánh giá sao</label>
+                <label class="font-weight-bold">Đánh giá sao</label>
+                <span class="text-required">*</span>
                 <div>
                   <Rate :allowClear="false" v-model="post_review.stars"></Rate>
                   {{post_review.stars}} sao
@@ -164,7 +168,8 @@
         <!--  -->
 
         <div class="form-group">
-          <label>Tag</label>
+         <label class="font-weight-bold">Tag</label>
+          <span class="text-required">*</span>
           <vue-tags-input
             style="max-width:100%"
             @tags-changed="newTags => tags = newTags"
@@ -174,10 +179,11 @@
         </div>
 
         <!--  -->
-        <ValidationProvider name="content" rules="required|min_value:255">
+        <ValidationProvider name="content" rules="required">
           <div slot-scope="{ errors }">
             <div class="form-group">
-              <label>Nội dung</label>
+          <label class="font-weight-bold">Nội dung</label>
+              <span class="text-required">*</span>
               <span :class="{'is-danger': errors[0]}">{{ errors[0] }}</span>
               <quill-editor name="description" v-model="post_review.content"></quill-editor>
             </div>
@@ -263,8 +269,8 @@ export default {
       isShow: false,
       selected: 0,
       options: [
-        { text: "Chọn cửa hàng có sắn", value: 0 },
-        { text: "Chọn cửa hàng từ bản đồ", value: 1 }
+        { text: "Cửa hàng có sắn", value: 0 },
+        { text: "Cửa hàng từ bản đồ", value: 1 }
       ],
       cities: [],
       tag: "",

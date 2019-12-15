@@ -62,7 +62,7 @@ export default {
             toastr.success("Tạo thành công");
             return response.data;
         } catch (error) {
-            toastr.error("Tạo thất bại");
+            toastr.error(error.response.data.message);
         }
     },
 
@@ -72,6 +72,24 @@ export default {
             return response.data;
         } catch (error) {
 
+        }
+    },
+
+    async blockUser(id) {
+        try {
+            let response = await axios.post(`/api/admin/user/block/${id}`)
+            return response;
+        } catch (error) {
+            toastr.error('Error')
+        }
+    },
+
+    async unBlockUser(id) {
+        try {
+            let response = await axios.post(`/api/admin/user/unBlock/${id}`)
+            return response;
+        } catch (error) {
+            toastr.error('Error')
         }
     },
 

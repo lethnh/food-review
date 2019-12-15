@@ -4,9 +4,11 @@ namespace App\Http\Controllers\FrontEnd\PostReview;
 
 use App\Http\Controllers\Controller;
 use App\Models\PostReview;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Services\DeleteImageService;
 use App\Services\UploadImageService;
+use Illuminate\Support\Facades\DB;
 
 class EditPostReviewController extends Controller
 {
@@ -26,6 +28,12 @@ class EditPostReviewController extends Controller
             $data_post_review = $request->all();
             if ($data_post_review['shop']) {
                 $shop = Shop::findOrFail($data_post_review['shop']['id']);
+                if($data_post_review['shop']['begin_time'] == null){
+                    $data_post_review['shop']['begin_time'] = $shop->begin_time;
+                }
+                if($data_post_review['shop']['close_time'] == null){
+                    $data_post_review['shop']['close_time'] = $shop->close_time;
+                }
                 $shop->update([
                     'begin_time' => $data_post_review['shop']['begin_time'],
                     'close_time' => $data_post_review['shop']['close_time'],
@@ -47,6 +55,7 @@ class EditPostReviewController extends Controller
             return response()->json($post_review, 200);
         } catch (\Throwable $th) {
             DB::rollBack();
+            return response()->json(['error' => $th]);
         }
     }
 
@@ -63,7 +72,19 @@ class EditPostReviewController extends Controller
             $this->deleteImageService->deleteImage($request->link, $id);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json($th);
+            return response()->json(['error' => $th]);
+        }
+    }
+
+    public function requestDelete($id)
+    {
+        try {
+            $post_review = PostReview::findOrFail($id);
+            $post_review->is_approve = -2;
+            $post_review->save();
+            return response()->json(200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th]);
         }
     }
 }

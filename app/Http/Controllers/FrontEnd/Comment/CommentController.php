@@ -12,8 +12,10 @@ class CommentController extends Controller
     public function commentPostReview(Request $request)
     {
         try {
-            //code...
-            $data_comment = $request->only('content', 'post_review_id', 'parent_id','content2');
+            if (!Auth::user()) {
+                return response()->json(['error' => 'Bạn cần đăng nhập để bình luận'], 500);
+            }
+            $data_comment = $request->only('content', 'post_review_id', 'parent_id', 'content2');
             $content =  $data_comment['content'] === "" ||  $data_comment['content'] === null  ?  $data_comment['content2'] : $data_comment['content'];
             $user_id = Auth::id();
             $comment = Comment::create([

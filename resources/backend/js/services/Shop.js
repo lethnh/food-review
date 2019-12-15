@@ -3,9 +3,11 @@ import Ls from './Ls'
 export default {
 
 
-    async getLisShops() {
+    async getLisShops(params) {
         try {
-            let response = await axios.get('/api/admin/shop')
+            let response = await axios.get('/api/admin/shop',{
+                params: params
+            })
             console.log(response.data.data);
             return response.data;
         } catch (error) {
@@ -32,6 +34,7 @@ export default {
         try {
             let response = await axios.post('/api/admin/shop/create', data)
             console.log(response.data);
+            toastr.success('Tạo thành công')
             return response.data;
         } catch (error) {
             console.log(error);

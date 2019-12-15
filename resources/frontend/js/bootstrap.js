@@ -85,7 +85,7 @@ global.toastr = require('toastr')
 global.toastr.options = toastrOptions
 import {
     ValidationObserver,
-    ValidationProvider
+    ValidationProvider,
 } from "vee-validate";
 import {
     TabsPlugin,

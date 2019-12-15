@@ -5,9 +5,9 @@
     width: 100%;"
     >
         <footer class="bg1">
-            <div class="container p-t-40 p-b-70">
+            <div class="container p-t-40">
                 <div class="row">
-                    <div class="col-sm-6 col-md-4 p-t-50">
+                    <div class="col-sm-6 col-md-4 ">
                         <h4 class="txt13 m-b-33">Liên hệ với chúng tôi</h4>
 
                         <ul class="m-b-70">
@@ -37,7 +37,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-sm-6 col-md-4 p-t-50">
+                    <div class="col-sm-6 col-md-4 ">
                         <h4 class="txt13 m-b-33">Thời gian làm việc</h4>
 
                         <div class="m-b-25">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6 col-md-4 p-t-50">
+                    <div class="col-sm-6 col-md-4 ">
                         <h4 class="txt13 m-b-38">Ảnh</h4>
 
                         <div class="wrap-gallery-footer flex-w">
@@ -87,7 +87,7 @@
 
             <div class="end-footer bg2">
                 <div class="container">
-                    <div class="flex-sb-m flex-w p-t-22 p-b-22">
+                    <div class="flex-sb-m flex-w ">
                         <div class="p-t-5 p-b-5">
                             <a href="#" class="fs-15 c-white">
                                 <i class="fab fa-instagram"></i>

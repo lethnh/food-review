@@ -98,5 +98,14 @@ export default {
         }
     },
 
+    async deletePostReview(id) {
+        try {
+            let response = await axios.post(`/api/post-review/${id}/request-delete`);
+            return response.data;
+        } catch (error) {
+            console.log("Error", error.message);
+        }
+    },
+
 
 }

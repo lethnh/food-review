@@ -17,9 +17,7 @@ class GetUserController extends Controller
             $user = Auth::user();
             $user->city;
             return response()->json($user, 200);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        } catch (\Throwable $th) { }
     }
 
     public function getPostReview()
@@ -29,13 +27,16 @@ class GetUserController extends Controller
         return response()->json($post_review, 200);
     }
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
-        $users = DB::table('users')->join('cities', 'users.city_id', '=', 'cities.id')
+        $users = DB::table('users')->leftjoin('cities', 'users.city_id', '=', 'cities.id')
             ->select('users.*', 'cities.name as city_name')
-            ->where('role_id', 2)
-            ->where('status', 0)
-            ->paginate(5);
+            ->where('role_id', 2);
+        // $users = User::with('city:name as city_name')->where('role_id' , 2);
+        if (!empty($request->get('text'))) {
+            $users =   $users->where('users.name', 'LIKE', '%' . $request->get('text') . '%');
+        };
+        $users = $users->paginate(5);
         return response()->json($users, 200);
     }
 }

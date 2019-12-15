@@ -70,6 +70,7 @@
                       <span class="badge badge-warning" v-if="post.is_approve == 0">Chờ phê duyệt</span>
                       <span class="badge badge-success" v-if="post.is_approve == 1">Được phê duyệt</span>
                       <span class="badge badge-danger" v-if="post.is_approve == -1">Từ chối phê duyệt</span>
+                      <span class="badge badge-danger" v-if="post.is_approve == -2">Đợi admin xóa</span>
                     <img :src="post.feature_image" class="img-fluid" alt="..." />
                   </router-link>
                   <router-link
@@ -80,6 +81,7 @@
                       <span class="badge badge-warning" v-if="post.is_approve == 0">Chờ phê duyệt</span>
                       <span class="badge badge-success" v-if="post.is_approve == 1">Được phê duyệt</span>
                       <span class="badge badge-danger" v-if="post.is_approve == -1">Từ chối phê duyệt</span>
+                      <span class="badge badge-danger" v-if="post.is_approve == -2">Đợi admin xóa</span>
                     <img src="/images/noimage.png" class="img-fluid" alt="..." />
                   </router-link>
                   <div class="post-body col-6">
@@ -330,11 +332,10 @@ export default {
             if (response) {
               Swal.fire({
                 type: "success",
-                title: "Your work has been saved",
+                title: "Thành công",
                 showConfirmButton: false,
                 timer: 1500
               });
-              console.log(response);
               let authUser = localStorage.getItem("authUser");
               const userObj = JSON.parse(authUser);
               userObj.user_info.avatar = response.avatar;
@@ -384,10 +385,11 @@ export default {
             if (response) {
               Swal.fire({
                 type: "success",
-                title: "Your work has been saved",
+                title: "Gửi yêu cầu xóa thành công",
                 showConfirmButton: false,
                 timer: 1500
               });
+              this.getMyPostReview();
             } else {
               Swal("Xin lỗi", "Cập nhật thất bại", "error");
             }

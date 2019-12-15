@@ -1,0 +1,44 @@
+version: '3'
+
+services: 
+  food_review_app:
+    image: foood_reivew
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes: 
+      - "./:/var/www/html/food-review"
+      - "./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini"
+    environment: 
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
+    networks: 
+      - food_review_network
+
+  food_review_webservice:
+    image: nginx:alpine
+    ports: 
+      - "8989:80"
+    volumes: 
+      - ".:/var/www/html/food-review"
+      - "./docker/nginx/dev.nginx.conf:/etc/nginx/conf.d/default.conf"
+    networks: 
+      - food_review_network
+
+  food_review_db: 
+    image: mariadb:5.5.60
+    ports: 
+      - "3307:3306"
+    environment: 
+      MYSQL_DATABASE: food_review
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - "food_review_db:/var/lib/mysql"
+    networks: 
+      - food_review_network
+
+networks: 
+  food_review_network:
+    driver: bridge
+volumes: 
+  food_review_db:
+    driver: local
